@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -23,10 +25,16 @@ private Long ceremId;
 private String name;
 private String description;
 
-public ceremonies(String name, String description) {
+@OneToOne
+@JoinColumn(name= "siteID")
+private sites sites;
+
+
+public ceremonies(String name, String description, sites sites) {
         // Default constructor
     this.name = name;       
     this.description = description;
+    this.sites = sites;
     }
 
 }

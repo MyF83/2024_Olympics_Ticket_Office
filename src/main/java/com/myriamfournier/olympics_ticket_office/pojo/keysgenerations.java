@@ -1,5 +1,6 @@
 package com.myriamfournier.olympics_ticket_office.pojo;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,21 +11,22 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "ticketskeys")
+@Table(name = "keysgenerations")
 @Getter
 @Setter
-public class ticketskeys {
+public class keysgenerations {
+
 
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 @NotNull
-private Long ticketKeyId;
+private Long keyId;
+private String keyGenerated;
 
-private String keyAssembly;
-
-public ticketskeys(String keyAssembly) {
+public keysgenerations(String keyGenerated) {
         // Default constructor
-        this.keyAssembly = keyAssembly;
-    }
+        this.keyGenerated = keyGenerated;
 
+    }
+    
 }
