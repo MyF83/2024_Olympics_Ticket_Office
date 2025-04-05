@@ -6,6 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -24,7 +27,22 @@ public class events {
 private Long eventId;
 
 private Date date;
-private String desciption;
+private String description;
+
+@OneToOne
+@JoinColumn(name= "sportID")
+private sports sports;
+
+@OneToOne
+@JoinColumn(name= "ceremID")
+private ceremonies ceremonies;
+
+@OneToOne
+@JoinColumn(name= "challengerID")
+private challengers challengers;
+
+
+
 private Float priceC1;
 private Integer nbSeatsSoldC1;
 private Integer nbSeatsAvailC1;
@@ -36,10 +54,13 @@ private Integer nbSeatsSoldC3;
 private Integer nbSeatsAvailC3;
 
 
-public events(Date date, String desciption, Float priceC1, Integer nbSeatsSoldC1, Integer nbSeatsAvailC1, Float priceC2, Integer nbSeatsSoldC2, Integer nbSeatsAvailC2, Float priceC3, Integer nbSeatsSoldC3, Integer nbSeatsAvailC3) {  
+public events(Date date, String description, sports sports, ceremonies ceremonies, challengers challengers, Float priceC1, Integer nbSeatsSoldC1, Integer nbSeatsAvailC1, Float priceC2, Integer nbSeatsSoldC2, Integer nbSeatsAvailC2, Float priceC3, Integer nbSeatsSoldC3, Integer nbSeatsAvailC3) {  
             // Default constructor
         this.date = date;
-        this.desciption = desciption;
+        this.description = description;
+        this.sports = sports;
+        this.ceremonies = ceremonies;   
+        this.challengers = challengers;
         this.priceC1 = priceC1;
         this.nbSeatsSoldC1 = nbSeatsSoldC1;
         this.nbSeatsAvailC1 = nbSeatsAvailC1;
