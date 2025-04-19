@@ -103,6 +103,20 @@ public String generateUniqueUsername(String firstname, String lastname) {
             userskeysRepository.save(userskeys);
     }
 
+    private String generateUnique256CharacterKey() {
+        String baseKey = generate256CharacterKey();
+        String uniqueKey = baseKey;
+        int counter = 1;
+    
+        // Check if the key already exists in the database
+        while (keysgenerationsRepository.existsByKeyGenerated(uniqueKey)) {
+            uniqueKey = baseKey + "-" + counter;
+            counter++;
+        }
+    
+        return uniqueKey;
+    }
+
     private String generate256CharacterKey() {
         StringBuilder keyBuilder = new StringBuilder();
         while (keyBuilder.length() < 256) {
@@ -114,10 +128,14 @@ public String generateUniqueUsername(String firstname, String lastname) {
 
     @Override
     public void updateUserById(users users, Long id) {
-            // un enregistement est immuable
-            // impossible à modifier
-            // de ce fait, on doit recuperer l'element, le modifier
-            // le remettre
+            // (EN) A record is immutable,
+            // (EN) impossible to modify.
+            // (EN) Therefore, we must recover the element, modify it
+            // (EN) put it back in base.
+            // (FR) Un enregistement est immuable
+            // (FR) impossible à modifier
+            // (FR) De ce fait, on doit recuperer l'element, le modifier
+            // (FR) le remettre en base.
         users oldUser = getUserById(id);
 
         if(oldUser != null){

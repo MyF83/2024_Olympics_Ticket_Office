@@ -15,5 +15,7 @@ public interface TicketRepository extends CrudRepository<tickets, Long>{
     @Query("SELECT a FROM tickets a") // JPA -> Java Persistence API
     List<tickets> findAllTickets();
 
+    boolean existsByFileName(String uniqueName);
+
 
 }

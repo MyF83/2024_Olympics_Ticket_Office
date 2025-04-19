@@ -47,12 +47,12 @@ public void setSale(sales sales) {
 }
 
 public Object getKey() {
-    // TODO Auto-generated method stub
+   
     throw new UnsupportedOperationException("Unimplemented method 'getKey'");
 }
 
 public String getKeyGenerated() {
-    // TODO Auto-generated method stub
+    
     throw new UnsupportedOperationException("Unimplemented method 'getKeyGenerated'");
 }
 }

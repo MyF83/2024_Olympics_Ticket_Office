@@ -26,7 +26,7 @@ public interface UserRepository extends CrudRepository<users, Long> {
 
     @Query("SELECT u FROM users u WHERE u.username = ?1")
     users findByUsername(String username);
-
+ 
     @Query("SELECT a FROM users a WHERE a.firstname=?1 AND a.lastname=?2") // JPA -> Java Persistence API
     void findUserByFirstnameAndLastname(String firstname, String lastname);
 

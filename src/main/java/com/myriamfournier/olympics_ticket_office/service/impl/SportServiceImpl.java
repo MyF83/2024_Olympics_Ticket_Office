@@ -39,10 +39,14 @@ public class SportServiceImpl implements SportService{
 
     @Override
     public void updateSportById(sports sports, Long id) {
-            // un enregistement est immuable
-            // impossible à modifier
-            // de ce fait, on doit recuperer l'element, le modifier
-            // le remettre
+            // (EN) A record is immutable,
+            // (EN) impossible to modify.
+            // (EN) Therefore, we must recover the element, modify it
+            // (EN) put it back in base.
+            // (FR) Un enregistement est immuable
+            // (FR) impossible à modifier
+            // (FR) De ce fait, on doit recuperer l'element, le modifier
+            // (FR) le remettre en base.
             sports oldSport = getSportById(id);
 
         if(oldSport != null){
