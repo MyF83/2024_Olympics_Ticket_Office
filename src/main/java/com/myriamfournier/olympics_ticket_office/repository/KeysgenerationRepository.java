@@ -15,5 +15,7 @@ public interface KeysgenerationRepository extends CrudRepository<keysgenerations
     @Query("SELECT a FROM keysgenerations a") // JPA -> Java Persistence API
     List<keysgenerations> findAllKeysgenerations();
 
+    boolean existsByKeyGenerated(String uniqueKey);
+
 
 }
