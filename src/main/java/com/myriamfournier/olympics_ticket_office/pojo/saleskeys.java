@@ -35,4 +35,14 @@ public saleskeys(Date date, keysgenerations keysgenerations) {
     this.keysgenerations = keysgenerations;
 
     }
+
+public void setKey(keysgenerations keysEntity) {
+
+    throw new UnsupportedOperationException("Unimplemented method 'setKey'");
+}
+
+public void setSale(sales sales) {
+
+    throw new UnsupportedOperationException("Unimplemented method 'setSale'");
+}
 }

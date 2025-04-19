@@ -12,6 +12,8 @@ public interface UserService {
 
     users getUserById(Long id);
 
+    String generateUniqueUsername(String firstname, String lastname);
+
     users getUserByUsername(String username);
 
     users getUserByFirstnameAndLastname(String firstname, String lastname);

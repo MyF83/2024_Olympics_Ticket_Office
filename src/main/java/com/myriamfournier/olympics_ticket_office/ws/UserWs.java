@@ -58,6 +58,7 @@ public class UserWs {
     /*@ResponseBody  */     
     public users getUserById(@PathVariable("id") Long id) {
         return userService.getUserById(id); // Assuming you have a userService to fetch user by ID
+        
     }
 
     //GET method to retrieve a user by firstname and lastname
@@ -78,6 +79,9 @@ public class UserWs {
         return userService.getUserByUsername(username); // Assuming you have a userService to fetch user by username
     }   
     
+
+
+
     /* 
     //GET method to retrieve a user by username
     // Example: GET /api/user/username/{username}
@@ -116,6 +120,14 @@ public class UserWs {
             userService.createUser(user);
     }
 
+
+    @PostMapping("/generate-username")
+    public ResponseEntity<String> generateUsername(@RequestBody users user) {
+        String username = userService.generateUniqueUsername(user.getFirstname(), user.getFirstname());
+        user.setUsername(username);
+        userService.createUser(user); // Save the user with the generated username
+        return ResponseEntity.ok("Generated username: " + username);
+    }
    // @PostMapping
    // public void createUsername(@RequestBody users user){
    //         userService.createUsername(user);

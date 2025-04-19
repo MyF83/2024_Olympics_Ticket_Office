@@ -40,4 +40,16 @@ public userskeys(Date date, users users, keysgenerations keysgenerations) {
     this.users = users;
     this.keysgenerations = keysgenerations;
     }
+
+
+public void setUser(users users2) {
+
+    throw new UnsupportedOperationException("Unimplemented method 'setUser'");
+}
+
+
+public void setKey(keysgenerations keysEntity) {
+
+    throw new UnsupportedOperationException("Unimplemented method 'setKey'");
+}
 }

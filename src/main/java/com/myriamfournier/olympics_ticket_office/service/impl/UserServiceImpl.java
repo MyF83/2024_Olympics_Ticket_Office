@@ -7,8 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myriamfournier.olympics_ticket_office.pojo.users;
+import com.myriamfournier.olympics_ticket_office.pojo.userskeys;
+import com.myriamfournier.olympics_ticket_office.pojo.keysgenerations;
 import com.myriamfournier.olympics_ticket_office.repository.UserRepository;
+import com.myriamfournier.olympics_ticket_office.repository.UserskeyRepository;
+import com.myriamfournier.olympics_ticket_office.repository.KeysgenerationRepository;
 import com.myriamfournier.olympics_ticket_office.service.UserService;
+
 
 
 @Service
@@ -25,7 +30,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository; // Assuming you have a UserRepository interface
 
+    @Autowired
+    private KeysgenerationRepository keysgenerationsRepository; // Assuming you have a KeysgenerationsRepository interface
 
+    @Autowired
+    private UserskeyRepository userskeysRepository; // Assuming you have a UserskeysRepository interface
     // Implement the methods defined in UserService interface here
     
     @Override
@@ -38,6 +47,22 @@ public class UserServiceImpl implements UserService {
     public users getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
+
+
+    @Override
+public String generateUniqueUsername(String firstname, String lastname) {
+    String baseUsername = lastname + "-" + firstname;
+    String username = baseUsername;
+    int counter = 1;
+
+    // Check if the username already exists in the database
+    while (userRepository.findByUsername(username) != null) {
+        username = baseUsername + "-" + counter;
+        counter++;
+    }
+
+    return username;
+}
 
     @Override
     public users getUserByUsername(String username) {
@@ -59,7 +84,31 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUser(users users) {
+        // save the user to the database
         userRepository.save(users);
+
+        // Generate a unique 256-character key
+        String uniqueKey = generate256CharacterKey();
+
+        // Save the key in the Keysgenerations table
+        keysgenerations keysEntity = new keysgenerations(uniqueKey);
+        keysEntity.setKeyGenerated(uniqueKey);
+            keysgenerationsRepository.save(keysEntity);
+
+            
+        // Link the key to the user in the Userskeys table
+        userskeys userskeys = new userskeys(null, users, keysEntity);
+             userskeys.setUser(users);
+            userskeys.setKey(keysEntity);
+            userskeysRepository.save(userskeys);
+    }
+
+    private String generate256CharacterKey() {
+        StringBuilder keyBuilder = new StringBuilder();
+        while (keyBuilder.length() < 256) {
+            keyBuilder.append(java.util.UUID.randomUUID().toString().replace("-", ""));
+        }
+        return keyBuilder.substring(0, 256); // Ensure the key is exactly 256 characters
     }
 
 

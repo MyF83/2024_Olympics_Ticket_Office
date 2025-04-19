@@ -60,13 +60,20 @@ private String postalCode;
 @JoinColumn(name= "countryID")
 private countries countries;
 
+/* 
+  public static String getUsername(String lastname, String firstname) {
+        String userName =  lastname + "-" +  firstname; // Assuming username is a combination of first and last name
+        return userName;
+    }*/
 
 public users(String firstname, String lastname, String username, String email, String password, String phoneNumber, Date creationDate, roles roles, userskeys userskeys, userselections userselections, policies policies, Date policiesSignDate, String address, String city, String postalCode, countries countries) {  
         // Default constructor
     this.firstname = firstname;
     this.lastname = lastname;
+    this.username = username;
     // this.username = username;
-    this.username = firstname + "-" + lastname; // Assuming username is a combination of first and last name
+    // this.username = getUsername(lastname, firstname); // Assuming username is a combination of first and last name
+    // this.username = lastname  + "-" + firstname; // Assuming username is a combination of first and last name
     this.email = email;
     this.password = password;
     this.phoneNumber = phoneNumber;
