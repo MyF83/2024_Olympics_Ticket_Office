@@ -24,13 +24,15 @@ public class users {
 @NotNull
 private Long userId;
 
-private String firstName;
-private String lastName;
+private String firstname;
+private String lastname;
+private String username;
 private String email;
 private String password;
 private String phoneNumber;
 private String address;
 private Date creationDate;
+
 
 @OneToOne
 @JoinColumn(name= "roleID")
@@ -59,21 +61,23 @@ private String postalCode;
 private countries countries;
 
 
-public users(String firstName, String lastName, String email, String password, String phoneNumber, Date creationDate, roles roles, userskeys userskeys, userselections userselections, policies policies, Date policiesSignDate, String address, String city, String postalCode, countries countries) {  
+public users(String firstname, String lastname, String username, String email, String password, String phoneNumber, Date creationDate, roles roles, userskeys userskeys, userselections userselections, policies policies, Date policiesSignDate, String address, String city, String postalCode, countries countries) {  
         // Default constructor
-    this.firstName = firstName;
-    this.lastName = lastName;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    // this.username = username;
+    this.username = firstname + "-" + lastname; // Assuming username is a combination of first and last name
     this.email = email;
     this.password = password;
     this.phoneNumber = phoneNumber;
-    this.creationDate = creationDate;
+    // this.creationDate = creationDate;
     this.creationDate = new Date(System.currentTimeMillis());
     this.roles = roles;
     this.userskeys = userskeys;
     this.userselections = userselections;
     this.policies = policies;
     this.policiesSignDate = new Date(System.currentTimeMillis());
-    this.policiesSignDate = policiesSignDate;
+    // this.policiesSignDate = policiesSignDate;
     this.address = address;
     this.city = city;
     this.postalCode = postalCode;

@@ -22,6 +22,7 @@ public class challengers {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     private Long challengerId;
+    
     private String name;
 
     @OneToOne

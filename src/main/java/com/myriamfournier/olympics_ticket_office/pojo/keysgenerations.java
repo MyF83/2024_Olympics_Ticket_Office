@@ -21,6 +21,7 @@ public class keysgenerations {
 @GeneratedValue(strategy = GenerationType.AUTO)
 @NotNull
 private Long keyId;
+
 private String keyGenerated;
 
 public keysgenerations(String keyGenerated) {
