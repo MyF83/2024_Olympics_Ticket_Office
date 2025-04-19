@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.myriamfournier.olympics_ticket_office.pojo.sales;
 import com.myriamfournier.olympics_ticket_office.service.SaleService;
 
-@RequestMapping(ApiRegistration.API_REST + "/sale")
+@RequestMapping(ApiRegistration.API_REST 
++ ApiRegistration.SALE)
 @RestController
 public class SaleWs {
 

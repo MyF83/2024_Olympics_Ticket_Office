@@ -16,7 +16,7 @@ import com.myriamfournier.olympics_ticket_office.pojo.keysgenerations;
 import com.myriamfournier.olympics_ticket_office.service.KeysgenerationsService;
 
 @RequestMapping(KeysgenerationsWs.API_REST
-        + KeysgenerationsWs.KEYSGENERATIONS)
+        + ApiRegistration.KEYSGENERATION)
 @RestController
 public class KeysgenerationsWs {
     public static final String API_REST = "/api";

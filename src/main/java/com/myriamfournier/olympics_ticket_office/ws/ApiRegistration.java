@@ -17,7 +17,12 @@ public interface ApiRegistration {
     public static final String COUNTRY = "/country";
     public static final String ROLE = "/role";
     public static final String SITE = "/site";
+    public static final String SALE = "/sale";
     public static final String SPORT = "/sport";
+    public static final String TICKET = "/ticket";
+    public static final String USERSKEY = "/userskey";
+    public static final String SALESKEY = "/saleskey";
+    public static final String KEYSGENERATION = "/keysgeneration";
 
 
 

@@ -16,7 +16,7 @@ import com.myriamfournier.olympics_ticket_office.pojo.userskeys;
 import com.myriamfournier.olympics_ticket_office.service.UserskeyService;
 
 @RequestMapping(ApiRegistration.API_REST
-        + "/userskeys")
+        + ApiRegistration.USERSKEY)
 @RestController
 public class UserskeysWs {
 

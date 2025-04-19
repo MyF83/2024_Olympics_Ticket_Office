@@ -12,6 +12,13 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import java.io.FileOutputStream;
+import java.io.File;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 
 
 @Entity
@@ -64,5 +71,39 @@ public tickets(Date date, String keyAssembly, userskeys userskeys, saleskeys sal
     this.carts = carts;
     this.users = users;
     this.userselections = userselections;
+    }
+
+
+    public static void main(String[] args) {
+        String data = "J'aime les Jeux Olympiques d'été !";
+        int size = 500;
+
+        // encode
+        BitMatrix bitMatrix = generateMatrix(data, size);
+
+        String imageFormat = "png";
+        new File("c:/QRcode/").mkdirs();
+        String outputFileName = "c:/QRcode/qrcode_test." + imageFormat;
+
+        // write in a file
+        writeImage(outputFileName, imageFormat, bitMatrix);
+    }
+
+    private static void writeImage(String outputFileName, String imageFormat, BitMatrix bitMatrix) {
+        try (FileOutputStream fileOutputStream = new FileOutputStream(new File(outputFileName))) {
+            MatrixToImageWriter.writeToStream(bitMatrix, imageFormat, fileOutputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static BitMatrix generateMatrix(String data, int size) {
+        try {
+            BitMatrix bitMatrix = new QRCodeWriter().encode(data, BarcodeFormat.QR_CODE, size, size);
+            return bitMatrix;
+        } catch (com.google.zxing.WriterException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -52,4 +52,16 @@ public void setKey(keysgenerations keysEntity) {
 
     throw new UnsupportedOperationException("Unimplemented method 'setKey'");
 }
+
+
+public Object getKey() {
+    
+    throw new UnsupportedOperationException("Unimplemented method 'getKey'");
+}
+
+
+public String getKeyGenerated() {
+    
+    throw new UnsupportedOperationException("Unimplemented method 'getKeyGenerated'");
+}
 }
