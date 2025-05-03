@@ -30,6 +30,9 @@ private String description;
 @JoinColumn(name= "site_id", nullable = true)
 private sites sites;
 
+   // Default constructor (required by Hibernate)
+   public ceremonies() {
+}
 
 public ceremonies(String name, String description, sites sites) {
         // Default constructor
@@ -37,5 +40,4 @@ public ceremonies(String name, String description, sites sites) {
     this.description = description;
     this.sites = sites;
     }
-
 }

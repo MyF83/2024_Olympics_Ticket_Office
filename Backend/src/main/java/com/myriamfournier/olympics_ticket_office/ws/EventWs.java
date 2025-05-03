@@ -24,7 +24,31 @@ public class EventWs {
     @Autowired
     private EventService eventService;
 
+// Default GET method for /api/event
+@GetMapping
+public List<events> getAllEventsDefault() {
+    return eventService.getAllEvents();
+}
 
+@GetMapping("/sports")
+public List<events> getAllWithSports() {
+    return eventService.getAllWithSports();
+}
+
+@GetMapping("/ceremonies")
+public List<events> getAllWithCeremonies() {
+    return eventService.getAllWithCeremonies();
+}
+
+@GetMapping("/challenger1")
+public List<events> getAllWithChallenger1() {
+    return eventService.getAllWithChallenger1();
+}
+
+@GetMapping("/challenger2")
+public List<events> getAllWithChallenger2() {
+    return eventService.getAllWithChallenger2();
+}
 
 // ///////////////////////////////////////////////// //
 //       ALL GET METHODS FOR EVENT ENTITY            //

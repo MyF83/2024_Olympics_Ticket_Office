@@ -20,7 +20,12 @@ public class SiteServiceImpl implements SiteService{
     
     @Override
     public List<sites> getAllSites() {
-        return siteRepository.findAllSites();
+        return siteRepository.findAllWithDetails();
+    }
+
+    @Override
+    public List<sites> getAllWithCountries() {
+        return siteRepository.findAllWithCountries();
     }
 
 

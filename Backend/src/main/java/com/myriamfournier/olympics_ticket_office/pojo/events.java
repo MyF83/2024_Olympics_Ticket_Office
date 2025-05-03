@@ -25,7 +25,9 @@ public class events {
 @NotNull
 private Long event_id;
 
+private String title;
 private Date date;
+private String image;
 private String description;
 
 @ManyToOne
@@ -56,10 +58,16 @@ private Float pricec3;
 private Integer nbseatssoldc3;
 private Integer nbseatsavailc3;
 
+   // Default constructor (required by Hibernate)
+   public events() {
+}
 
-public events(Date date, String description, sports sports, ceremonies ceremonies, challengers challenger1, challengers challenger2, Float pricec1, Integer nbseatssoldc1, Integer nbseatsavailc1, Float pricec2, Integer nbseatssoldc2, Integer nbseatsavailc2, Float pricec3, Integer nbseatssoldc3, Integer nbseatsavailc3) {  
+// Parameterized constructor
+public events(String title, Date date, String image, String description, sports sports, ceremonies ceremonies, challengers challenger1, challengers challenger2, Float pricec1, Integer nbseatssoldc1, Integer nbseatsavailc1, Float pricec2, Integer nbseatssoldc2, Integer nbseatsavailc2, Float pricec3, Integer nbseatssoldc3, Integer nbseatsavailc3) {  
             // Default constructor
+        this.title = title;
         this.date = date;
+        this.image = image;
         this.description = description;
         this.sports = sports;
         this.ceremonies = ceremonies;   

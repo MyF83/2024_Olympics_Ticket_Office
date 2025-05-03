@@ -22,7 +22,13 @@ public class countries {
 
     private String name;
     private String description;
+
     
+   // Default constructor (required by Hibernate)
+   public countries() {
+}
+
+
 public countries(String name, String description) {
         // Default constructor
         this.name = name;

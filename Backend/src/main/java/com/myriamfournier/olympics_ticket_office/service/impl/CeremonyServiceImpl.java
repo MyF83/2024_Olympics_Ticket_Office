@@ -20,7 +20,12 @@ public class CeremonyServiceImpl implements CeremonyService{
     
     @Override
     public List<ceremonies> getAllCeremonies() {
-        return ceremonyRepository.findAllCeremonies();
+        return ceremonyRepository.findAllWithDetails();
+    }
+
+    @Override
+    public List<ceremonies> getAllWithSites() {
+        return ceremonyRepository.findAllWithSites();
     }
 
 

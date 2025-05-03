@@ -22,17 +22,25 @@ public class userskeys {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 @NotNull
-private Long user_key_id;
+private Long userkey_id;
 private Date date;
 
+/* 
 @OneToOne
 @JoinColumn(name= "user_id", nullable = true)
-private users users;
+private users users;*/ 
 
 @OneToOne
 @JoinColumn(name= "key_id", nullable = true)
 private keysgenerations keysgenerations;
 
+
+@OneToOne(mappedBy = "userskeys") // Bidirectional relationship
+private users users;
+
+   // Default constructor (required by Hibernate)
+   public userskeys() {
+}
 
 public userskeys(Date date, users users, keysgenerations keysgenerations) {
     // Default constructor
@@ -42,6 +50,30 @@ public userskeys(Date date, users users, keysgenerations keysgenerations) {
     }
 
 
+    
+
+
+    public keysgenerations getKey() {
+        return keysgenerations;
+    }
+
+    public void setKey(keysgenerations keysgenerations) {
+        this.keysgenerations = keysgenerations;
+    }
+
+    public keysgenerations getKeyGenerated() {
+        return keysgenerations;
+    }
+
+    public void setKeyGenerated(keysgenerations keysgenerations) {
+        this.keysgenerations = keysgenerations;
+    }
+
+    public void setUser(users users) {
+        this.users = users;
+    }
+
+/* 
 public void setUser(users users2) {
 
     throw new UnsupportedOperationException("Unimplemented method 'setUser'");
@@ -64,4 +96,5 @@ public String getKeyGenerated() {
     
     throw new UnsupportedOperationException("Unimplemented method 'getKeyGenerated'");
 }
+    */
 }

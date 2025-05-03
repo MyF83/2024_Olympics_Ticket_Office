@@ -27,6 +27,14 @@ private String description;
 private Date creationDate;
 private String version;
 
+
+
+   // Default constructor (required by Hibernate)
+   public policies() {
+}
+
+
+
 public policies(String title, String description, Date creationDate, String version) {  
             // Default constructor
         this.title = title;

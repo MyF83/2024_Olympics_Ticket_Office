@@ -20,7 +20,27 @@ public class EventServiceImpl implements EventService{
     
     @Override
     public List<events> getAllEvents() {
-        return eventRepository.findAllEvents();
+        return eventRepository.findAllWithDetails();
+    }
+
+    @Override
+    public List<events> getAllWithSports() {
+        return eventRepository.findAllWithSports();
+    }
+
+    @Override
+    public List<events> getAllWithCeremonies() {
+        return eventRepository.findAllWithCeremonies();
+    }
+
+    @Override
+    public List<events> getAllWithChallenger1() {
+        return eventRepository.findAllWithChallenger1();
+    }
+
+    @Override
+    public List<events> getAllWithChallenger2() {
+        return eventRepository.findAllWithChallenger2();
     }
 
 
@@ -46,7 +66,9 @@ public class EventServiceImpl implements EventService{
         events oldEvent = getEventById(id);
 
         if(oldEvent != null){
+            oldEvent.setTitle(events.getTitle());
             oldEvent.setDate(events.getDate());
+            oldEvent.setImage(events.getImage());
             oldEvent.setDescription(events.getDescription());
             oldEvent.setPricec1(events.getPricec1());
             oldEvent.setNbseatssoldc1(events.getNbseatssoldc1());

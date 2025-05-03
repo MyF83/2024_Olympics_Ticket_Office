@@ -1,0 +1,21 @@
+<h2>{{ game.title }}</h2>
+<img [src]="game.image" alt="{{ game.title }}" class="game-image">
+<p><strong>Date:</strong> {{ game.date }}</p>
+<p><strong>Description:</strong> {{ game.description }}</p>
+
+<!-- Add more details as needed -->
+<div *ngIf="game.sports">
+  <h4>Sport Details</h4>
+  <p><strong>Sport:</strong> {{ game.sports.name }}</p>
+  <p><strong>Challenger 1:</strong> {{ game.challenger1?.name }}</p>
+  <p><strong>Challenger 2:</strong> {{ game.challenger2?.name }}</p>
+</div>
+
+<div *ngIf="game.ceremonies">
+  <h4>Ceremony Details</h4>
+  <p><strong>Name:</strong> {{ game.ceremonies?.name }}</p>
+  <p><strong>Description:</strong> {{ game.ceremonies?.description }}</p>
+</div>
+
+<button mat-button (click)="buyTicket()">Buy Ticket</button>
+<button mat-button (click)="closeModal()">Close</button>

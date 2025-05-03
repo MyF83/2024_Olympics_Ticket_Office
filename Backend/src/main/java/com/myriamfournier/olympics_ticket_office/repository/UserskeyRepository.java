@@ -11,9 +11,19 @@ import com.myriamfournier.olympics_ticket_office.pojo.userskeys;
 @Repository
 public interface UserskeyRepository extends CrudRepository<userskeys, Long>{
 
-
+/* 
     @Query("SELECT a FROM userskeys a") // JPA -> Java Persistence API
-    List<userskeys> findAllUserskeys();
+    List<userskeys> findAllUserskeys();*/
 
+    @Query("SELECT e FROM userskeys e LEFT JOIN FETCH e.users LEFT JOIN FETCH e.keysgenerations")
+    List<userskeys> findAllWithDetails();
+
+    @Query("SELECT e FROM userskeys e LEFT JOIN FETCH e.users")
+    List<userskeys> findAllWithUsers();
+    
+    @Query("SELECT e FROM userskeys e LEFT JOIN FETCH e.keysgenerations")
+    List<userskeys> findAllWithKeysgenerations();
+
+   
 
 }

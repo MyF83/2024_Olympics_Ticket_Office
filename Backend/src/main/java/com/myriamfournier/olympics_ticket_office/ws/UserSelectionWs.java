@@ -33,10 +33,19 @@ public class UserSelectionWs {
 
     //GET method to retrieve all userselections
     // Example: GET /api/userselections/all   
-    @GetMapping("all")
-    /*@ResponseBody*/
-    public List<userselections> getAllUserSelections() {
+    @GetMapping
+    public List<userselections> getAllUserSelectionsDefault() {
         return userselectionService.getAllUserSelections(); // Assuming you have a eventService to fetch all events
+    }  
+
+    @GetMapping("/offers")
+    public List<userselections> getAllWithOffers() {
+        return userselectionService.getAllWithOffers(); // Assuming you have a eventService to fetch all events
+    }  
+
+    @GetMapping("/events")
+    public List<userselections> getAllWithEvents() {
+        return userselectionService.getAllWithEvents(); // Assuming you have a eventService to fetch all events
     }  
 
 

@@ -33,10 +33,14 @@ public class SportWs {
 
     //GET method to retrieve all sports
     // Example: GET /api/sport/all   
-    @GetMapping("all")
-    /*@ResponseBody*/
-    public List<sports> getAllSports() {
+    @GetMapping
+    public List<sports> getAllSportsDefault() {
         return sportService.getAllSports(); // Assuming you have a sportService to fetch all sports
+    }  
+
+    @GetMapping("/sites")
+    public List<sports> getAllWithSites() {
+        return sportService.getAllWithSites(); // Assuming you have a sportService to fetch all sports
     }  
 
 

@@ -7,6 +7,7 @@ import com.myriamfournier.olympics_ticket_office.pojo.ceremonies;
 public interface CeremonyService{
 
     List<ceremonies> getAllCeremonies();
+    List<ceremonies> getAllWithSites();
 
     ceremonies getCeremonyById(Long id);
 

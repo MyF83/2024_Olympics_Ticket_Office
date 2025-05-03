@@ -30,6 +30,10 @@ private Integer rate;
 private Integer nbSpectators;
 
 
+   // Default constructor (required by Hibernate)
+   public offers() {
+}
+
 public offers(String title, String description, Integer rate, Integer nbSpectators) {  
         // Default constructor
     this.title = title;

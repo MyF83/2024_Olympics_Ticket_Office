@@ -36,9 +36,13 @@ private users users;
 private carts carts;
 
 @OneToOne
-@JoinColumn(name= "sale_key_id", nullable = true)
+@JoinColumn(name= "salekey_id", nullable = true)
 private saleskeys saleskeys;
 
+
+   // Default constructor (required by Hibernate)
+   public sales() {
+}
 
 public sales(Date date, users users, carts carts, saleskeys saleskeys) {
         // Default constructor
@@ -47,4 +51,7 @@ public sales(Date date, users users, carts carts, saleskeys saleskeys) {
         this.carts = carts;
         this.saleskeys = saleskeys;
     }
+
+
+
 }

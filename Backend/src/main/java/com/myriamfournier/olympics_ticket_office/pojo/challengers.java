@@ -32,7 +32,12 @@ public class challengers {
     @JoinColumn(name = "country_id", nullable = true) 
     private countries countries;
 
+ 
+// Default constructor (required by Hibernate)
+public challengers() {
+    }
     
+
 public challengers(String name, countries countries) {
         // Default constructor
         this.name = name;

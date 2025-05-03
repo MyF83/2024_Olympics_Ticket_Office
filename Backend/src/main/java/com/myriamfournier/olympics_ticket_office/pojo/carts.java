@@ -32,10 +32,15 @@ private users users;
 
 
 @ManyToOne
-@JoinColumn(name= "user_sel_id", nullable = true)
+@JoinColumn(name= "usersel_id", nullable = true)
 private userselections userselections;
 
 private Float totalAmount;
+
+
+   // Default constructor (required by Hibernate)
+   public carts() {
+}
 
 public carts(Date date, users users, userselections userselections, Float totalAmount) {
     // Default constructor
@@ -46,4 +51,6 @@ public carts(Date date, users users, userselections userselections, Float totalA
 
 
     }
+
+    
 }

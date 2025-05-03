@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  db:
+    image: mysql:9.2
+    container_name: 2024-Olympics-Ticket-Office-DB
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init:/docker-entrypoint-initdb.d
+
+  back:
+    build:
+      context: ./Backend
+    restart: on-failure
+    container_name: JO2024-back
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    links:
+      - db # modifie le fichier /etc/hosts
+    stdin_open: true
+    tty: true
+
+  front:
+    build:
+      context: ./Frontend
+    restart: always
+    container_name: JO2024-front
+    ports:
+      - "80:80"
+    depends_on:
+      - back
+
+volumes:
+  mysql-data:
+
+
+

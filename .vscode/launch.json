@@ -1,0 +1,28 @@
+{
+    "configurations": [
+       /* {
+            "type": "java",
+            "name": "TicketServiceImpl",
+            "request": "launch",
+            "mainClass": "com.myriamfournier.olympics_ticket_office.service.impl.TicketServiceImpl",
+            "projectName": "2024_Olympics_Ticket_Office"
+        },
+        {
+            "type": "java",
+            "name": "tickets",
+            "request": "launch",
+            "mainClass": "com.myriamfournier.olympics_ticket_office.pojo.tickets",
+            "projectName": "2024_Olympics_Ticket_Office"
+        },*/
+        {
+            "type": "java",
+            "name": "Spring Boot-Application<2024_Olympics_Ticket_Office>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.myriamfournier.olympics_ticket_office.Application",
+            "projectName": "2024_Olympics_Ticket_Office",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

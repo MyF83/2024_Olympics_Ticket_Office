@@ -1,0 +1,1 @@
+import 'cross-fetch/polyfill'; // Add this to polyfill fetch

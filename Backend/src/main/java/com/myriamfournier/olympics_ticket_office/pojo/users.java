@@ -41,12 +41,12 @@ private roles roles;
 
 
 @OneToOne
-@JoinColumn(name= "user_key_id", nullable = true)
+@JoinColumn(name= "userkey_id", nullable = true)
 private userskeys userskeys;
 
 
 @ManyToOne
-@JoinColumn(name= "user_sel_id", nullable = true)
+@JoinColumn(name= "usersel_id", nullable = true)
 private userselections userselections;
 
 
@@ -67,6 +67,12 @@ private countries countries;
         String userName =  lastname + "-" +  firstname; // Assuming username is a combination of first and last name
         return userName;
     }*/
+
+
+       // Default constructor (required by Hibernate)
+   public users() {
+}
+
 
 public users(String firstname, String lastname, String username, String email, String password, String phonenumber, Date creationDate, roles roles, userskeys userskeys, userselections userselections, policies policies, Date policySignDate, String address, String city, String postalCode, countries countries) {  
         // Default constructor
@@ -93,12 +99,12 @@ public users(String firstname, String lastname, String username, String email, S
     this.countries = countries;
 
     }
-
+/*
 public users(String string, String string2, String string3, String string4, String string5, String string6,
         String string7, Object object, Object object2, Object object3, Object object4, Object object5, Object object6,
         Object object7, Object object8) {
     
-}
+}*/
 
 
 

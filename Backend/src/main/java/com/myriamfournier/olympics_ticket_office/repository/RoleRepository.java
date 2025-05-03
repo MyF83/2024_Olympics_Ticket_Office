@@ -15,5 +15,6 @@ public interface RoleRepository extends CrudRepository<roles, Long>{
     @Query("SELECT a FROM roles a") // JPA -> Java Persistence API
     List<roles> findAllRoles();
 
+    
 
 }

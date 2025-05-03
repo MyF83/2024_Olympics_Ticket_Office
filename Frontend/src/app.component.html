@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<html lang="en" dir="ltr">
+
+<main class="main">
+  <header class="header">
+      <nav class="nav" role="navigation" aria-label="Main navigation">
+        <img src="svg/Logo_JO_d'été_-_Paris_2024_h100_w87.svg" class="logo">
+        <div class="slogan">
+        <div>
+          <h1>Welcome to the official ticket office for the Paris 2024 Olympic Games</h1>
+            <aside><p>Access to the ticket office is now open 🎉</p></aside>
+          
+        </div>
+      
+        <div class="divider" role="separator" aria-label="Divider"></div>
+            
+        <div class="pill-group" *ngFor="let item of navItems">
+              
+              <a class="pill"
+                [routerLink]="item.routerLink" 
+                [routerLinkActive]="item.routerLinkActive"
+                [attr.ariaCurrentWhenActive]="item.ariaCurrentWhenActive"
+                [target]="item.target"
+                [rel]="item.rel"
+                >
+                  <svg [attr.class]="item.iconclass" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 700 700" width="1.5rem" height="1.5rem" aria-hidden="true" role="img">
+                    <path [attr.d]="item.iconpath"></path>
+                  </svg>
+                {{ item.label }}
+              </a>
+            
+        </div>
+        </div> 
+
+         <div class="right-side">
+        <div class="social-links">
+          <a
+            href="https://www.facebook.com/Paris2024/?locale=fr_FR"
+            aria-label="Facebook"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg
+              width="25"
+              height="24"
+              viewBox="0 0 512 512"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              alt="Facebook"
+            >
+              <path
+                d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z"
+              />
+            </svg>
+          </a>
+          <a
+            href="https://x.com/jeuxolympiques"
+            aria-label="Twitter"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              alt="Twitter"
+            >
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+              />
+            </svg>
+          </a>
+          <a
+            href="https://www.youtube.com/channel/UCg4W1uf-i5X1nVaeWJsKuyA"
+            aria-label="Youtube"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg
+              width="29"
+              height="20"
+              viewBox="0 0 29 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              alt="Youtube"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M27.4896 1.52422C27.9301 1.96749 28.2463 2.51866 28.4068 3.12258C29.0004 5.35161 29.0004 10 29.0004 10C29.0004 10 29.0004 14.6484 28.4068 16.8774C28.2463 17.4813 27.9301 18.0325 27.4896 18.4758C27.0492 18.9191 26.5 19.2389 25.8972 19.4032C23.6778 20 14.8068 20 14.8068 20C14.8068 20 5.93586 20 3.71651 19.4032C3.11363 19.2389 2.56449 18.9191 2.12405 18.4758C1.68361 18.0325 1.36732 17.4813 1.20683 16.8774C0.613281 14.6484 0.613281 10 0.613281 10C0.613281 10 0.613281 5.35161 1.20683 3.12258C1.36732 2.51866 1.68361 1.96749 2.12405 1.52422C2.56449 1.08095 3.11363 0.76113 3.71651 0.596774C5.93586 0 14.8068 0 14.8068 0C14.8068 0 23.6778 0 25.8972 0.596774C26.5 0.76113 27.0492 1.08095 27.4896 1.52422ZM19.3229 10L11.9036 5.77905V14.221L19.3229 10Z"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+     </nav> 
+  </header>
+  <section class="content">
+      <router-outlet></router-outlet>      
+  </section>
+  <footer class="footer" role="contentinfo" aria-label="Footer">
+    <div class ="footer-content">
+      <p>© 2024 Paris 2024. Tous droits réservés.</p>
+      <p>Politique de confidentialité | Conditions d'utilisation</p>  
+      <p>Suivez-nous sur les réseaux sociaux</p>
+      <div class="social-links-group">
+        <a href="https://www.facebook.com/Paris2024/?locale=fr_FR" aria-label="Facebook" target="_blank" rel="noopener">
+          <img src="svg/facebook.svg" alt="Facebook" width="24" height="24">
+        </a>
+        <a href="https://x.com/jeuxolympiques" aria-label="Twitter" target="_blank" rel="noopener">
+          <img src="svg/twitter.svg" alt="Twitter" width="24" height="24">
+        </a>
+        <a href="https://www.youtube.com/channel/UCg4W1uf-i5X1nVaeWJsKuyA" aria-label="YouTube" target="_blank" rel="noopener">
+          <img src="svg/youtube.svg" alt="YouTube" width="24" height="24">
+        </a>  
+        </div>
+      </div>
+  </footer>    
+</main>
+</html>
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+
+<div style="display: none;">
+  <!-- This HTML represents the initial state, it is note intended to appear in the app. -->
+  <app-home>Games</app-home>
+  <app-offers>Offers</app-offers>
+  <app-infos>Iformations</app-infos>
+
+  <!-- This HTML snippet is for when the user first adds the routerlink navigation. -->
+   <nav>
+    <a class="button" routerlink="/app-home">Games Listing</a>
+    <a class="button" routerlink="offers">Offers Listing</a>
+    <a class="button" routerlink="/infos">Infos Listing</a>
+   </nav>
+</div>

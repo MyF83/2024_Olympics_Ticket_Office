@@ -33,7 +33,8 @@ public class OfferWs {
 
     //GET method to retrieve all offers
     // Example: GET /api/offer/all   
-    @GetMapping("all")
+    // @GetMapping("all")
+    @GetMapping
     /*@ResponseBody*/
     public List<offers> getAllOffers() {
         return offerService.getAllOffers(); // Assuming you have a offerService to fetch all offers

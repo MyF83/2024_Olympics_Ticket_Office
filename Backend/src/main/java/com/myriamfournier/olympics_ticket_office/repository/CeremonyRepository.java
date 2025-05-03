@@ -11,9 +11,18 @@ import com.myriamfournier.olympics_ticket_office.pojo.ceremonies;
 @Repository
 public interface CeremonyRepository extends CrudRepository<ceremonies, Long>{
 
-
+/* 
     @Query("SELECT a FROM ceremonies a") // JPA -> Java Persistence API
     List<ceremonies> findAllCeremonies();
+*/
+
+    @Query("SELECT e FROM ceremonies e LEFT JOIN FETCH e.sites")
+    List<ceremonies> findAllWithDetails();
+
+    @Query("SELECT e FROM ceremonies e LEFT JOIN FETCH e.sites")
+    List<ceremonies> findAllWithSites();
+    
+    
 
 
 }

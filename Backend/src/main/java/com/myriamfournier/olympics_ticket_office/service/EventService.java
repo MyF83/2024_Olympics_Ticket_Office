@@ -7,6 +7,10 @@ import com.myriamfournier.olympics_ticket_office.pojo.events;
 public interface EventService{
 
     List<events> getAllEvents();
+    List<events> getAllWithSports();
+    List<events> getAllWithCeremonies();
+    List<events> getAllWithChallenger1();
+    List<events> getAllWithChallenger2();
 
     events getEventById(Long id);
 

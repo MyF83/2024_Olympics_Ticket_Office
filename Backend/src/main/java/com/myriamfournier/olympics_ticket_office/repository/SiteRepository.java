@@ -11,9 +11,16 @@ import com.myriamfournier.olympics_ticket_office.pojo.sites;
 @Repository
 public interface SiteRepository extends CrudRepository<sites, Long>{
 
-
+/* 
     @Query("SELECT a FROM sites a") // JPA -> Java Persistence API
-    List<sites> findAllSites();
+    List<sites> findAllSites();*/
+    
+    @Query("SELECT e FROM sites e LEFT JOIN FETCH e.countries")
+    List<sites> findAllWithDetails();
+
+    @Query("SELECT e FROM sites e LEFT JOIN FETCH e.countries")
+    List<sites> findAllWithCountries();
 
 
+   
 }

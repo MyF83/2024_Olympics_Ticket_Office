@@ -7,6 +7,7 @@ import com.myriamfournier.olympics_ticket_office.pojo.challengers;
 public interface ChallengerService{
 
     List<challengers> getAllChallengers();
+    List<challengers> getAllWithCountries();
 
     challengers getChallengerById(Long id);
 

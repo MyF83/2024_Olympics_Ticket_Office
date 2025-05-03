@@ -22,12 +22,23 @@ public class saleskeys {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 @NotNull
-private Long sale_key_id;
+private Long salekey_id;
+
 private Date date;
 
 @OneToOne
 @JoinColumn(name= "key_id", nullable = true)
 private keysgenerations keysgenerations;
+
+
+@OneToOne(mappedBy = "saleskeys") // Bidirectional relationship
+    private sales sales;
+
+
+   // Default constructor (required by Hibernate)
+   public saleskeys() {
+}
+
 
 public saleskeys(Date date, keysgenerations keysgenerations) {
     // Default constructor
@@ -36,6 +47,61 @@ public saleskeys(Date date, keysgenerations keysgenerations) {
 
     }
 
+    public keysgenerations getKey() {
+        return keysgenerations;
+    }
+
+    public void setKey(keysgenerations keysgenerations) {
+        this.keysgenerations = keysgenerations;
+    }
+
+    public keysgenerations getKeyGenerated() {
+        return keysgenerations;
+    }
+
+    public void setKeyGenerated(keysgenerations keysgenerations) {
+        this.keysgenerations = keysgenerations;
+    }
+    /* 
+    public saleskeys getKey() {
+        return keysgenerations;
+    }
+
+    public void setKey(keysgenerations keysgenerations) {
+        this.keysgenerations = keysgenerations;
+    }
+
+    public saleskeys getKeyGenerated() {
+        return keysgenerations;
+    }
+
+    public void setKeyGenerated(keysgenerations keysgenerations) {
+        this.keysgenerations = keysgenerations;
+    }*/
+/* 
+    public void setSale(sales sales) {
+        this.sales = sales;
+    }
+
+    public void setKey(keysgenerations keysEntity) {
+        this.saleskeys = keysEntity;
+    }
+
+    public void setSale(sales sales) {
+        this.keysgenerations = sales.getKeyGenerated();
+    }*/
+    /*
+    public Object getKey() {
+       
+        throw new UnsupportedOperationException("Unimplemented method 'getKey'");
+    } 
+    
+    public String getKeyGenerated() {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'getKeyGenerated'");
+    }*/
+
+/* 
 public void setKey(keysgenerations keysEntity) {
 
     throw new UnsupportedOperationException("Unimplemented method 'setKey'");
@@ -54,5 +120,5 @@ public Object getKey() {
 public String getKeyGenerated() {
     
     throw new UnsupportedOperationException("Unimplemented method 'getKeyGenerated'");
-}
+}*/
 }

@@ -7,6 +7,7 @@ import com.myriamfournier.olympics_ticket_office.pojo.sites;
 public interface SiteService{
 
     List<sites> getAllSites();
+    List<sites> getAllWithCountries();
 
     sites getSiteById(Long id);
 

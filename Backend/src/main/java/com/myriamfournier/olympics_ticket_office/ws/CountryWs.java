@@ -33,8 +33,9 @@ public class CountryWs {
 
     //GET method to retrieve all countries
     // Example: GET /api/country/all   
-    @GetMapping("all")
-    /*@ResponseBody*/
+    //@GetMapping("all")
+    @GetMapping  
+    //*@ResponseBody*/
     public List<countries> getAllCountries() {
         return countryService.getAllCountries(); // Assuming you have a countryService to fetch all countries
     }  

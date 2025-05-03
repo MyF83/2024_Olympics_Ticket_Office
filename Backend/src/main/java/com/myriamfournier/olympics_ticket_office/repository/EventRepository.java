@@ -12,8 +12,21 @@ import com.myriamfournier.olympics_ticket_office.pojo.events;
 public interface EventRepository extends CrudRepository<events, Long>{
 
 
-    @Query("SELECT a FROM events a") // JPA -> Java Persistence API
-    List<events> findAllEvents();
+    @Query("SELECT e FROM events e LEFT JOIN FETCH e.sports LEFT JOIN FETCH e.ceremonies LEFT JOIN FETCH e.challenger1 LEFT JOIN FETCH e.challenger2")
+    List<events> findAllWithDetails();
 
+    @Query("SELECT e FROM events e LEFT JOIN FETCH e.sports")
+    List<events> findAllWithSports();
+    
+    @Query("SELECT e FROM events e LEFT JOIN FETCH e.ceremonies")
+    List<events> findAllWithCeremonies();
+    
+    @Query("SELECT e FROM events e LEFT JOIN FETCH e.challenger1")
+    List<events> findAllWithChallenger1();
+    
+    @Query("SELECT e FROM events e LEFT JOIN FETCH e.challenger2")
+    List<events> findAllWithChallenger2();
+
+    
 
 }

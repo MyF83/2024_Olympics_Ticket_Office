@@ -33,10 +33,14 @@ public class CeremonyWs {
 
     //GET method to retrieve all ceremonies
     // Example: GET /api/ceremony/all   
-    @GetMapping("all")
-    /*@ResponseBody*/
-    public List<ceremonies> getAllCeremonies() {
-        return ceremonyService.getAllCeremonies(); // Assuming you have a ceremonyService to fetch all events
+    @GetMapping
+    public List<ceremonies> getAllCeremoniesDefault() {
+        return ceremonyService.getAllCeremonies(); // Assuming you have a ceremonyService to fetch all ceremonies
+    }  
+
+    @GetMapping("/sites")
+    public List<ceremonies> getAllWithSites() {
+        return ceremonyService.getAllWithSites(); // Assuming you have a ceremonyService to fetch all ceremonies
     }  
 
 

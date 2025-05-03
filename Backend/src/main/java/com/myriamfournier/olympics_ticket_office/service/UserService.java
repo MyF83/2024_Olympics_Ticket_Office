@@ -9,6 +9,11 @@ public interface UserService {
 
 
     List<users> getAllUsers();
+    List<users> getAllWithRoles();
+    List<users> getAllWithUserskeys();
+    List<users> getAllWithUserselections();
+    List<users> getAllWithPolicies();
+    List<users> getAllWithCountries();
 
     users getUserById(Long id);
 

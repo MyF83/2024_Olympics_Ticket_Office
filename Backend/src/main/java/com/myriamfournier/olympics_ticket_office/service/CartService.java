@@ -7,6 +7,8 @@ import com.myriamfournier.olympics_ticket_office.pojo.carts;
 public interface CartService{
 
     List<carts> getAllCarts();
+    List<carts> getAllWithUsers();
+    List<carts> getAllWithUserselections();
 
     carts getCartById(Long id);
 

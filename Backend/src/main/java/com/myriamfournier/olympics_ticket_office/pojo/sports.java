@@ -31,6 +31,11 @@ private Boolean isParalymp;
 @JoinColumn(name= "site_id", nullable = true)
 private sites sites;
 
+   // Default constructor (required by Hibernate)
+   public sports() {
+}
+
+
 public sports(String name, String description, Boolean isParalymp, sites sites) {
     // Default constructor
     this.name = name;       

@@ -26,6 +26,13 @@ private Long key_id;
 @Column(length=256)
 private String keyGenerated;
 
+
+
+   // Default constructor (required by Hibernate)
+   public keysgenerations() {
+}
+
+
 public keysgenerations(String keyGenerated) {
         // Default constructor
         this.keyGenerated = keyGenerated;

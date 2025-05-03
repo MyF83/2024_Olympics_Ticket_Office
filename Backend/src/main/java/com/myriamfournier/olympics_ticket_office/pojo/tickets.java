@@ -56,11 +56,11 @@ private String fileName;
 
 
 @OneToOne
-@JoinColumn(name= "user_key_id", nullable = true)
+@JoinColumn(name= "userkey_id", nullable = true)
 private  userskeys userskeys;
 
 @OneToOne
-@JoinColumn(name= "sale_key_id", nullable = true)
+@JoinColumn(name= "salekey_id", nullable = true)
 private  saleskeys saleskeys;
 
 @OneToOne
@@ -76,10 +76,14 @@ private  carts carts;
 private  users users;
 
 @OneToOne
-@JoinColumn(name= "user_sel_id", nullable = true)
+@JoinColumn(name= "usersel_id", nullable = true)
 private  userselections userselections;
 
 
+
+   // Default constructor (required by Hibernate)
+   public tickets() {
+}
 
 public tickets(Date date, String keyAssembly, String fileName, userskeys userskeys, saleskeys saleskeys, sales sales, carts carts, users users, userselections userselections) {
     // Default constructor
@@ -95,7 +99,7 @@ public tickets(Date date, String keyAssembly, String fileName, userskeys userske
     }
 
     
-
+ 
     public userskeys getUserskeys() {
         return userskeys;
     }
@@ -105,40 +109,45 @@ public tickets(Date date, String keyAssembly, String fileName, userskeys userske
     }
 
     
-
+/* 
     public void setKeyAssembly(String keyAssembly2) {
 
         throw new UnsupportedOperationException("Unimplemented method 'setKeyAssembly'");
+    }*/
+
+    public Date getDate() {
+
+        return date;
     }
 
-    public Object getDate() {
-
-        throw new UnsupportedOperationException("Unimplemented method 'getDate'");
+    public void setDate(Date date) {
+        this.date = date;
     }
 
+
+/* Error : double call to method getuserskeys/getUserskeys
     public Object getuserskeys() {
 
         throw new UnsupportedOperationException("Unimplemented method 'getuserskeys'");
+    
+
+    public Sales getSales() {
+
+        return sales;
     }
 
-    public Object getSales() {
+    public void setSales(sales sales) {
+        this.sales = sales;
+    }}*/
 
-        throw new UnsupportedOperationException("Unimplemented method 'getSales'");
-    }
-
-
-
-    public void setDate(Object date2) {
- 
-        throw new UnsupportedOperationException("Unimplemented method 'setDate'");
-    }
+   
 
 
-
+/* 
     public String getKeyAssembly() {
       
         throw new UnsupportedOperationException("Unimplemented method 'getKeyAssembly'");
-    }
+    }*/
 
     
     /* 

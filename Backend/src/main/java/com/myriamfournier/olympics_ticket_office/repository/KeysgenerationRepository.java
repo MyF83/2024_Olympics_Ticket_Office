@@ -11,11 +11,13 @@ import com.myriamfournier.olympics_ticket_office.pojo.keysgenerations;
 @Repository
 public interface KeysgenerationRepository extends CrudRepository<keysgenerations, Long>{
 
+    
 
     @Query("SELECT a FROM keysgenerations a") // JPA -> Java Persistence API
     List<keysgenerations> findAllKeysgenerations();
+ 
+    boolean existsByKeyGenerated(String keyGenerated);
 
-    boolean existsByKeyGenerated(String uniqueKey);
-
+    
 
 }

@@ -20,7 +20,17 @@ public class UserSelectionServiceImpl implements UserSelectionService{
     
     @Override
     public List<userselections> getAllUserSelections() {
-        return userselectionRepository.findAllUserSelections();
+        return userselectionRepository.findAllWithDetails();
+    }
+
+    @Override
+    public List<userselections> getAllWithOffers() {
+        return userselectionRepository.findAllWithOffers();
+    }
+
+    @Override
+    public List<userselections> getAllWithEvents() {
+        return userselectionRepository.findAllWithEvents();
     }
 
 

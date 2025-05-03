@@ -33,8 +33,8 @@ public class RoleWs {
 
     //GET method to retrieve all roles
     // Example: GET /api/role/all   
-    @GetMapping("all")
-    /*@ResponseBody*/
+    // @GetMapping("all")
+    @GetMapping
     public List<roles> getAllRoles() {
         return roleService.getAllRoles(); // Assuming you have a roleService to fetch all roles
     }  

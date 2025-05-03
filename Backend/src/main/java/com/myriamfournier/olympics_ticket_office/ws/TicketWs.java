@@ -33,10 +33,39 @@ public class TicketWs {
 
     //GET method to retrieve all tickets
     // Example: GET /api/ticket/all   
-    @GetMapping("all")
-    /*@ResponseBody*/
-    public List<tickets> getAllTickets() {
+    @GetMapping
+    public List<tickets> getAllTicketsDefault() {
         return ticketService.getAllTickets(); // Assuming you have a ticketService to fetch all tickets
+    } 
+    
+    @GetMapping("/userskeys")
+    public List<tickets> getAllWithUserskeys() {
+        return ticketService.getAllWithUserskeys(); // Assuming you have a ticketService to fetch all tickets
+    }  
+
+    @GetMapping("/saleskeys")
+    public List<tickets> getAllWithSaleskeys() {
+        return ticketService.getAllWithSaleskeys(); // Assuming you have a ticketService to fetch all tickets
+    }  
+
+    @GetMapping("/sales")
+    public List<tickets> getAllWithSales() {
+        return ticketService.getAllWithSales(); // Assuming you have a ticketService to fetch all tickets
+    }  
+
+    @GetMapping("/carts")
+    public List<tickets> getAllWithCarts() {
+        return ticketService.getAllWithCarts(); // Assuming you have a ticketService to fetch all tickets
+    }  
+
+    @GetMapping("/users")
+    public List<tickets> getAllWithUsers() {
+        return ticketService.getAllWithUsers(); // Assuming you have a ticketService to fetch all tickets
+    }  
+
+    @GetMapping("/userselections")
+    public List<tickets> getAllWithUserselections() {
+        return ticketService.getAllWithUserselections(); // Assuming you have a ticketService to fetch all tickets
     }  
 
 

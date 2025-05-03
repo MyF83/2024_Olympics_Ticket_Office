@@ -20,7 +20,17 @@ public class CartServiceImpl implements CartService{
     
     @Override
     public List<carts> getAllCarts() {
-        return cartRepository.findAllCarts();
+        return cartRepository.findAllWithDetails();
+    }
+
+    @Override
+    public List<carts> getAllWithUsers() {
+        return cartRepository.findAllWithUsers();
+    }
+
+    @Override
+    public List<carts> getAllWithUserselections() {
+        return cartRepository.findAllWithUserselections();
     }
 
 

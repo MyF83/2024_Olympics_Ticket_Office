@@ -25,7 +25,22 @@ public class SaleServiceImpl implements SaleService{
     
     @Override
     public List<sales> getAllSales() {
-        return saleRepository.findAllSales();
+        return saleRepository.findAllWithDetails();
+    }
+
+    @Override
+    public List<sales> getAllWithUsers() {
+        return saleRepository.findAllWithUsers();
+    }
+
+    @Override
+    public List<sales> getAllWithCarts() {
+        return saleRepository.findAllWithCarts();
+    }
+
+    @Override
+    public List<sales> getAllWithSaleskeys() {
+        return saleRepository.findAllWithSaleskeys();
     }
 
 
@@ -34,8 +49,17 @@ public class SaleServiceImpl implements SaleService{
         return saleRepository.findById(id).orElse(null);
     }
 
-
-
+    @Override
+    public sales setSale(sales sales) {
+        // Update the fields of the sales object
+        sales.setSale_id(sales.getSale_id()); // Use setSale_id instead of setSaleId
+        sales.setDate(sales.getDate());
+        sales.setUsers(sales.getUsers());
+        sales.setCarts(sales.getCarts());
+        sales.setSaleskeys(sales.getSaleskeys());
+        return sales;
+    }
+/* 
     @Override
     public void createSale(sales sales) {
         saleRepository.save(sales);
@@ -54,7 +78,28 @@ public class SaleServiceImpl implements SaleService{
              saleskeys.setSale(sales);
             saleskeys.setKey(keysEntity);
             saleskeyRepository.save(saleskeys);
-    }
+    }*/
+
+    @Override
+public void createSale(sales sales) {
+    // Step 1: Generate a unique 256-character key
+    String uniqueKey = generateUnique256CharacterKey();
+
+    // Step 2: Save the key in the Keysgenerations table
+    keysgenerations keysEntity = new keysgenerations(uniqueKey);
+    keysEntity.setKeyGenerated(uniqueKey);
+    keysgenerationRepository.save(keysEntity);
+
+    // Step 3: Create a new Saleskeys object and link it to the generated key
+    saleskeys saleskeys = new saleskeys();
+    saleskeys.setKey(keysEntity); // Link the key to the Saleskeys object
+    saleskeyRepository.save(saleskeys);
+
+    // Step 4: Link the Saleskeys object to the Sales object
+    sales.setSaleskeys(saleskeys); // Set the foreign key relationship
+    saleRepository.save(sales); // Save the Sales object
+}
+
 
 
     private String generateUnique256CharacterKey() {

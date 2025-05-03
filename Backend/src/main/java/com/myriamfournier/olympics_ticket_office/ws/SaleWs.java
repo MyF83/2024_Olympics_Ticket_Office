@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.myriamfournier.olympics_ticket_office.pojo.sales;
 import com.myriamfournier.olympics_ticket_office.service.SaleService;
 
-@RequestMapping(ApiRegistration.API_REST 
-+ ApiRegistration.SALE)
+@RequestMapping(ApiRegistration.API_REST
+        + ApiRegistration.SALE)
 @RestController
 public class SaleWs {
 
@@ -33,11 +33,25 @@ public class SaleWs {
 
     //GET method to retrieve all sales
     // Example: GET /api/sale/all   
-    @GetMapping("all")
-    /*@ResponseBody*/
-    public List<sales> getAllSales() {
+    @GetMapping
+    public List<sales> getAllSalesDefault() {
         return salesService.getAllSales(); // Assuming you have a salesService to fetch all sales
     }  
+
+    @GetMapping("/users")
+    public List<sales> getAllWithUsers() {
+        return salesService.getAllWithUsers(); // Assuming you have a salesService to fetch all sales
+    } 
+
+    @GetMapping("/carts")
+    public List<sales> getAllWithCarts() {
+        return salesService.getAllWithCarts(); // Assuming you have a salesService to fetch all sales
+    } 
+
+    @GetMapping("/saleskeys")
+    public List<sales> getAllWithSaleskeys() {
+        return salesService.getAllWithSaleskeys(); // Assuming you have a salesService to fetch all sales
+    } 
 
 
     //GET method to retrieve a sale by ID

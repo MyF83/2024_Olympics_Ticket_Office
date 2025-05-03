@@ -22,7 +22,7 @@ public class userselections {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 @NotNull
-private Long user_sel_id;
+private Long usersel_id;
 
 private Integer nbPersons;
 private Float amount;
@@ -34,6 +34,12 @@ private events events;
 @ManyToOne
 @JoinColumn(name= "offer_id", nullable = true, columnDefinition = "BIGINT DEFAULT 1")
 private offers offers;
+
+
+
+   // Default constructor (required by Hibernate)
+   public userselections() {
+}
 
 public userselections(Integer nbPersons, Float amount, events events, offers offers) {
         // Default constructor

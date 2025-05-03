@@ -11,9 +11,15 @@ import com.myriamfournier.olympics_ticket_office.pojo.challengers;
 @Repository
 public interface ChallengerRepository extends CrudRepository<challengers, Long>{
 
-
+/* 
     @Query("SELECT a FROM challengers a") // JPA -> Java Persistence API
-    List<challengers> findAllChallengers();
+    List<challengers> findAllChallengers();*/
 
+    @Query("SELECT e FROM challengers e LEFT JOIN FETCH e.countries")
+    List<challengers> findAllWithDetails();
 
+    @Query("SELECT e FROM challengers e LEFT JOIN FETCH e.countries")
+    List<challengers> findAllWithCountries();
+
+    
 }

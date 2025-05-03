@@ -33,11 +33,20 @@ public class CartWs {
 
     //GET method to retrieve all carts
     // Example: GET /api/cart/all   
-    @GetMapping("all")
-    /*@ResponseBody*/
-    public List<carts> getAllCarts() {
-        return cartService.getAllCarts(); // Assuming you have a cartService to fetch all events
+    @GetMapping
+    public List<carts> getAllCartsDefault() {
+        return cartService.getAllCarts(); // Assuming you have a cartService to fetch all carts
     }  
+
+    @GetMapping("/users")
+    public List<carts> getAllWithUsers() {
+        return cartService.getAllWithUsers(); // Assuming you have a cartService to fetch all carts
+    }  
+
+    @GetMapping("/userselections")
+    public List<carts> getAllWithUserselections() {
+        return cartService.getAllWithUserselections(); // Assuming you have a cartService to fetch all carts
+    } 
 
 
     //GET method to retrieve a cart by ID

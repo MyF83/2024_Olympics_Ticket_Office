@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myriamfournier.olympics_ticket_office.pojo.keysgenerations;
-import com.myriamfournier.olympics_ticket_office.service.KeysgenerationsService;
+import com.myriamfournier.olympics_ticket_office.service.KeysgenerationService;
 
-@RequestMapping(KeysgenerationsWs.API_REST
+@RequestMapping(ApiRegistration.API_REST
         + ApiRegistration.KEYSGENERATION)
 @RestController
 public class KeysgenerationsWs {
@@ -23,7 +23,7 @@ public class KeysgenerationsWs {
     public static final String KEYSGENERATIONS = "/keysgenerations";
 
     @Autowired
-    private KeysgenerationsService keysgenerationsService;
+    private KeysgenerationService keysgenerationService;
 
 
 
@@ -34,10 +34,11 @@ public class KeysgenerationsWs {
 
     //GET method to retrieve all keysgenerations
     // Example: GET /api/keysgenerations/all   
-    @GetMapping("all")
+    //@GetMapping("all")
+    @GetMapping
     /*@ResponseBody*/
     public List<keysgenerations> getAllCarts() {
-        return keysgenerationsService.getAllKeysgenerations(); // Assuming you have a keysgenerationsService to fetch all keysgenerations
+        return keysgenerationService.getAllKeysgenerations(); // Assuming you have a keysgenerationService to fetch all keysgenerations
     }  
 
 
@@ -46,7 +47,7 @@ public class KeysgenerationsWs {
     @GetMapping("{id}")
     /*@ResponseBody  */     
     public keysgenerations getKeysgenerationById(@PathVariable("id") Long id) {
-        return keysgenerationsService.getKeysgenerationById(id); // Assuming you have a keysgenerationsService to fetch keysgeneration by ID
+        return keysgenerationService.getKeysgenerationById(id); // Assuming you have a keysgenerationService to fetch keysgeneration by ID
     }
 
 
@@ -58,7 +59,7 @@ public class KeysgenerationsWs {
 
     @PostMapping
     public void createKeysgeneration(@RequestBody keysgenerations keysgenerations){
-        keysgenerationsService.createKeysgeneration(keysgenerations);
+        keysgenerationService.createKeysgeneration(keysgenerations);
     }
 
 
@@ -71,7 +72,7 @@ public class KeysgenerationsWs {
     // Example: PUT /api/cart/update/{id}
     @PutMapping("{id}")
     public void updateKeysgenerationById(@PathVariable("id") Long id, @RequestBody keysgenerations keysgenerations) {
-        keysgenerationsService.updateKeysgenerationById(keysgenerations, id); // Assuming you have a keysgenerationsService to update keysgeneration by ID
+        keysgenerationService.updateKeysgenerationById(keysgenerations, id); // Assuming you have a keysgenerationsService to update keysgeneration by ID
 
     }
 
@@ -83,7 +84,7 @@ public class KeysgenerationsWs {
 
     @DeleteMapping("{id}")
     public void deleteKeysgenerationById(@PathVariable Long id){
-        keysgenerationsService.deleteKeysgenerationById(id);
+        keysgenerationService.deleteKeysgenerationById(id);
 
     }
 

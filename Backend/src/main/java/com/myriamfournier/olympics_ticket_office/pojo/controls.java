@@ -31,9 +31,17 @@ private Long control_id;
 private Date date;
 
 @Column(length=512)
-private String scan_code;
+private String scancode;
 
 private Boolean isTicketValid;
+
+public Boolean getIsTicketValid() {
+    return isTicketValid;
+}
+
+public void setIsTicketValid(Boolean isTicketValid) {
+    this.isTicketValid = isTicketValid;
+}
 
 @ManyToOne
 // @JoinTable
@@ -42,20 +50,22 @@ private tickets tickets;
 
 @ManyToOne
 // @JoinTable
-@JoinColumn(name= "user_key_id", nullable = true)
+@JoinColumn(name= "userkey_id", nullable = true)
 private userskeys userskeys;
 
 @ManyToOne
 // @JoinTable
-@JoinColumn(name= "sale_key_id", nullable = true)
+@JoinColumn(name= "salekey_id", nullable = true)
 private saleskeys saleskeys;
 
+   // Default constructor (required by Hibernate)
+   public controls() {
+}
 
-
-public controls(Date date, String scan_code, Boolean isTicketValid, tickets tickets, userskeys userskeys, saleskeys saleskeys) {
+public controls(Date date, String scancode, Boolean isTicketValid, tickets tickets, userskeys userskeys, saleskeys saleskeys) {
     // Default constructor
     this.date = date;
-    this.scan_code = scan_code;
+    this.scancode = scancode;
     this.isTicketValid = isTicketValid;
     this.tickets = tickets;
     this.userskeys = userskeys;

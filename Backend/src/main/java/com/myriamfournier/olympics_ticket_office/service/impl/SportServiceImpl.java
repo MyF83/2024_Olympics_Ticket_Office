@@ -20,7 +20,12 @@ public class SportServiceImpl implements SportService{
     
     @Override
     public List<sports> getAllSports() {
-        return sportRepository.findAllSports();
+        return sportRepository.findAllWithDetails();
+    }
+
+    @Override
+    public List<sports> getAllWithSites() {
+        return sportRepository.findAllWithSites();
     }
 
 

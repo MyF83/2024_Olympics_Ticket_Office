@@ -31,44 +31,13 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository; // Assuming you have a UserRepository interface
 
     @Autowired
-    private KeysgenerationRepository keysgenerationsRepository; // Assuming you have a KeysgenerationsRepository interface
+    private KeysgenerationRepository keysgenerationRepository; // Assuming you have a KeysgenerationsRepository interface
 
     @Autowired
-    private UserskeyRepository userskeysRepository; // Assuming you have a UserskeysRepository interface
-    // Implement the methods defined in UserService interface here
+    private UserskeyRepository userskeyRepository; // Assuming you have a UserskeysRepository interface
+   
     
-    @Override
-    public List<users> getAllUsers() {
-        return userRepository.findAllUsers();
-    }
 
-
-    @Override
-    public users getUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
-    }
-
-
-    @Override
-public String generateUniqueUsername(String firstname, String lastname) {
-    String baseUsername = lastname + "-" + firstname;
-    String username = baseUsername;
-    int counter = 1;
-
-    // Check if the username already exists in the database
-    while (userRepository.findByUsername(username) != null) {
-        username = baseUsername + "-" + counter;
-        counter++;
-    }
-
-    return username;
-}
-
-    @Override
-    public users getUserByUsername(String username) {
-        users user = userRepository.findUserByUsername(username);
-        return user != null ? user : null; // Handle null check properly
-    }
 /* 
     @Override
     public users getUserByFirstName(String Firstname) {
@@ -79,8 +48,6 @@ public String generateUniqueUsername(String firstname, String lastname) {
     public users getUserByLastName(String Lastname) {
         return userRepository.getLastname(Lastname).orElse(null);
     }
-*/
-
 
     @Override
     public void createUser(users users) {
@@ -102,6 +69,30 @@ public String generateUniqueUsername(String firstname, String lastname) {
             userskeys.setKey(keysEntity);
             userskeysRepository.save(userskeys);
     }
+*/
+
+@Override
+public void createUser(users user) {
+    // Step 1: Generate a unique 256-character key
+    String uniqueKey = generateUnique256CharacterKey();
+
+    // Step 2: Save the key in the Keysgenerations table
+    keysgenerations keysEntity = new keysgenerations(uniqueKey);
+    keysEntity.setKeyGenerated(uniqueKey);
+    keysgenerationRepository.save(keysEntity);
+    
+
+    // Step 3: Create a new Userskeys object and link it to the generated key
+    userskeys userskeys = new userskeys();
+    userskeys.setKey(keysEntity); // Link the key to the Userskeys object
+    userskeyRepository.save(userskeys);
+
+    // Step 4: Link the Userskeys object to the User object
+    user.setUserskeys(userskeys); // Set the foreign key relationship
+    userRepository.save(user); // Save the User object
+}
+
+
 
     private String generateUnique256CharacterKey() {
         String baseKey = generate256CharacterKey();
@@ -109,7 +100,7 @@ public String generateUniqueUsername(String firstname, String lastname) {
         int counter = 1;
     
         // Check if the key already exists in the database
-        while (keysgenerationsRepository.existsByKeyGenerated(uniqueKey)) {
+        while (keysgenerationRepository.existsByKeyGenerated(uniqueKey)) {
             uniqueKey = baseKey + "-" + counter;
             counter++;
         }
@@ -197,4 +188,64 @@ public String generateUniqueUsername(String firstname, String lastname) {
         return userRepository.findByEmail(email).orElse(null); // Handle Optional properly
     }
     */
+
+    @Override
+    public List<users> getAllUsers() {
+        return userRepository.findAllWithDetails();
+    }
+
+    @Override
+    public List<users> getAllWithRoles() {
+        return userRepository.findAllWithRoles();
+    }
+
+    @Override
+    public List<users> getAllWithUserskeys() {
+        return userRepository.findAllWithUserskeys();
+    }
+
+    @Override
+    public List<users> getAllWithUserselections() {
+        return userRepository.findAllWithUserselections();
+    }
+
+    @Override
+    public List<users> getAllWithPolicies() {
+        return userRepository.findAllWithPolicies();
+    }
+
+    @Override
+    public List<users> getAllWithCountries() {
+        return userRepository.findAllWithCountries();
+    }
+
+
+    @Override
+    public users getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+
+    @Override
+public String generateUniqueUsername(String firstname, String lastname) {
+    String baseUsername = lastname + "-" + firstname;
+    String username = baseUsername;
+    int counter = 1;
+
+    // Check if the username already exists in the database
+    while (userRepository.findByUsername(username) != null) {
+        username = baseUsername + "-" + counter;
+        counter++;
+    }
+
+    return username;
+}
+
+    @Override
+    public users getUserByUsername(String username) {
+        users user = userRepository.findUserByUsername(username);
+        return user != null ? user : null; // Handle null check properly
+    }
+
+
 }

@@ -33,12 +33,16 @@ public class SiteWs {
 
     //GET method to retrieve all sites
     // Example: GET /api/site/all   
-    @GetMapping("all")
-    /*@ResponseBody*/
-    public List<sites> getAllSites() {
+    @GetMapping
+    public List<sites> getAllSitesDefault() {
         return siteService.getAllSites(); // Assuming you have a siteService to fetch all sites
     }  
 
+
+    @GetMapping("/countries")
+    public List<sites> getAllWithCountries() {
+        return siteService.getAllWithCountries(); // Assuming you have a siteService to fetch all sites
+    }  
 
     //GET method to retrieve a site by ID
     // Example: GET /api/site/{id}

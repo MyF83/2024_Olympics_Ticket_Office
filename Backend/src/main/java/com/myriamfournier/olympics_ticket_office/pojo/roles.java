@@ -23,6 +23,12 @@ private Long role_id;
 private String name;
 private String description;
 
+
+   // Default constructor (required by Hibernate)
+   public roles() {
+}
+
+
 public roles(String name, String description) {
         // Default constructor
         this.name = name;

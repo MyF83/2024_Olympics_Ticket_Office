@@ -39,7 +39,9 @@ private Integer nbseatsc2;
 private Integer nbseatsc3;
 
 
-
+   // Default constructor (required by Hibernate)
+   public sites() {
+}
 
 public sites(String name, String description, String address, String city, String postalCode, countries countries, Integer nbseatsc1, Integer nbseatsc2, Integer nbseatsc3) {
     // Default constructor

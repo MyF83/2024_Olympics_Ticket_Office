@@ -7,33 +7,33 @@ import org.springframework.stereotype.Service;
 
 import com.myriamfournier.olympics_ticket_office.pojo.keysgenerations;
 import com.myriamfournier.olympics_ticket_office.repository.KeysgenerationRepository;
-import com.myriamfournier.olympics_ticket_office.service.KeysgenerationsService;
+import com.myriamfournier.olympics_ticket_office.service.KeysgenerationService;
 
 @Service
-public class KeysgenerationServiceImpl implements KeysgenerationsService{
+public class KeysgenerationServiceImpl implements KeysgenerationService{
 
 @Autowired
-    private KeysgenerationRepository keysgenerationsRepository; // Assuming you have a KeysgenerationsRepository interface
+    private KeysgenerationRepository keysgenerationRepository; // Assuming you have a KeysgenerationsRepository interface
 
 
     // Implement the methods defined in KeysgenerationsService interface here
     
     @Override
     public List<keysgenerations> getAllKeysgenerations() {
-        return keysgenerationsRepository.findAllKeysgenerations();
+        return keysgenerationRepository.findAllKeysgenerations();
     }
 
 
     @Override
     public keysgenerations getKeysgenerationById(Long id) {
-        return keysgenerationsRepository.findById(id).orElse(null);
+        return keysgenerationRepository.findById(id).orElse(null);
     }
 
 
 
     @Override
     public void createKeysgeneration(keysgenerations keysgenerations) {
-        keysgenerationsRepository.save(keysgenerations);
+        keysgenerationRepository.save(keysgenerations);
     }
 
 
@@ -46,7 +46,7 @@ public class KeysgenerationServiceImpl implements KeysgenerationsService{
             keysgenerations oldKeysgeneration = getKeysgenerationById(id);
 
         if(oldKeysgeneration != null){
-            keysgenerationsRepository.save(oldKeysgeneration);
+            keysgenerationRepository.save(oldKeysgeneration);
         }
     }
 
@@ -55,7 +55,7 @@ public class KeysgenerationServiceImpl implements KeysgenerationsService{
 
     @Override
     public void deleteKeysgenerationById(Long id) {
-        keysgenerationsRepository.deleteById(id);
+        keysgenerationRepository.deleteById(id);
     }
 
   

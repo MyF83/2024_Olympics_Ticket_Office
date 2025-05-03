@@ -7,6 +7,7 @@ import com.myriamfournier.olympics_ticket_office.pojo.sports;
 public interface SportService{
 
     List<sports> getAllSports();
+    List<sports> getAllWithSites();
 
     sports getSportById(Long id);
 

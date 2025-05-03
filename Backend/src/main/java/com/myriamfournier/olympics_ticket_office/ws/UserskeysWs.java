@@ -33,11 +33,22 @@ public class UserskeysWs {
 
     //GET method to retrieve all userskeys
     // Example: GET /api/usersekeys/all   
-    @GetMapping("all")
-    /*@ResponseBody*/
-    public List<userskeys> getAllUserskeys() {
+    @GetMapping
+    public List<userskeys> getAllUserskeysDefault() {
         return userskeysService.getAllUserskeys(); // Assuming you have a userskeysService to fetch all userskeys
     }  
+
+    @GetMapping("users")
+    public List<userskeys> getAllWithUsers() {
+        return userskeysService.getAllWithUsers(); // Assuming you have a userskeysService to fetch all userskeys
+    } 
+
+    @GetMapping("keys")
+    public List<userskeys> getAllWithKeysgenerations() {
+        return userskeysService.getAllWithKeysgenerations(); // Assuming you have a userskeysService to fetch all userskeys
+    } 
+
+
 
 
     //GET method to retrieve a userskey by ID

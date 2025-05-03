@@ -39,10 +39,10 @@ public class UserWs {
     // Example: public User getUserById(Long id) { ... }
     // Example: public User updateUser(Long id, User user) { ... }
     
- @GetMapping
+ /*@GetMapping // Cannot have 2 methods with @GetMapping
     public ResponseEntity<String> defaultApiEndpoint() {
         return ResponseEntity.ok("User Page");
-    }
+    }*/
 // ///////////////////////////////////////////////// //
 //       ALL GET METHODS FOR USER ENTITY            //
 // /////////////////////////////////////////////// //
@@ -50,11 +50,36 @@ public class UserWs {
 
     //GET method to retrieve all users
     // Example: GET /api/user/all   
-    @GetMapping("all")
-    @ResponseBody
-    public List<users> getAllUsers() {
+    @GetMapping
+    public List<users> getAllUsersDefault() {
         return userService.getAllUsers(); // Assuming you have a userService to fetch all users
-    }  
+    } 
+    
+    
+    @GetMapping("roles")
+    public List<users> getAllWithRoles() {
+        return userService.getAllWithRoles(); // Assuming you have a userService to fetch all users
+    } 
+
+    @GetMapping("userskeys")
+    public List<users> getAllWithUserskeys() {
+        return userService.getAllWithUserskeys(); // Assuming you have a userService to fetch all users
+    } 
+
+    @GetMapping("userselections")
+    public List<users> getAllWithUserselections() {
+        return userService.getAllWithUserselections(); // Assuming you have a userService to fetch all users
+    } 
+
+    @GetMapping("policies")
+    public List<users> getAllWithPolicies() {
+        return userService.getAllWithPolicies(); // Assuming you have a userService to fetch all users
+    } 
+
+    @GetMapping("countries")
+    public List<users> getAllWithCountries() {
+        return userService.getAllWithCountries(); // Assuming you have a userService to fetch all users
+    } 
 
 
     //GET method to retrieve a user by ID

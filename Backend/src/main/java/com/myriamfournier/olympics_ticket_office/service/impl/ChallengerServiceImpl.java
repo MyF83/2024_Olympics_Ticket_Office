@@ -20,7 +20,12 @@ public class ChallengerServiceImpl implements ChallengerService{
     
     @Override
     public List<challengers> getAllChallengers() {
-        return challengerRepository.findAllChallengers();
+        return challengerRepository.findAllWithDetails();
+    }
+
+    @Override
+    public List<challengers> getAllWithCountries() {
+        return challengerRepository.findAllWithCountries();
     }
 
 

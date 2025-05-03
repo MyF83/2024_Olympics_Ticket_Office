@@ -13,8 +13,10 @@ public interface ApiRegistration {
     public static final String USERSELECTION = "/userselection";
     public static final String CEREMONY = "/ceremony";
     public static final String CART = "/cart";
+    public static final String POLICY = "/policy";
     public static final String CHALLENGER = "/challenger";
     public static final String COUNTRY = "/country";
+    public static final String CONTROL = "/control";
     public static final String ROLE = "/role";
     public static final String SITE = "/site";
     public static final String SALE = "/sale";

@@ -33,10 +33,14 @@ public class ChallengerWs {
 
     //GET method to retrieve all challengers
     // Example: GET /api/challenger/all   
-    @GetMapping("all")
-    /*@ResponseBody*/
-    public List<challengers> getAllChallengers() {
+    @GetMapping
+    public List<challengers> getAllChallengersDefault() {
         return challengerService.getAllChallengers(); // Assuming you have a challengerService to fetch all challengers
+    }  
+
+    @GetMapping("/countries")
+    public List<challengers> getAllWithCountries() {
+        return challengerService.getAllWithCountries(); // Assuming you have a challengerService to fetch all challengers
     }  
 
 

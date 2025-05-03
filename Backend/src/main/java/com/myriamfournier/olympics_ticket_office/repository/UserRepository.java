@@ -14,10 +14,34 @@ public interface UserRepository extends CrudRepository<users, Long> {
     // This interface will automatically provide CRUD operations for the users entity
     // You can add custom query methods here if needed
 
-
+/* 
     @Query("SELECT a FROM users a") // JPA -> Java Persistence API
-    List<users> findAllUsers();
+    List<users> findAllUsers();*/
 
+    @Query("SELECT e FROM users e LEFT JOIN FETCH e.roles LEFT JOIN FETCH e.userskeys LEFT JOIN FETCH e.userselections LEFT JOIN FETCH e.policies LEFT JOIN FETCH e.countries")
+    List<users> findAllWithDetails();
+
+    @Query("SELECT e FROM users e LEFT JOIN FETCH e.roles")
+    List<users> findAllWithRoles();
+    
+    @Query("SELECT e FROM users e LEFT JOIN FETCH e.userskeys")
+    List<users> findAllWithUserskeys();
+    
+    @Query("SELECT e FROM users e LEFT JOIN FETCH e.userselections")
+    List<users> findAllWithUserselections();
+    
+    @Query("SELECT e FROM users e LEFT JOIN FETCH e.policies")
+    List<users> findAllWithPolicies();
+
+    @Query("SELECT e FROM users e LEFT JOIN FETCH e.countries")
+    List<users> findAllWithCountries();
+
+
+
+/* 
+    @Query("SELECT e FROM users e WHERE e.user_id = ?1")
+    users findById(Long id); // Assuming you have a method to find by ID
+*/
     @Query("SELECT u FROM users u WHERE u.lastname = ?1")
     users getLastName(String lastname);
 
