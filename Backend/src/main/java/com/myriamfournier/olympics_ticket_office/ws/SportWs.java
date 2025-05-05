@@ -90,5 +90,10 @@ public class SportWs {
 
     }
 
+    /* 
+    @GetMapping("/refresh/{id}")
+    public sports refreshSportById(@PathVariable("id") Long id) {
+        return sportService.getFreshSport(id); // Call the service method to refresh the entity
+    }*/
 
 }

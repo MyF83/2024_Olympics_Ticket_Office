@@ -100,7 +100,7 @@ INSERT INTO ceremonies (cerem_id, name, description, site_id) VALUES (4, 'Openin
 INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (1, 'Swimming', 'Swimming olympic games competition', false, 3);
 INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (2, 'Archery', 'Archery olympic games competition', true, 13);
 INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (3, 'Table-tennis', 'Table-tennis olympic games competition', false, 15);
-INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (4, 'Volleyball', 'Volleyball olympic games competition', false, 15); 
+INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (4, 'Volleyball', 'Volleyball olympic games competition', true, 15); 
 INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (5, 'Handball', 'Handball olympic games competition', false, 15);
 INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (6, 'Taekwondo', 'Taekwondo olympic games competition', false, 14);    
 INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (7, 'Fencing', 'Fencing olympic games competition', true, 14);        

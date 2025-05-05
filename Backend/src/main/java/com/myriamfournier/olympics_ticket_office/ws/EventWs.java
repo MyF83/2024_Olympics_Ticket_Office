@@ -111,4 +111,9 @@ public List<events> getAllWithChallenger2() {
     }
 
 
+   /*  @GetMapping("/refresh/{id}")
+public events refreshEventById(@PathVariable("id") Long id) {
+    return eventService.getFreshEvent(id); // Call the service method to refresh the entity
+}*/
+
 }

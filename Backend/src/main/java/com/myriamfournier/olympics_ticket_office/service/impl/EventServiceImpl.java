@@ -9,6 +9,9 @@ import com.myriamfournier.olympics_ticket_office.pojo.events;
 import com.myriamfournier.olympics_ticket_office.repository.EventRepository;
 import com.myriamfournier.olympics_ticket_office.service.EventService;
 
+// import javax.persistence.EntityManager;
+// import javax.persistence.PersistenceContext;
+
 @Service
 public class EventServiceImpl implements EventService{
 
@@ -92,6 +95,20 @@ public class EventServiceImpl implements EventService{
     }
 
   
+   /* @PersistenceContext
+    private EntityManager entityManager;
+
  
+    public EventService(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
+    }
+
+    @Transactional
+    public events getFreshEvent(Long id) {
+        events events = eventRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Event not found"));
+        entityManager.refresh(events); // This reloads the entity from the DB
+        return events;
+    }*/
 
 }

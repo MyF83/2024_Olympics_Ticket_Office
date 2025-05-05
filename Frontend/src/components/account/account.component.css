@@ -1,0 +1,10 @@
+:host {
+    display: block;
+    margin: 0 auto;
+    width : 90%;
+    padding: 20px;
+    background-color: hsl(53, 100%, 95%);
+    color: #a1920e;
+    font-family: Arial, sans-serif;
+    min-height : 55vh;
+}

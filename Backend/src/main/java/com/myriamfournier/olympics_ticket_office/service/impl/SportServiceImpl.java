@@ -9,6 +9,9 @@ import com.myriamfournier.olympics_ticket_office.pojo.sports;
 import com.myriamfournier.olympics_ticket_office.repository.SportRepository;
 import com.myriamfournier.olympics_ticket_office.service.SportService;
 
+// import javax.persistence.EntityManager;
+// import javax.persistence.PersistenceContext;
+
 @Service
 public class SportServiceImpl implements SportService{
 
@@ -70,7 +73,24 @@ public class SportServiceImpl implements SportService{
         sportRepository.deleteById(id);
     }
 
-  
+  /*
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    
  
+    public SportService(SportRepository sportRepository) {
+        this.sportRepository = sportRepository;
+    }
+
+    @Transactional
+    public sports getFreshSport(Long id) {
+        sports sports = sportRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Sport not found"));
+        entityManager.refresh(sports); // This reloads the entity from the DB
+        return sports;
+    }*/
+
+
 
 }
