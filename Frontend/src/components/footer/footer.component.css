@@ -1,8 +1,8 @@
 /* General Footer Styles */
 .footer {
     width: 100%;
-    background-color: #1a1a1a; /* Dark background */
-    color: #ffffff; /* White text */
+    background: linear-gradient( #141312 ,  #1b1a17 205px ,#424034 , #b3a677) ; 
+    color: #d6c278; /* White text */
     padding: 20px 0;
     font-family: 'Arial', sans-serif;
     min-height :19vh;
@@ -33,7 +33,7 @@
   
   .footer-left p {
     font-size: 0.9rem;
-    color: #cccccc; /* Light gray text */
+    color: #d6c278; /* Light gray text */
   }
   
   /* Center Section */
@@ -45,14 +45,14 @@
   }
   
   .footer-link {
-    color: #ffffff;
+    color: #d6c278;
     text-decoration: none;
     font-size: 1rem;
     transition: color 0.3s ease;
   }
   
   .footer-link:hover {
-    color: #f0c419; /* Gold hover effect */
+    color: #d9c26d; /* Gold hover effect */
   }
   
   /* Right Section */
@@ -66,6 +66,7 @@
   .social-links {
     display: flex;
     gap: 15px;
+    color : #d6c278;
   }
   
   .social-links img {
@@ -81,7 +82,7 @@
 
   .Copyright {
     font-size: 0.75rem;
-    color: #fff; /* white text */
+    color: #d6c278; /* white text */
     text-align: center;
   }
   

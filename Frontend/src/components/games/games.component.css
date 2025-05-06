@@ -5,7 +5,7 @@
   width : 90%;
   padding: 20px;
   background-color: hsl(53, 100%, 95%);
-  color: #a1920e;
+  color: #d6c278;
   font-family: Arial, sans-serif;
   min-height : 55vh;
 }
@@ -51,6 +51,7 @@
   flex-direction: column;
   align-items: center;
   transition: box-shadow 0.2s;
+  margin-bottom : 30px;
 }
 
 .game-card:hover {
@@ -81,7 +82,8 @@
 
 .game-card h4, .game-card h5 {
   margin: 16px 0 8px 0;
-  color: #1976d2;
+  color : #d6c278;
+  text-shadow: 0 0 0.1px #a29919;
   font-size: 1.1em;
 }
 
@@ -152,21 +154,21 @@ color: #888;
 
 .card_moredetails_btn {
   padding: 10px 40px;
-  background-color: rgba(209, 192, 80, 1);
-  width :200px;
+  background-color: #d6c278;
+  width :180px;
   border: none;
   border-radius: 15px;
-  font-size: 1.1em;
+  font-size: 0.9em;
+  font-weight: bold;
   color: #0e0d0d;
   margin-top: auto;      /* Pushes the button to the bottom */
-  margin-bottom: 20px;   /* 20px space from the bottom */
+  margin-bottom: 5px;   /* 20px space from the bottom */
   vertical-align: bottom;
-  
 }
 .card_moredetails_btn .hover{
   padding: 10px 40px;
   background-color: rgba(209, 192, 80, 1);
-  width :200px;
+  width :180px;
   border: none;
   border-radius: 15px;
   font-size: 1.1em;
@@ -175,6 +177,10 @@ color: #888;
   margin-bottom: 20px;   /* 20px space from the bottom */
   vertical-align: bottom;
   
+}
+
+.card-details {
+  margin-bottom : 30px;
 }
 
 /* gamesmodal.component.css */

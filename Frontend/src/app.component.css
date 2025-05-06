@@ -1,6 +1,6 @@
 :host {
-  --bright-gold: oklch(82% 0.1197 97.94);
-  --dark-gold: oklch(72.7% 0.1197 97.94);
+  --bright-gold: #e5d18c;
+  --dark-gold: #d6c278;
   --bright-blue: oklch(72.7% 0.1241 246.18);
   --dark-blue: oklch(65.58% 0.1241 246.18);
   --bright-green: oklch(80.42% 0.1625 173.06);
