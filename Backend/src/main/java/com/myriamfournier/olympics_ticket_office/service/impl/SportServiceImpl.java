@@ -60,7 +60,7 @@ public class SportServiceImpl implements SportService{
         if(oldSport != null){
             oldSport.setName(sports.getName());
             oldSport.setDescription(sports.getDescription());
-            oldSport.setIsParalymp(sports.getIsParalymp());
+            oldSport.setIsParalympic(sports.getIsParalympic());
             sportRepository.save(oldSport);
         }
     }

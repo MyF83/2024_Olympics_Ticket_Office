@@ -48,7 +48,7 @@
                 <p> {{ game.challenger2?.name }} </p>
                 <!--<p><strong>Description:</strong> {{ game.sports.description }}</p>-->
                 <p><strong>Is this a paralympic competition ?</strong></p>
-                <p> {{ game.sports.is_paralympic ? 'yes, this is a paralympic game.' : 'no' }}</p>
+                <p> {{ game.sports.isParalympic ? 'yes, this is a paralympic game.' : 'no' }}</p>
 
                 <!-- Sites of Sports Section -->
                 <div *ngIf="game.sports.sites">

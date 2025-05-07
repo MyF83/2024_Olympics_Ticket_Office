@@ -25,7 +25,7 @@ private Long sport_id;
 
 private String name;
 private String description;
-private Boolean isParalymp;
+private Boolean isParalympic;
 
 @ManyToOne
 @JoinColumn(name= "site_id", nullable = true)
@@ -36,11 +36,11 @@ private sites sites;
 }
 
 
-public sports(String name, String description, Boolean isParalymp, sites sites) {
+public sports(String name, String description, Boolean isParalympic, sites sites) {
     // Default constructor
     this.name = name;       
     this.description = description;
-    this.isParalymp = isParalymp;
+    this.isParalympic = isParalympic;
     this.sites = sites;
 
    

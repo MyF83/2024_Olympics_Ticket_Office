@@ -27,10 +27,10 @@ export class HomeComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    console.log('Fetching games...'); // Log when fetching games
     this.gameService.getGames().subscribe((games: Gamesinterface[]) => {
       this.games = games;
       this.filteredGames = games;
+      console.log('Fetching Game details:', this.games); // Log when fetching games
       
     });
     /*this.dialogRef.open(GamesmodalComponent, {
@@ -48,6 +48,10 @@ export class HomeComponent implements OnInit {
       (game.sports && game.sports?.name && game.sports.name.toLowerCase().includes(term)) ||
       (game.sports && game.sports?.description && game.sports.description.toLowerCase().includes(term)) ||
       (game.sports && game.sports?.date && game.sports.date.toLowerCase().includes(term)) ||
+      (game.sports && typeof game.sports.isParalympic !== 'undefined' && 
+        (String(game.sports.isParalympic).toLowerCase().includes(term) || 
+         (game.sports.isParalympic && 'paralympic'.includes(term)))
+      ) ||
       (game.sports && game.challenger1?.name && game.challenger1.name.toLowerCase().includes(term)) ||
       (game.sports && game.challenger2?.name && game.challenger2.name.toLowerCase().includes(term)) ||
       (game.sports && game.sports.sites && game.sports?.sites?.name && game.sports.sites.name.toLowerCase().includes(term)) ||

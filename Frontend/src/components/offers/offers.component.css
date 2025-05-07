@@ -1,3 +1,4 @@
+/* Ensure the component has a visible layout */
 :host {
     display: block;
     margin: 0 auto;
@@ -7,4 +8,53 @@
     color: #d6c278;
     font-family: Arial, sans-serif;
     min-height : 55vh;
+  }
+
+  /* Add styles for a title */
+.offers-title {
+    font-size: 24px;
+    border-bottom: 2px solid #f4f4e2; 
+    margin-bottom: 16px;
 }
+
+.offers-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    color : #333;
+    margin-top: 32px;
+  }
+  
+  .offer-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 10px 50px;
+    /* padding: 24px 20px; */
+    width: 320px;
+    display: inline-block;
+    flex-direction: column;
+    align-items: center;
+    transition: box-shadow 0.2s;
+    margin-bottom : 30px;
+  }
+  
+  .offer-card:hover {
+    box-shadow: 0 4px 24px rgba(0,0,0,0.16);
+  }
+
+  .offers-infos{
+    text-align : center;
+    color : #0082c7;
+    font-size : 1.3em;
+    font-weight : bold;
+
+  }
+  /* background: linear-gradient(to bottom right, #fff 2%, #0082c7 30px, #fff ,#e8384f, #fff 55px); /* French tricolor flag gradient */
+
+  .offers_img {
+    width: 200px;
+    height: auto;
+    margin-left : 55px;
+  }

@@ -97,16 +97,16 @@ INSERT INTO ceremonies (cerem_id, name, description, site_id) VALUES (4, 'Openin
 
 -- Insert sports 
 --INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (1, 'Athletics', 'Athletics is a collection of sporting events that involves competitive running, jumping, throwing, and walking.', false, null);
-INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (1, 'Swimming', 'Swimming olympic games competition', false, 3);
-INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (2, 'Archery', 'Archery olympic games competition', true, 13);
-INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (3, 'Table-tennis', 'Table-tennis olympic games competition', false, 15);
-INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (4, 'Volleyball', 'Volleyball olympic games competition', true, 15); 
-INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (5, 'Handball', 'Handball olympic games competition', false, 15);
-INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (6, 'Taekwondo', 'Taekwondo olympic games competition', false, 14);    
-INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (7, 'Fencing', 'Fencing olympic games competition', true, 14);        
-INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (8, 'Boxing', 'Boxing olympic games competition', true, 11); 
-INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (9, 'Football', 'Football olympic games competition', true, 7); 
-INSERT INTO sports (sport_id, name, description, is_paralymp, site_id) VALUES (9, 'BMX freestyle', 'BMX freestyle olympic games competition', true, 4);
+INSERT INTO sports (sport_id, name, description, is_paralympic, site_id) VALUES (1, 'Swimming', 'Swimming olympic games competition', false, 3);
+INSERT INTO sports (sport_id, name, description, is_paralympic, site_id) VALUES (2, 'Archery', 'Archery olympic games competition', true, 13);
+INSERT INTO sports (sport_id, name, description, is_paralympic, site_id) VALUES (3, 'Table-tennis', 'Table-tennis olympic games competition', false, 15);
+INSERT INTO sports (sport_id, name, description, is_paralympic, site_id) VALUES (4, 'Volleyball', 'Volleyball olympic games competition', true, 15); 
+INSERT INTO sports (sport_id, name, description, is_paralympic, site_id) VALUES (5, 'Handball', 'Handball olympic games competition', false, 15);
+INSERT INTO sports (sport_id, name, description, is_paralympic, site_id) VALUES (6, 'Taekwondo', 'Taekwondo olympic games competition', false, 14);    
+INSERT INTO sports (sport_id, name, description, is_paralympic, site_id) VALUES (7, 'Fencing', 'Fencing olympic games competition', true, 14);        
+INSERT INTO sports (sport_id, name, description, is_paralympic, site_id) VALUES (8, 'Boxing', 'Boxing olympic games competition', true, 11); 
+INSERT INTO sports (sport_id, name, description, is_paralympic, site_id) VALUES (9, 'Football', 'Football olympic games competition', true, 7); 
+INSERT INTO sports (sport_id, name, description, is_paralympic, site_id) VALUES (9, 'BMX freestyle', 'BMX freestyle olympic games competition', true, 4);
 
 -- Insert events 
 -- INSERT INTO events (event_id, title, date, image, description, sport_id, cerem_id, challenger1_id, challenger2_id, pricec1, nbseatssoldc1, nbseatsavailc1, pricec2, nbseatssoldc2, nbseatsavailc2, pricec3, nbseatssoldc3, nbseatsavailc3) VALUES (1, '2024-07-04', 'The opening ceremony of the Olympic Games', null, null, null, null, 590.50, 1, 9999, 899.90, 1, 2999, 1299.55, 1, 999);
@@ -118,9 +118,9 @@ INSERT INTO events (event_id, title, date, image, description, sport_id, cerem_i
 
 
 -- Insert offers 
-INSERT INTO offers (offer_id, title, description, rate, nb_spectators) VALUES (1, 'Solo Offer', 'No special discount ticket pricing (default)', 0, 1);
-INSERT INTO offers (offer_id, title, description, rate, nb_spectators) VALUES (2, 'Duo Offer', 'A 10% off for you 2-persons discount ticket', 10, 2);
-INSERT INTO offers (offer_id, title, description, rate, nb_spectators) VALUES (3, 'Quatro Offer', 'A 20% off for you 4-persons discount ticket', 20, 4);
+INSERT INTO offers (offer_id, title, description, rate, nb_spectators) VALUES (1, 'Solo Offer', 'Get 5% off with the Solo Offer', 5, 1);
+INSERT INTO offers (offer_id, title, description, rate, nb_spectators) VALUES (2, 'Duo Offer', 'A 10% off for you 2-persons discount ticket', 15, 2);
+INSERT INTO offers (offer_id, title, description, rate, nb_spectators) VALUES (3, 'Quatro Offer', 'A 20% off for you 4-persons discount ticket', 35, 4);
 
 
 -- Insert userselections 
