@@ -81,12 +81,36 @@ Afin de pouvoir lancer le projet en local, vous devez avoir ces outils sur votre
 
       IMPORTANT : veillez à désactiver les bloqueurs de publicités et pop-up pour le locahost, sans quoi vous aurez sans doute des problèmes pour accéder au contenu.
 
-      IMPORTANT : ne pas modifier ou supprimer la secret key définie dans applciations.properties (dossier "resources" du backend), car sans elle les comptes utilisateurs, employés et administrateurs créés ne seront plus accessibles. D'ailleurs il faut également ne pas supprimer ni modifier le fichier import.sql qui se trouve dans le même dossier, pour les mêmes raisons.
+      IMPORTANT (2): ne pas modifier ou supprimer la secret key définie dans applciations.properties (dossier "resources" du backend), car sans elle les comptes utilisateurs, employés et administrateurs créés ne seront plus accessibles. D'ailleurs il faut également ne pas supprimer ni modifier le fichier import.sql qui se trouve dans le même dossier, pour les mêmes raisons.
 
 Je vous conseille les IDEs suivants :
 - [IntelliJ](https://www.jetbrains.com/fr-fr/idea/download/) (pour le back)
 - [WebStorm](https://www.jetbrains.com/fr-fr/webstorm/download/) (pour le front)
 - [Visual Studio Code](https://code.visualstudio.com/)
+
+
+
+### Mots de passe des comptes sur l'API :
+
+Si vous consultez le fichier import.sql qui contient les INSERT INTO qui alimentent la base de données au démarrage, vous constaterez que les mots de passe utilisateurs sont cryptés. C'est bien le cas, via PasswordEncoder.
+
+Voici donc les mots de passe en clair pour pouvoir utiliser l'application :
+
+- Compte Administrateur global : (role_id : 1)
+Username : Superad-Min
+Password : p@sswordnot$ecur3dAdmin
+
+- Compte Employé : (role_id : 2)
+Username : Empl-Oyee
+Password : passwordnotsecuredemployee
+
+- Comptes utilisateurs sans provilèges : (role_id : 3)
+Username : Bond-James
+Password : p@s$wordn0tseQrd007
+
+Username : Fournier-Myriam
+Password : passwordnotsecured1
+
 
 
 ### Commandes de lancement :
