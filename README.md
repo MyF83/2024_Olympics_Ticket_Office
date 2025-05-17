@@ -22,7 +22,7 @@ Comme une image vaut mille mots, voici à quoi ressemble l'application :
 
 La présente application est une billetterie en ligne pour sélectionner et acheter des places aux différents évènements programmés pendant les jeux olympiques de Paris. 
 
-Cette applciation se compose d'un Backend JAVA (API) et d'un Frontend Angular. Le projet suit le pattern MVC (Modèle - Vue Contrôleur). 
+Cette application se compose d'un Backend JAVA (API) et d'un Frontend Angular. Le projet suit le pattern MVC (Modèle - Vue Contrôleur). 
 
 Bonne visite de mon application !
 
