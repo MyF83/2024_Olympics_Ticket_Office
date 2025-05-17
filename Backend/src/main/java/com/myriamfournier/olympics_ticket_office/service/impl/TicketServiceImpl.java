@@ -35,6 +35,7 @@ public class TicketServiceImpl implements TicketService{
         return ticketRepository.findAllWithDetails();
     }
 
+    /* 
     @Override
     public List<tickets> getAllWithUserskeys() {
         return ticketRepository.findAllWithUserskeys();
@@ -43,13 +44,14 @@ public class TicketServiceImpl implements TicketService{
     @Override
     public List<tickets> getAllWithSaleskeys() {
         return ticketRepository.findAllWithSaleskeys();
-    }
+    }*/
 
     @Override
     public List<tickets> getAllWithSales() {
         return ticketRepository.findAllWithSales();
     }
 
+    /* 
     @Override
     public List<tickets> getAllWithCarts() {
         return ticketRepository.findAllWithCarts();
@@ -63,7 +65,7 @@ public class TicketServiceImpl implements TicketService{
     @Override
     public List<tickets> getAllWithUserselections() {
         return ticketRepository.findAllWithUserselections();
-    }
+    */
 
 
     @Override
@@ -77,12 +79,14 @@ public class TicketServiceImpl implements TicketService{
     public void createTicket(tickets tickets) {
         // Fetch the user key
        // String userKey = ((userskeys) tickets.getUserskeys().getKey()).getKeyGenerated();
-       String userKey = tickets.getUserskeys().getKey().getKeyGenerated();
+      // String userKey = tickets.getUserskeys().getKey().getKeyGenerated();
+      String userKey = tickets.getSales().getCarts().getUsers().getUserskeys().getKey().getKeyGenerated();
 
 
         // Fetch the sale key
         //String saleKey = ((saleskeys) tickets.getSaleskeys().getKey()).getKeyGenerated();
-        String saleKey = tickets.getSaleskeys().getKey().getKeyGenerated();
+        // String saleKey = tickets.getSaleskeys().getKey().getKeyGenerated();
+        String saleKey = tickets.getSales().getSaleskeys().getKeysgenerations().getKeyGenerated();
 
         // Assemble the keys
         String keyAssembly = userKey + saleKey;

@@ -8,7 +8,7 @@ public interface CartService{
 
     List<carts> getAllCarts();
     List<carts> getAllWithUsers();
-    List<carts> getAllWithUserselections();
+    /* List<carts> getAllWithUserselections();*/
 
     carts getCartById(Long id);
 

@@ -7,7 +7,7 @@ import com.myriamfournier.olympics_ticket_office.pojo.userskeys;
 public interface UserskeyService{
 
     List<userskeys> getAllUserskeys();
-    List<userskeys> getAllWithUsers();
+  
     List<userskeys> getAllWithKeysgenerations();
 
     userskeys getUserskeyById(Long id);

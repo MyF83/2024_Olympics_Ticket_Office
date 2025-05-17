@@ -106,21 +106,21 @@ INSERT INTO sports (sport_id, name, description, is_paralympic, site_id) VALUES 
 INSERT INTO sports (sport_id, name, description, is_paralympic, site_id) VALUES (7, 'Fencing', 'Fencing olympic games competition', true, 14);        
 INSERT INTO sports (sport_id, name, description, is_paralympic, site_id) VALUES (8, 'Boxing', 'Boxing olympic games competition', true, 11); 
 INSERT INTO sports (sport_id, name, description, is_paralympic, site_id) VALUES (9, 'Football', 'Football olympic games competition', true, 7); 
-INSERT INTO sports (sport_id, name, description, is_paralympic, site_id) VALUES (9, 'BMX freestyle', 'BMX freestyle olympic games competition', true, 4);
+INSERT INTO sports (sport_id, name, description, is_paralympic, site_id) VALUES (10, 'BMX freestyle', 'BMX freestyle olympic games competition', true, 4);
 
 -- Insert events 
 -- INSERT INTO events (event_id, title, date, image, description, sport_id, cerem_id, challenger1_id, challenger2_id, pricec1, nbseatssoldc1, nbseatsavailc1, pricec2, nbseatssoldc2, nbseatsavailc2, pricec3, nbseatssoldc3, nbseatsavailc3) VALUES (1, '2024-07-04', 'The opening ceremony of the Olympic Games', null, null, null, null, 590.50, 1, 9999, 899.90, 1, 2999, 1299.55, 1, 999);
-INSERT INTO events (event_id, title, date, image, description, sport_id, cerem_id, challenger1_id, challenger2_id, pricec1, nbseatssoldc1, nbseatsavailc1, pricec2, nbseatssoldc2, nbseatsavailc2, pricec3, nbseatssoldc3, nbseatsavailc3) VALUES (1, 'The opening ceremony', '2024-06-29', 'img/Overture-ceremony-sml.jpg', 'The opening ceremony of the Olympic Games will begin at 20h00 (GMT Paris) and will probably finish at 22h00, maybe more. It will take place in the border of the Seine. Many artists will be there tonight to celebrate this event.', null, 1, null, null, 1590.50, 1, 9999, 1899.90, 1, 2999, 11299.55, 1, 999);
-INSERT INTO events (event_id, title, date, image, description, sport_id, cerem_id, challenger1_id, challenger2_id, pricec1, nbseatssoldc1, nbseatsavailc1, pricec2, nbseatssoldc2, nbseatsavailc2, pricec3, nbseatssoldc3, nbseatsavailc3) VALUES (2, 'First table tennis men match', '2024-07-04', 'img/Table-tennis-men-sml.jpg', 'First table tennis men match will start at 14h00.', 3, null, 1, 4, 590.50, 1, 9999, 899.90, 1, 2999, 1299.55, 1, 999);
-INSERT INTO events (event_id, title, date, image, description, sport_id, cerem_id, challenger1_id, challenger2_id, pricec1, nbseatssoldc1, nbseatsavailc1, pricec2, nbseatssoldc2, nbseatsavailc2, pricec3, nbseatssoldc3, nbseatsavailc3) VALUES (3, 'First voleyball women match','2024-07-04', 'img/Volley-ball-women-sml.jpg', 'First voleyball women match to start the course to the golden medal, at 15h30.', 4, null, 38, 39, 590.50, 1, 9999, 899.90, 1, 2999, 1299.55, 1, 999);
-INSERT INTO events (event_id, title, date, image, description, sport_id, cerem_id, challenger1_id, challenger2_id, pricec1, nbseatssoldc1, nbseatsavailc1, pricec2, nbseatssoldc2, nbseatsavailc2, pricec3, nbseatssoldc3, nbseatsavailc3) VALUES (4, 'Closing ceremony','2024-07-21', 'img/Closing-ceremony-sml.jpg', 'Closing ceremony of the Olympic Games will start at 20h30 (GMT Paris) on the France Stadium of Paris.', null, 3, null, null, 590.50, 1, 9999, 899.90, 1, 2999, 1299.55, 1, 999);
+INSERT INTO events (event_id, title, date, time, image, description, sport_id, cerem_id, challenger1_id, challenger2_id, pricec1, nbseatssoldc1, nbseatsavailc1, pricec2, nbseatssoldc2, nbseatsavailc2, pricec3, nbseatssoldc3, nbseatsavailc3) VALUES (1, 'The opening ceremony', '2024-06-29', '20h00', 'img/Overture-ceremony-sml.jpg', 'The opening ceremony of the Olympic Games will begin at 20h00 (GMT Paris) and will probably finish at 22h00, maybe more. It will take place in the border of the Seine. Many artists will be there tonight to celebrate this event.', null, 1, null, null, 1590.50, 1, 9999, 1899.90, 1, 2999, 11299.55, 1, 999);
+INSERT INTO events (event_id, title, date, time, image, description, sport_id, cerem_id, challenger1_id, challenger2_id, pricec1, nbseatssoldc1, nbseatsavailc1, pricec2, nbseatssoldc2, nbseatsavailc2, pricec3, nbseatssoldc3, nbseatsavailc3) VALUES (2, 'First table tennis men match', '2024-07-04', '14h00', 'img/Table-tennis-men-sml.jpg', 'First table tennis men match will start at 14h00.', 3, null, 1, 4, 590.50, 1, 9999, 899.90, 1, 2999, 1299.55, 1, 999);
+INSERT INTO events (event_id, title, date, time, image, description, sport_id, cerem_id, challenger1_id, challenger2_id, pricec1, nbseatssoldc1, nbseatsavailc1, pricec2, nbseatssoldc2, nbseatsavailc2, pricec3, nbseatssoldc3, nbseatsavailc3) VALUES (3, 'First voleyball women match','2024-07-04', '15h30', 'img/Volley-ball-women-sml.jpg', 'First voleyball women match to start the course to the golden medal, at 15h30.', 4, null, 38, 39, 590.50, 1, 9999, 899.90, 1, 2999, 1299.55, 1, 999);
+INSERT INTO events (event_id, title, date, time, image, description, sport_id, cerem_id, challenger1_id, challenger2_id, pricec1, nbseatssoldc1, nbseatsavailc1, pricec2, nbseatssoldc2, nbseatsavailc2, pricec3, nbseatssoldc3, nbseatsavailc3) VALUES (4, 'Closing ceremony','2024-07-21', '20h30', 'img/Closing-ceremony-sml.jpg', 'Closing ceremony of the Olympic Games will start at 20h30 (GMT Paris) on the France Stadium of Paris.', null, 3, null, null, 590.50, 1, 9999, 899.90, 1, 2999, 1299.55, 1, 999);
 
 
 
 -- Insert offers 
-INSERT INTO offers (offer_id, title, description, rate, nb_spectators) VALUES (1, 'Solo Offer', 'Get 5% off with the Solo Offer', 5, 1);
-INSERT INTO offers (offer_id, title, description, rate, nb_spectators) VALUES (2, 'Duo Offer', 'A 10% off for you 2-persons discount ticket', 15, 2);
-INSERT INTO offers (offer_id, title, description, rate, nb_spectators) VALUES (3, 'Quatro Offer', 'A 20% off for you 4-persons discount ticket', 35, 4);
+INSERT INTO offers (offer_id, title, description, image, rate, nb_spectators) VALUES (1, 'Solo Offer', 'Get 5% off with the Solo Offer', 'png/Solo.png', 5, 1);
+INSERT INTO offers (offer_id, title, description, image, rate, nb_spectators) VALUES (2, 'Duo Offer', 'A 15% off for you 2-persons discount ticket', 'png/Duo.png', 15, 2);
+INSERT INTO offers (offer_id, title, description, image, rate, nb_spectators) VALUES (3, 'Family Offer', 'Get 35% off with a 4-persons family Offer', 'png/Family.png', 35, 4);
 
 
 -- Insert userselections 
@@ -138,15 +138,15 @@ INSERT INTO roles (role_id, name, description) VALUES (3, 'USER', 'User with res
 
 
 -- Insert policies 
-INSERT INTO policies (policy_id, title, description, creation_date, version) VALUES (1, 'Security Policies', 'Policies of the Olympic Games Ticketing System : every user of this application must have a secure password. In the case not, may encounter many years in jail !', '2023-10-01', 1);
-INSERT INTO policies (policy_id, title, description, creation_date, version) VALUES (2, 'Security Policies', 'Policies of the Olympic Games Ticketing System (version 2) : every user of this application must have a secure password. In the case not, may encounter many years in jail !', '2024-02-23', 2);
+INSERT INTO policies (policy_id, title, description, creation_date, version, is_active) VALUES (1, 'Security Policies', 'Policies of the Olympic Games Ticketing System : every user of this application must have a secure password. In the case not, may encounter many years in jail !', '2023-10-01', 1, false);
+INSERT INTO policies (policy_id, title, description, creation_date, version, is_active) VALUES (2, 'Security Policies', 'Policies of the Olympic Games Ticketing System (version 2) : every user of this application must have a secure password. In the case not, may encounter many years in jail !', '2024-02-23', 2, true);
 
 
 -- Insert keysgenerations 
--- INSERT INTO keysgenerations (key_id, key_generated) VALUES (1, 'Ajm3CVB71c42cJpTuCkDkon1v1HQxx3VVPhYrtHA9Dgci1FsV6YKiGeN9ILdhUnqnJj2sKS8p7gqFkqA3KrwvgNsXL0UTT6nKDTacXt0Ea4LiflOz1kBpBYrId5XnXoOnSHjkXb83FFS3lpSeIKFXWyo1fgKmgOmSqcvCFO5nN8uJtuA2xEJlDUstITPY617feDTg6hsBNg4PGsTtxcR3LoDRQQlMd4HwAZqyE21gTPoBklU6Kd4jhzvgsVwD9Gv');
--- INSERT INTO keysgenerations (key_id, key_generated) VALUES (2, 'FuoygPMUtjH9C8NHMTmxDfFbMz2XQnQ6dK5cMzV3YHGDXRkBp2UfKSgwHRZLQV9QBePArs3I6KWijyz1qyBxAofowUA12WO1xbMIE16RnzsrP9ecUfQ3dnnkAlwGYbpXwScUdBlv3N9yezJayBsbJTZHXusu8ZMgqWzUE0BcrrgoxISk4ov5HfUmQ0IEjHQPX1oAQWXbnkEdLBh6tlXj0UNjGzQVujeFFyY7d5ZXBIwU7tMSJ05M90X4fllPWV8C');
+INSERT INTO keysgenerations (key_id, key_generated) VALUES (1, 'Ajm3CVB71c42cJpTuCkDkon1v1HQxx3VVPhYrtHA9Dgci1FsV6YKiGeN9ILdhUnqnJj2sKS8p7gqFkqA3KrwvgNsXL0UTT6nKDTacXt0Ea4LiflOz1kBpBYrId5XnXoOnSHjkXb83FFS3lpSeIKFXWyo1fgKmgOmSqcvCFO5nN8uJtuA2xEJlDUstITPY617feDTg6hsBNg4PGsTtxcR3LoDRQQlMd4HwAZqyE21gTPoBklU6Kd4jhzvgsVwD9Gv');
+INSERT INTO keysgenerations (key_id, key_generated) VALUES (2, 'FuoygPMUtjH9C8NHMTmxDfFbMz2XQnQ6dK5cMzV3YHGDXRkBp2UfKSgwHRZLQV9QBePArs3I6KWijyz1qyBxAofowUA12WO1xbMIE16RnzsrP9ecUfQ3dnnkAlwGYbpXwScUdBlv3N9yezJayBsbJTZHXusu8ZMgqWzUE0BcrrgoxISk4ov5HfUmQ0IEjHQPX1oAQWXbnkEdLBh6tlXj0UNjGzQVujeFFyY7d5ZXBIwU7tMSJ05M90X4fllPWV8C');
 INSERT INTO keysgenerations (key_id, key_generated) VALUES (3, '123ygPMUtjH9C8NHMTmxDfFbMz2XQnQ6dK5cMzV3YHGDXRkBp2UfKSgwHRZLQV9QBePArs3I6KWijyz1qyBxAofowUA12WO1xbMIE16RnzsrP9ecUfQ3dnnkAlwGYbpXwScUdBlv3N9yezJayBsbJTZHXusu8ZMgqWzUE0BcrrgoxISk4ov5HfUmQ0IEjHQPX1oAQWXbnkEdLBh6tlXj0UNjGzQVujeFFyY7d5ZXBIwU7tMSJ05M90X4fll12345');
--- INSERT INTO keysgenerations (key_id, key_generated) VALUES (4, '85269478tjH9C8NHMTmxDfFbMz2XQnQ6dK5cMzV3YHGDXRkBp2UfKSgwHRZLQV9QBePArs3I6KWijyz1qyBxAofowUA12WO1xbMIE16RnzsrP9ecUfQ3dnnkAlwGYbpXwScUdBlv3N9yezJayBsbJTZHXusu8ZMgqWzUE0BcrrgoxISk4ov5HfUmQ0IEjHQPX1oAQWXbnkEdLBh6tlXj0UNjGzQVujeFFyY7d5ZXBIwU7tMSJ05M901258493681');
+INSERT INTO keysgenerations (key_id, key_generated) VALUES (4, '85269478tjH9C8NHMTmxDfFbMz2XQnQ6dK5cMzV3YHGDXRkBp2UfKSgwHRZLQV9QBePArs3I6KWijyz1qyBxAofowUA12WO1xbMIE16RnzsrP9ecUfQ3dnnkAlwGYbpXwScUdBlv3N9yezJayBsbJTZHXusu8ZMgqWzUE0BcrrgoxISk4ov5HfUmQ0IEjHQPX1oAQWXbnkEdLBh6tlXj0UNjGzQVujeFFyY7d5ZXBIwU7tMSJ05M901258493681');
 
 -- Insert userskeys 
 -- INSERT INTO userskeys (userkey_id, date, user_id, key_id) VALUES (1, '2024-03-12', null, null);
@@ -154,19 +154,19 @@ INSERT INTO keysgenerations (key_id, key_generated) VALUES (3, '123ygPMUtjH9C8NH
 -- INSERT INTO userskeys (userkey_id, date, user_id, key_id) VALUES (2, '2024-01-13', null, 2);
 -- INSERT INTO userskeys (userkey_id, date, user_id, key_id) VALUES (3, '2024-04-17', null, 3);
 -- INSERT INTO userskeys (userkey_id, date, user_id, key_id) VALUES (4, '2024-04-18', null, 4);
--- INSERT INTO userskeys (userkey_id, date, key_id) VALUES (1, '2022-03-12', 1);
--- INSERT INTO userskeys (userkey_id, date, key_id) VALUES (2, '2024-01-13', 2);
+INSERT INTO userskeys (userkey_id, date, key_id) VALUES (1, '2022-03-12', 1);
+INSERT INTO userskeys (userkey_id, date, key_id) VALUES (2, '2024-01-13', 2);
 INSERT INTO userskeys (userkey_id, date, key_id) VALUES (3, '2024-04-17', 3);
--- INSERT INTO userskeys (userkey_id, date, key_id) VALUES (4, '2024-04-18', 4);
+INSERT INTO userskeys (userkey_id, date, key_id) VALUES (4, '2024-04-18', 4);
 
 
 
 -- Insert users 
 -- INSERT INTO users (user_id, firstname, lastname, username, email, password, phonenumber, address, creation_date, role_id, userkey_id, usersel_id, policy_id, policy_sign_date, city, postal_code, country_id) VALUES (1, 'Min', 'Superad', 'Superad-Min', 'admin@joparis2024.fr', 'passwordnotsecuredAdmin', '0698765432', '36 Quai des Orfèvres', '2022-01-01', null, null, null, null, '2023-10-01', 'Paris', '75001', 1);
--- INSERT INTO users (user_id, firstname, lastname, username, email, password, phonenumber, address, creation_date, role_id, userkey_id, usersel_id, policy_id, policy_sign_date, city, postal_code, country_id) VALUES (1, 'Min', 'Superad', 'Superad-Min', 'admin@joparis2024.fr', 'passwordnotsecuredAdmin', '0698765432', '36 Quai des Orfèvres', '2022-01-01', 1, 1, null, 1, '2023-10-01', 'Paris', '75001', 1);
--- INSERT INTO users (user_id, firstname, lastname, username, email, password, phonenumber, address, creation_date, role_id, userkey_id, usersel_id, policy_id, policy_sign_date, city, postal_code, country_id) VALUES (2, 'Myriam', 'Fournier', 'Fournier-Myriam', 'superbachelor@etudiants.fr', 'passwordnotsecured1', '0612345678', '1 place de la Concorde', '2023-10-01', 3, 2, 1, 1, '2023-10-01', 'Paris', '75001', 1);
-INSERT INTO users (user_id, firstname, lastname, username, email, password, phonenumber, address, creation_date, role_id, userkey_id, usersel_id, policy_id, policy_sign_date, city, postal_code, country_id) VALUES (3, 'James', 'Bond', 'Bond-James', '007@british-secret-services.uk', 'passwordnotsecured007', '007007007', '36 Ravenstreet', '2023-10-05', 3, 3, 2, 1, '2023-10-05', 'London', '25099', 2);
--- INSERT INTO users (user_id, firstname, lastname, username, email, password, phonenumber, address, creation_date, role_id, userkey_id, usersel_id, policy_id, policy_sign_date, city, postal_code, country_id) VALUES (4, 'Oyee', 'Empl', 'Empl-Oyee', 'employee@joparis2024.fr', 'passwordnotsecuredemployee', '0606060606', '12 rue des Lumières', '2024-03-05', 2, 4, 3, 2, '2024-03-05', 'Paris', '75001', 1);
+INSERT INTO users (user_id, firstname, lastname, username, email, password, phonenumber, address, creation_date, role_id, userkey_id, usersel_id, policy_id, policy_sign_date, city, postal_code, country_id) VALUES (1, 'Min', 'Superad', 'Superad-Min', 'admin@joparis2024.fr', '$2a$10$4BKCmFTHVs.dR0P47MocpuOp3X4OgPaI73T8kVxiKRTPLHi6yk/mC', '0698765432', '36 Quai des Orfèvres', '2022-01-01', 1, 1, null, 1, '2023-10-01', 'Paris', '75001', 1);
+INSERT INTO users (user_id, firstname, lastname, username, email, password, phonenumber, address, creation_date, role_id, userkey_id, usersel_id, policy_id, policy_sign_date, city, postal_code, country_id) VALUES (2, 'Myriam', 'Fournier', 'Fournier-Myriam', 'superbachelor@etudiants.fr', '$2a$10$leSMRP2E1fpcS9nU6ZLnke1ncNKIQmmx7eXnYSaf.kgsQlz3GCMgy', '0612345678', '1 place de la Concorde', '2023-10-01', 3, 2, 1, 1, '2023-10-01', 'Paris', '75001', 1);
+INSERT INTO users (user_id, firstname, lastname, username, email, password, phonenumber, address, creation_date, role_id, userkey_id, usersel_id, policy_id, policy_sign_date, city, postal_code, country_id) VALUES (3, 'James', 'Bond', 'Bond-James', '007@british-secret-services.uk', '$2a$10$zo.EdUjGAxBoNctBe5vsR.D8iMiHwes8BFWGazqdILcvjD4MnfHVm', '007007007', '36 Ravenstreet', '2023-10-05', 3, 3, 2, 1, '2023-10-05', 'London', '25099', 2);
+INSERT INTO users (user_id, firstname, lastname, username, email, password, phonenumber, address, creation_date, role_id, userkey_id, usersel_id, policy_id, policy_sign_date, city, postal_code, country_id) VALUES (4, 'Oyee', 'Empl', 'Empl-Oyee', 'employee@joparis2024.fr', '$2a$10$rfXZfQf99jbNn48qxOl3X.TnTXurA1zDmr1HFc/9QX3zomNggrr62', '0606060606', '12 rue des Lumières', '2024-03-05', 2, 4, 3, 2, '2024-03-05', 'Paris', '75001', 1);
 
 
 
@@ -174,27 +174,37 @@ INSERT INTO users (user_id, firstname, lastname, username, email, password, phon
 
 -- Insert carts 
 -- INSERT INTO carts (cart_id, date, total_amount, user_id, usersel_id) VALUES (1, '2024-03-12', 1257.30, null, null);
-INSERT INTO carts (cart_id, date, total_amount, user_id, usersel_id) VALUES (1, '2024-03-12', 1257.30, 3, 1);
-
+-- INSERT INTO carts (cart_id, date, total_amount, user_id, usersel_id) VALUES (1, '2024-03-12', 1257.30, 3, 1);
+INSERT INTO carts (cart_id, date, total_amount, user_id) VALUES (1, '2024-03-12', 1257.30, 3);
+INSERT INTO carts (cart_id, date, total_amount, user_id) VALUES (2, '2024-03-13', 328.90, 2);
+INSERT INTO carts (cart_id, date, total_amount, user_id) VALUES (3, '2024-03-20', 726.20, 4);
 
 -- Insert saleskeys 
 -- INSERT INTO saleskeys (salekey_id, date, key_id) VALUES (1, '2024-03-12', null);
 INSERT INTO saleskeys (salekey_id, date, key_id) VALUES (1, '2024-03-12', 3);
+INSERT INTO saleskeys (salekey_id, date, key_id) VALUES (2, '2024-03-13', 2);
+INSERT INTO saleskeys (salekey_id, date, key_id) VALUES (3, '2024-03-20', 4);
 
 -- Insert sales 
 -- INSERT INTO sales (sale_id, date, user_id, cart_id, salekey_id) VALUES (1, '2024-03-12', null, null, null);
-INSERT INTO sales (sale_id, date, user_id, cart_id, salekey_id) VALUES (1, '2024-03-12', 3, 1, 1);
+-- INSERT INTO sales (sale_id, date, user_id, cart_id, salekey_id) VALUES (1, '2024-03-12', 3, 1, 1);
+INSERT INTO sales (sale_id, date, cart_id, salekey_id) VALUES (1, '2024-03-12', 1, 1);
+INSERT INTO sales (sale_id, date, cart_id, salekey_id) VALUES (2, '2024-03-13', 2, 2);
+INSERT INTO sales (sale_id, date, cart_id, salekey_id) VALUES (3, '2024-03-20', 3, 3);
 
 
 -- Insert tickets 
 -- INSERT INTO tickets (ticket_id, date, key_assembly, file_name, userkey_id, salekey_id, sale_id, cart_id, user_id, usersel_id) VALUES (1, '2024-05-03', 'Ajm3CVB71c42cJpTuCkDkon1v1HQxx3VVPhYrtHA9Dgci1FsV6YKiGeN9ILdhUnqnJj2sKS8p7gqFkqA3KrwvgNsXL0UTT6nKDTacXt0Ea4LiflOz1kBpBYrId5XnXoOnSHjkXb83FFS3lpSeIKFXWyo1fgKmgOmSqcvCFO5nN8uJtuA2xEJlDUstITPY617feDTg6hsBNg4PGsTtxcR3LoDRQQlMd4HwAZqyE21gTPoBklU6Kd4jhzvgsVwD9GvFuoygPMUtjH9C8NHMTmxDfFbMz2XQnQ6dK5cMzV3YHGDXRkBp2UfKSgwHRZLQV9QBePArs3I6KWijyz1qyBxAofowUA12WO1xbMIE16RnzsrP9ecUfQ3dnnkAlwGYbpXwScUdBlv3N9yezJayBsbJTZHXusu8ZMgqWzUE0BcrrgoxISk4ov5HfUmQ0IEjHQPX1oAQWXbnkEdLBh6tlXj0UNjGzQVujeFFyY7d5ZXBIwU7tMSJ05M90X4fllPWV8C', '6d4106d1d3da4970a54146c3f9de2976d6c0c151', null, null, null, null, null, null);
-INSERT INTO tickets (ticket_id, date, key_assembly, file_name, userkey_id, salekey_id, sale_id, cart_id, user_id, usersel_id) VALUES (1, '2024-05-03', 'Ajm3CVB71c42cJpTuCkDkon1v1HQxx3VVPhYrtHA9Dgci1FsV6YKiGeN9ILdhUnqnJj2sKS8p7gqFkqA3KrwvgNsXL0UTT6nKDTacXt0Ea4LiflOz1kBpBYrId5XnXoOnSHjkXb83FFS3lpSeIKFXWyo1fgKmgOmSqcvCFO5nN8uJtuA2xEJlDUstITPY617feDTg6hsBNg4PGsTtxcR3LoDRQQlMd4HwAZqyE21gTPoBklU6Kd4jhzvgsVwD9GvFuoygPMUtjH9C8NHMTmxDfFbMz2XQnQ6dK5cMzV3YHGDXRkBp2UfKSgwHRZLQV9QBePArs3I6KWijyz1qyBxAofowUA12WO1xbMIE16RnzsrP9ecUfQ3dnnkAlwGYbpXwScUdBlv3N9yezJayBsbJTZHXusu8ZMgqWzUE0BcrrgoxISk4ov5HfUmQ0IEjHQPX1oAQWXbnkEdLBh6tlXj0UNjGzQVujeFFyY7d5ZXBIwU7tMSJ05M90X4fllPWV8C', '6d4106d1d3da4970a54146c3f9de2976d6c0c151', 3, 1, 1, 1, 3, 1);
+-- INSERT INTO tickets (ticket_id, date, key_assembly, file_name, userkey_id, salekey_id, sale_id, cart_id, user_id, usersel_id) VALUES (1, '2024-05-03', 'Ajm3CVB71c42cJpTuCkDkon1v1HQxx3VVPhYrtHA9Dgci1FsV6YKiGeN9ILdhUnqnJj2sKS8p7gqFkqA3KrwvgNsXL0UTT6nKDTacXt0Ea4LiflOz1kBpBYrId5XnXoOnSHjkXb83FFS3lpSeIKFXWyo1fgKmgOmSqcvCFO5nN8uJtuA2xEJlDUstITPY617feDTg6hsBNg4PGsTtxcR3LoDRQQlMd4HwAZqyE21gTPoBklU6Kd4jhzvgsVwD9GvFuoygPMUtjH9C8NHMTmxDfFbMz2XQnQ6dK5cMzV3YHGDXRkBp2UfKSgwHRZLQV9QBePArs3I6KWijyz1qyBxAofowUA12WO1xbMIE16RnzsrP9ecUfQ3dnnkAlwGYbpXwScUdBlv3N9yezJayBsbJTZHXusu8ZMgqWzUE0BcrrgoxISk4ov5HfUmQ0IEjHQPX1oAQWXbnkEdLBh6tlXj0UNjGzQVujeFFyY7d5ZXBIwU7tMSJ05M90X4fllPWV8C', '6d4106d1d3da4970a54146c3f9de2976d6c0c151', 3, 1, 1, 1, 3, 1);
+INSERT INTO tickets (ticket_id, date, key_assembly, file_name, sale_id) VALUES (1, '2024-05-03', 'Ajm3CVB71c42cJpTuCkDkon1v1HQxx3VVPhYrtHA9Dgci1FsV6YKiGeN9ILdhUnqnJj2sKS8p7gqFkqA3KrwvgNsXL0UTT6nKDTacXt0Ea4LiflOz1kBpBYrId5XnXoOnSHjkXb83FFS3lpSeIKFXWyo1fgKmgOmSqcvCFO5nN8uJtuA2xEJlDUstITPY617feDTg6hsBNg4PGsTtxcR3LoDRQQlMd4HwAZqyE21gTPoBklU6Kd4jhzvgsVwD9GvFuoygPMUtjH9C8NHMTmxDfFbMz2XQnQ6dK5cMzV3YHGDXRkBp2UfKSgwHRZLQV9QBePArs3I6KWijyz1qyBxAofowUA12WO1xbMIE16RnzsrP9ecUfQ3dnnkAlwGYbpXwScUdBlv3N9yezJayBsbJTZHXusu8ZMgqWzUE0BcrrgoxISk4ov5HfUmQ0IEjHQPX1oAQWXbnkEdLBh6tlXj0UNjGzQVujeFFyY7d5ZXBIwU7tMSJ05M90X4fllPWV8C', '6d4106d1d3da4970a54146c3f9de2976d6c0c151', 1);
+INSERT INTO tickets (ticket_id, date, key_assembly, file_name, sale_id) VALUES (2, '2024-05-03', 'Ajm3CVB71c42cJpTuCkDkon1v1HQxx3VVPhYrtHA9Dgci1FsV6YKiGeN9ILdhUnqnJj2sKS8p7gqFkqA3KrwvgNsXL0UTT6nKDTacXt0Ea4LiflOz1kBpBYrId5XnXoOnSHjkXb83FFS3lpSeIKFXWyo1fgKmgOmSqcvCFO5nN8uJtuA2xEJlDUstITPY617feDTg6hsBNg4PGsTtxcR3LoDRQQlMd4HwAZqyE21gTPoBklU6Kd4jhzvgsVwD9GvFuoygPMUtjH9C8NHMTmxDfFbMz2XQnQ6dK5cMzV3YHGDXRkBp2UfKSgwHRZLQV9QBePArs3I6KWijyz1qyBxAofowUA12WO1xbMIE16RnzsrP9ecUfQ3dnnkAlwGYbpXwScUdBlv3N9yezJayBsbJTZHXusu8ZMgqWzUE0BcrrgoxISk4ov5HfUmQ0IEjHQPX1oAQWXbnkEdLBh6tlXj0UNjGzQVujeFFyY7d5ZXBIwU7tMSJ05M90X4fllPWV8C', '6d4106d1d3da4970a54146c3f9de2976d6c0c151', 2);
+INSERT INTO tickets (ticket_id, date, key_assembly, file_name, sale_id) VALUES (3, '2024-05-03', 'Ajm3CVB71c42cJpTuCkDkon1v1HQxx3VVPhYrtHA9Dgci1FsV6YKiGeN9ILdhUnqnJj2sKS8p7gqFkqA3KrwvgNsXL0UTT6nKDTacXt0Ea4LiflOz1kBpBYrId5XnXoOnSHjkXb83FFS3lpSeIKFXWyo1fgKmgOmSqcvCFO5nN8uJtuA2xEJlDUstITPY617feDTg6hsBNg4PGsTtxcR3LoDRQQlMd4HwAZqyE21gTPoBklU6Kd4jhzvgsVwD9GvFuoygPMUtjH9C8NHMTmxDfFbMz2XQnQ6dK5cMzV3YHGDXRkBp2UfKSgwHRZLQV9QBePArs3I6KWijyz1qyBxAofowUA12WO1xbMIE16RnzsrP9ecUfQ3dnnkAlwGYbpXwScUdBlv3N9yezJayBsbJTZHXusu8ZMgqWzUE0BcrrgoxISk4ov5HfUmQ0IEjHQPX1oAQWXbnkEdLBh6tlXj0UNjGzQVujeFFyY7d5ZXBIwU7tMSJ05M90X4fllPWV8C', '6d4106d1d3da4970a54146c3f9de2976d6c0c151', 3);
 
 -- Insert controls 
 -- INSERT INTO controls (control_id, date, scancode, is_ticket_valid, ticket_id, userkey_id, salekey_id) VALUES (1, '2024-03-12', 'Ajm3CVB71c42cJpTuCkDkon1v1HQxx3VVPhYrtHA9Dgci1FsV6YKiGeN9ILdhUnqnJj2sKS8p7gqFkqA3KrwvgNsXL0UTT6nKDTacXt0Ea4LiflOz1kBpBYrId5XnXoOnSHjkXb83FFS3lpSeIKFXWyo1fgKmgOmSqcvCFO5nN8uJtuA2xEJlDUstITPY617feDTg6hsBNg4PGsTtxcR3LoDRQQlMd4HwAZqyE21gTPoBklU6Kd4jhzvgsVwD9GvFuoygPMUtjH9C8NHMTmxDfFbMz2XQnQ6dK5cMzV3YHGDXRkBp2UfKSgwHRZLQV9QBePArs3I6KWijyz1qyBxAofowUA12WO1xbMIE16RnzsrP9ecUfQ3dnnkAlwGYbpXwScUdBlv3N9yezJayBsbJTZHXusu8ZMgqWzUE0BcrrgoxISk4ov5HfUmQ0IEjHQPX1oAQWXbnkEdLBh6tlXj0UNjGzQVujeFFyY7d5ZXBIwU7tMSJ05M90X4fllPWV8C', false, null, null, null);
-INSERT INTO controls (control_id, date, scancode, is_ticket_valid, ticket_id, userkey_id, salekey_id) VALUES (1, '2024-03-12', 'Ajm3CVB71c42cJpTuCkDkon1v1HQxx3VVPhYrtHA9Dgci1FsV6YKiGeN9ILdhUnqnJj2sKS8p7gqFkqA3KrwvgNsXL0UTT6nKDTacXt0Ea4LiflOz1kBpBYrId5XnXoOnSHjkXb83FFS3lpSeIKFXWyo1fgKmgOmSqcvCFO5nN8uJtuA2xEJlDUstITPY617feDTg6hsBNg4PGsTtxcR3LoDRQQlMd4HwAZqyE21gTPoBklU6Kd4jhzvgsVwD9GvFuoygPMUtjH9C8NHMTmxDfFbMz2XQnQ6dK5cMzV3YHGDXRkBp2UfKSgwHRZLQV9QBePArs3I6KWijyz1qyBxAofowUA12WO1xbMIE16RnzsrP9ecUfQ3dnnkAlwGYbpXwScUdBlv3N9yezJayBsbJTZHXusu8ZMgqWzUE0BcrrgoxISk4ov5HfUmQ0IEjHQPX1oAQWXbnkEdLBh6tlXj0UNjGzQVujeFFyY7d5ZXBIwU7tMSJ05M90X4fllPWV8C', true, 1, 3, 1);
+-- INSERT INTO controls (control_id, date, scancode, is_ticket_valid, ticket_id, userkey_id, salekey_id) VALUES (1, '2024-03-12', 'Ajm3CVB71c42cJpTuCkDkon1v1HQxx3VVPhYrtHA9Dgci1FsV6YKiGeN9ILdhUnqnJj2sKS8p7gqFkqA3KrwvgNsXL0UTT6nKDTacXt0Ea4LiflOz1kBpBYrId5XnXoOnSHjkXb83FFS3lpSeIKFXWyo1fgKmgOmSqcvCFO5nN8uJtuA2xEJlDUstITPY617feDTg6hsBNg4PGsTtxcR3LoDRQQlMd4HwAZqyE21gTPoBklU6Kd4jhzvgsVwD9GvFuoygPMUtjH9C8NHMTmxDfFbMz2XQnQ6dK5cMzV3YHGDXRkBp2UfKSgwHRZLQV9QBePArs3I6KWijyz1qyBxAofowUA12WO1xbMIE16RnzsrP9ecUfQ3dnnkAlwGYbpXwScUdBlv3N9yezJayBsbJTZHXusu8ZMgqWzUE0BcrrgoxISk4ov5HfUmQ0IEjHQPX1oAQWXbnkEdLBh6tlXj0UNjGzQVujeFFyY7d5ZXBIwU7tMSJ05M90X4fllPWV8C', true, 1, 3, 1);
 -- INSERT INTO controls (control_id, date, scancode, is_ticket_valid, ticket_id, userkey_id, salekey_id) VALUES (2, '2024-03-15', '0jm3CVB71c42cJpTuCkDkon1v1HQxx3VVPhYrtHA9Dgci1FsV6YKiGeN9ILdhUnqnJj2sKS8p7gqFkqA3KrwvgNsXL0UTT6nKDTacXt0Ea4LiflOz1kBpBYrId5XnXoOnSHjkXb83FFS3lpSeIKFXWyo1fgKmgOmSqcvCFO5nN8uJtuA2xEJlDUstITPY617feDTg6hsBNg4PGsTtxcR3LoDRQQlMd4HwAZqyE21gTPoBklU6Kd4jhzvgsVwD9GvFuoygPMUtjH9C8NHMTmxDfFbMz2XQnQ6dK5cMzV3YHGDXRkBp2UfKSgwHRZLQV9QBePArs3I6KWijyz1qyBxAofowUA12WO1xbMIE16RnzsrP9ecUfQ3dnnkAlwGYbpXwScUdBlv3N9yezJayBsbJTZHXusu8ZMgqWzUE0BcrrgoxISk4ov5HfUmQ0IEjHQPX1oAQWXbnkEdLBh6tlXj0UNjGzQVujeFFyY7d5ZXBIwU7tMSJ05M90X4fllPWV8C', false, 2, 2, 1);
-
+INSERT INTO controls (control_id, date, scancode, is_ticket_valid, ticket_id) VALUES (1, '2024-03-12', 'Ajm3CVB71c42cJpTuCkDkon1v1HQxx3VVPhYrtHA9Dgci1FsV6YKiGeN9ILdhUnqnJj2sKS8p7gqFkqA3KrwvgNsXL0UTT6nKDTacXt0Ea4LiflOz1kBpBYrId5XnXoOnSHjkXb83FFS3lpSeIKFXWyo1fgKmgOmSqcvCFO5nN8uJtuA2xEJlDUstITPY617feDTg6hsBNg4PGsTtxcR3LoDRQQlMd4HwAZqyE21gTPoBklU6Kd4jhzvgsVwD9GvFuoygPMUtjH9C8NHMTmxDfFbMz2XQnQ6dK5cMzV3YHGDXRkBp2UfKSgwHRZLQV9QBePArs3I6KWijyz1qyBxAofowUA12WO1xbMIE16RnzsrP9ecUfQ3dnnkAlwGYbpXwScUdBlv3N9yezJayBsbJTZHXusu8ZMgqWzUE0BcrrgoxISk4ov5HfUmQ0IEjHQPX1oAQWXbnkEdLBh6tlXj0UNjGzQVujeFFyY7d5ZXBIwU7tMSJ05M90X4fllPWV8C', true, 1);
 
 
 

@@ -22,8 +22,7 @@ public class challengers {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long challenger_id;
     
     private String name;

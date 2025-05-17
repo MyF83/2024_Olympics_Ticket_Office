@@ -23,10 +23,7 @@ public class UserskeyServiceImpl implements UserskeyService{
         return userskeyRepository.findAllWithDetails();
     }
 
-    @Override
-    public List<userskeys> getAllWithUsers() {
-        return userskeyRepository.findAllWithUsers();
-    }
+
 
     @Override
     public List<userskeys> getAllWithKeysgenerations() {

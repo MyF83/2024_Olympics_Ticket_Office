@@ -42,12 +42,12 @@ public class UserWsTest {
         mockUser.setPassword("password123");    
         mockUser.setPhonenumber("1234567890");
         mockUser.setAddress("1 Place de la Liberté");
-        mockUser.setCreationDate(new java.sql.Date(System.currentTimeMillis()));
+        mockUser.setCreationDate(new java.sql.Timestamp(System.currentTimeMillis()));
         mockUser.setRoles(null); // Assuming roles is set to null for this test
         mockUser.setUserskeys(null); // Assuming userskeys is set to null for this test         
         mockUser.setUserselections(null); // Assuming userselections is set to null for this test
         mockUser.setPolicies(null); // Assuming policies is set to null for this test
-        mockUser.setPolicySignDate(new java.sql.Date(System.currentTimeMillis()));
+        mockUser.setPolicySignDate(new java.sql.Timestamp(System.currentTimeMillis()));
         mockUser.setCity("Paris");
         mockUser.setPostalCode("75001");
         mockUser.setCountries(null); // Assuming countries is set to null for this test
@@ -124,12 +124,12 @@ public class UserWsTest {
         mockUser.setPassword("password123");    
         mockUser.setPhonenumber("1234567890");
         mockUser.setAddress("1 Place de la Liberté");
-        mockUser.setCreationDate(new java.sql.Date(System.currentTimeMillis()));
+        mockUser.setCreationDate(new java.sql.Timestamp(System.currentTimeMillis()));
         mockUser.setRoles(null); // Assuming roles is set to null for this test
         mockUser.setUserskeys(null); // Assuming userskeys is set to null for this test         
         mockUser.setUserselections(null); // Assuming userselections is set to null for this test
         mockUser.setPolicies(null); // Assuming policies is set to null for this test
-        mockUser.setPolicySignDate(new java.sql.Date(System.currentTimeMillis()));
+        mockUser.setPolicySignDate(new java.sql.Timestamp(System.currentTimeMillis()));
         mockUser.setCity("Paris");
         mockUser.setPostalCode("75001");
         mockUser.setCountries(null); // Assuming countries is set to null for this test

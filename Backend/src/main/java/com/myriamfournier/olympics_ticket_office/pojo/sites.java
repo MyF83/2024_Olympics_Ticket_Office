@@ -19,8 +19,7 @@ import lombok.Setter;
 public class sites {
 
 @Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-@NotNull
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long site_id;
 
 

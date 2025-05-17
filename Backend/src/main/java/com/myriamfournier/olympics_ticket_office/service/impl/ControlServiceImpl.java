@@ -27,7 +27,7 @@ public class ControlServiceImpl implements ControlService{
     public List<controls> getAllWithTickets() {
         return controlRepository.findAllWithTickets();
     }
-
+/* 
     @Override
     public List<controls> getAllWithUserskeys() {
         return controlRepository.findAllWithUserskeys();
@@ -36,7 +36,7 @@ public class ControlServiceImpl implements ControlService{
     @Override
     public List<controls> getAllWithSaleskeys() {
         return controlRepository.findAllWithSaleskeys();
-    }
+    }*/
 
 
     @Override

@@ -18,14 +18,14 @@ import lombok.Setter;
 public class policies {
 
 @Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-@NotNull
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long policy_id;
 
 private String title;
 private String description;
 private Date creationDate;
 private String version;
+private Boolean isActive = false; // Default value for isActive
 
 
 
@@ -35,7 +35,7 @@ private String version;
 
 
 
-public policies(String title, String description, Date creationDate, String version) {  
+public policies(String title, String description, Date creationDate, String version, Boolean isActive) {  
             // Default constructor
         this.title = title;
         this.description = description;
@@ -43,6 +43,7 @@ public policies(String title, String description, Date creationDate, String vers
         this.version = version;
         this.creationDate = creationDate;
         this.version = version; 
+        this.isActive = isActive;
     }
 
 }

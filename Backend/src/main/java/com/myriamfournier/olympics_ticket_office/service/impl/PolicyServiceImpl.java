@@ -10,6 +10,9 @@ import com.myriamfournier.olympics_ticket_office.pojo.policies;
 import com.myriamfournier.olympics_ticket_office.repository.PolicyRepository;
 import com.myriamfournier.olympics_ticket_office.service.PolicyService;
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PolicyServiceImpl implements PolicyService {
@@ -63,6 +66,7 @@ public class PolicyServiceImpl implements PolicyService {
             oldPolicy.setDescription(policies.getDescription());
             oldPolicy.setCreationDate(policies.getCreationDate());
             oldPolicy.setVersion(policies.getVersion());
+            oldPolicy.setIsActive(policies.getIsActive());
             policyRepository.save(oldPolicy);
         }
     }
@@ -71,6 +75,36 @@ public class PolicyServiceImpl implements PolicyService {
     @Override
     public void deletePolicyById(Long id) {
         policyRepository.deleteById(id);
+    }
+
+    @Override
+    public void setActivePolicyById(Long policyId, boolean isActive) {
+        // Set all policies to inactive
+        policyRepository.updateAllSetIsActiveFalse();
+        // Set the selected policy to active
+        policies policy = policyRepository.findById(policyId).orElse(null);
+        if (policy != null) {
+            policy.setIsActive(true);
+            policyRepository.save(policy);
+        }
+    }
+
+    @Override
+    public policies getLastVersionById(Long id) {
+       return policyRepository.findLastVersionById(id);
+    }
+
+    @Override
+    public policies getLastVersion() {
+    return policyRepository.findLastVersion();
+    }
+
+    
+
+    @Override
+    public policies getActivePolicy() {
+        // Example implementation, adjust the query as needed
+        return policyRepository.findActivePolicy();
     }
 
 

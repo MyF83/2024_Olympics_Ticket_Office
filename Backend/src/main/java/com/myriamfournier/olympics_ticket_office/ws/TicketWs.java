@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.myriamfournier.olympics_ticket_office.pojo.tickets;
 import com.myriamfournier.olympics_ticket_office.service.TicketService;
@@ -18,6 +19,7 @@ import com.myriamfournier.olympics_ticket_office.service.TicketService;
 @RequestMapping(ApiRegistration.API_REST
         + ApiRegistration.TICKET)
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class TicketWs {
 
 
@@ -38,6 +40,7 @@ public class TicketWs {
         return ticketService.getAllTickets(); // Assuming you have a ticketService to fetch all tickets
     } 
     
+    /* 
     @GetMapping("/userskeys")
     public List<tickets> getAllWithUserskeys() {
         return ticketService.getAllWithUserskeys(); // Assuming you have a ticketService to fetch all tickets
@@ -46,13 +49,14 @@ public class TicketWs {
     @GetMapping("/saleskeys")
     public List<tickets> getAllWithSaleskeys() {
         return ticketService.getAllWithSaleskeys(); // Assuming you have a ticketService to fetch all tickets
-    }  
+    } */ 
 
     @GetMapping("/sales")
     public List<tickets> getAllWithSales() {
         return ticketService.getAllWithSales(); // Assuming you have a ticketService to fetch all tickets
     }  
 
+    /* 
     @GetMapping("/carts")
     public List<tickets> getAllWithCarts() {
         return ticketService.getAllWithCarts(); // Assuming you have a ticketService to fetch all tickets
@@ -66,7 +70,7 @@ public class TicketWs {
     @GetMapping("/userselections")
     public List<tickets> getAllWithUserselections() {
         return ticketService.getAllWithUserselections(); // Assuming you have a ticketService to fetch all tickets
-    }  
+    } */ 
 
 
     //GET method to retrieve a ticket by ID

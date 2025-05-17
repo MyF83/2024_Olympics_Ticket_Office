@@ -1,6 +1,8 @@
 package com.myriamfournier.olympics_ticket_office.service.impl;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.ArrayList;
 // import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +14,15 @@ import com.myriamfournier.olympics_ticket_office.pojo.keysgenerations;
 import com.myriamfournier.olympics_ticket_office.repository.UserRepository;
 import com.myriamfournier.olympics_ticket_office.repository.UserskeyRepository;
 import com.myriamfournier.olympics_ticket_office.repository.KeysgenerationRepository;
+import com.myriamfournier.olympics_ticket_office.repository.PolicyRepository;
 import com.myriamfournier.olympics_ticket_office.service.UserService;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import com.myriamfournier.olympics_ticket_office.pojo.policies;
+import com.myriamfournier.olympics_ticket_office.pojo.roles;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -35,8 +43,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserskeyRepository userskeyRepository; // Assuming you have a UserskeysRepository interface
+
+    @Autowired
+    private PolicyRepository policyRepository; // Repository for policies
    
-    
 
 /* 
     @Override
@@ -73,25 +83,52 @@ public class UserServiceImpl implements UserService {
 
 @Override
 public void createUser(users user) {
-    // Step 1: Generate a unique 256-character key
-    String uniqueKey = generateUnique256CharacterKey();
+    System.out.println("Creating user: " + user);
 
-    // Step 2: Save the key in the Keysgenerations table
-    keysgenerations keysEntity = new keysgenerations(uniqueKey);
+    // Step 1: Generate a unique 256-character key
+    String uniqueKey;
+    keysgenerations keysEntity;
+    do {
+        uniqueKey = generateUnique256CharacterKey();
+        System.out.println("Generated unique key: " + uniqueKey);
+
+        // Step 2: Check if the key already exists in the Keysgenerations table
+        keysEntity = keysgenerationRepository.findByKeyGenerated(uniqueKey);
+    } while (keysEntity != null);
+
+    // Step 3: Save the key in the Keysgenerations table
+    keysEntity = new keysgenerations(uniqueKey);
     keysEntity.setKeyGenerated(uniqueKey);
     keysgenerationRepository.save(keysEntity);
-    
+    System.out.println("Saved key in Keysgenerations table: " + keysEntity);
 
-    // Step 3: Create a new Userskeys object and link it to the generated key
+    // Step 4: Create a new Userskeys object and link it to the generated key
     userskeys userskeys = new userskeys();
     userskeys.setKey(keysEntity); // Link the key to the Userskeys object
     userskeyRepository.save(userskeys);
+    System.out.println("Linked key to Userskeys object: " + userskeys);
 
-    // Step 4: Link the Userskeys object to the User object
-    user.setUserskeys(userskeys); // Set the foreign key relationship
-    userRepository.save(user); // Save the User object
+    // Step 5: Link the Userskeys object to the User object
+    user.setUserskeys(userskeys);
+
+    // Step 6: Set the policy_id for the user (assuming a default policy exists)
+    if (user.getPolicies() != null) {
+        policies policy = policyRepository.findById(user.getPolicies().getPolicy_id()).orElse(null);
+        if (policy != null) {
+            user.setPolicies(policy);
+        } else {
+            System.out.println("Policy not found for ID: " + user.getPolicies().getPolicy_id());
+        }
+    }
+
+    // Step 7: Set the default role_id for the user
+    roles defaultRole = new roles();
+    defaultRole.setRole_id(Long.valueOf(3)); // Default role ID for USER as Long
+    user.setRoles(defaultRole);
+
+    userRepository.save(user);
+    System.out.println("User saved successfully: " + user);
 }
-
 
 
     private String generateUnique256CharacterKey() {
@@ -232,20 +269,42 @@ public String generateUniqueUsername(String firstname, String lastname) {
     String username = baseUsername;
     int counter = 1;
 
+    System.out.println("Generating unique username for: " + firstname + " " + lastname);
+
     // Check if the username already exists in the database
     while (userRepository.findByUsername(username) != null) {
+        System.out.println("Username already exists: " + username);
         username = baseUsername + "-" + counter;
         counter++;
     }
 
+    System.out.println("Generated unique username: " + username);
     return username;
 }
 
     @Override
     public users getUserByUsername(String username) {
         users user = userRepository.findUserByUsername(username);
-        return user != null ? user : null; // Handle null check properly
+
+        if(user == null) {
+            throw new UsernameNotFoundException("User not found with username : " + username);
+        }
+        // Just return the user entity, not a UserDetails object
+        return user;
     }
 
+    @Override
+    public boolean isUsernameTaken(String username) {
+        return userRepository.findUserByUsername(username) != null;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        users user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with username: " + username);
+        }
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
+    }
 
 }

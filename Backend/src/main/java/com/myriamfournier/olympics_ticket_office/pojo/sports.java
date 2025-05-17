@@ -19,8 +19,7 @@ import lombok.Setter;
 public class sports {
 
 @Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-@NotNull
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long sport_id;
 
 private String name;

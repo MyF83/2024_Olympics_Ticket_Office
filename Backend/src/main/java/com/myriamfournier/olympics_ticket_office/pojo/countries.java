@@ -16,8 +16,7 @@ import lombok.Setter;
 public class countries {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long country_id;
 
     private String name;

@@ -20,8 +20,7 @@ import lombok.Setter;
 public class carts {
 
 @Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-@NotNull
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long cart_id;
 
 private Date date;
@@ -31,9 +30,9 @@ private Date date;
 private users users;
 
 
-@ManyToOne
-@JoinColumn(name= "usersel_id", nullable = true)
-private userselections userselections;
+// @ManyToOne
+// @JoinColumn(name= "usersel_id", nullable = true)
+// private userselections userselections;
 
 private Float totalAmount;
 
@@ -42,15 +41,17 @@ private Float totalAmount;
    public carts() {
 }
 
-public carts(Date date, users users, userselections userselections, Float totalAmount) {
+public carts(Date date, users users, /*userselections userselections,*/ Float totalAmount) {
     // Default constructor
     this.date = date;       
     this.users = users;
-    this.userselections = userselections;
+    // this.userselections = userselections;
     this.totalAmount = totalAmount;
 
 
     }
 
-    
+      public users getUsers() {
+        return users;
+    }
 }

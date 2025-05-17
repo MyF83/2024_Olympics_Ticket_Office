@@ -27,11 +27,11 @@ public class SaleServiceImpl implements SaleService{
     public List<sales> getAllSales() {
         return saleRepository.findAllWithDetails();
     }
-
+/* 
     @Override
     public List<sales> getAllWithUsers() {
         return saleRepository.findAllWithUsers();
-    }
+    }*/
 
     @Override
     public List<sales> getAllWithCarts() {
@@ -54,7 +54,7 @@ public class SaleServiceImpl implements SaleService{
         // Update the fields of the sales object
         sales.setSale_id(sales.getSale_id()); // Use setSale_id instead of setSaleId
         sales.setDate(sales.getDate());
-        sales.setUsers(sales.getUsers());
+        // sales.setUsers(sales.getUsers());
         sales.setCarts(sales.getCarts());
         sales.setSaleskeys(sales.getSaleskeys());
         return sales;
@@ -92,8 +92,8 @@ public void createSale(sales sales) {
 
     // Step 3: Create a new Saleskeys object and link it to the generated key
     saleskeys saleskeys = new saleskeys();
-    saleskeys.setKey(keysEntity); // Link the key to the Saleskeys object
-    saleskeyRepository.save(saleskeys);
+    saleskeys.setKeysgenerations(keysEntity); // Link the key to the Saleskeys object
+    saleskeyRepository.save(saleskeys); // Save the Saleskeys object
 
     // Step 4: Link the Saleskeys object to the Sales object
     sales.setSaleskeys(saleskeys); // Set the foreign key relationship

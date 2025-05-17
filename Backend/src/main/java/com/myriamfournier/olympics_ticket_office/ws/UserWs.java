@@ -1,33 +1,50 @@
 package com.myriamfournier.olympics_ticket_office.ws;
 
+import org.springframework.http.HttpStatus;
+import java.util.Optional;
+import java.io.Console;
+import java.util.List;
+import com.myriamfournier.olympics_ticket_office.pojo.LoginRequest;
+import com.myriamfournier.olympics_ticket_office.pojo.RegisterRequest;
+import com.myriamfournier.olympics_ticket_office.pojo.policies;
+import com.myriamfournier.olympics_ticket_office.repository.PolicyRepository;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.myriamfournier.olympics_ticket_office.service.UserService;
-
-import java.util.List;
-
-import com.myriamfournier.olympics_ticket_office.pojo.users;
+import org.springframework.http.ResponseEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+import com.myriamfournier.olympics_ticket_office.service.UserService;
+import com.myriamfournier.olympics_ticket_office.repository.UserRepository;
+import com.myriamfournier.olympics_ticket_office.pojo.users;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 
-@RequestMapping(ApiRegistration.API_REST
-        + ApiRegistration.USER)
+// @CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping(ApiRegistration.API_REST + ApiRegistration.USER)
 @RestController
 public class UserWs {
+    @Autowired
+    private UserService userService;
 
     @Autowired
-    private final UserService userService;
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private PolicyRepository policyRepository;
 
     public UserWs(UserService userService) {
         this.userService = userService;
@@ -145,6 +162,28 @@ public class UserWs {
 //       ALL POST METHODS FOR USER ENTITY           //
 // /////////////////////////////////////////////// //
 
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request) {
+        System.err.println("registerUser called with request: " + request);
+        // Check if the username is already taken
+        String generatedUsername = userService.generateUniqueUsername(request.getFirstname(), request.getLastname());
+        users user = new users();
+        user.setFirstname(request.getFirstname());
+        user.setLastname(request.getLastname());
+        user.setUsername(generatedUsername);
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        // Set other fields to null or defaults as needed
+
+        // Fetch and set the accepted policy
+        if (request.getPolicyId() != null) {
+        policies acceptedPolicy = policyRepository.findById(request.getPolicyId()).orElse(null);
+        user.setPolicies(acceptedPolicy);
+    }
+        System.err.println("Policy set on user: " + (user.getPolicies() != null ? user.getPolicies().getPolicy_id() : "null"));
+        userService.createUser(user);
+        return ResponseEntity.ok(user); // Optionally return a DTO with the generated username
+    }
 
     @PostMapping
     public void createUser(@RequestBody users user){
@@ -159,6 +198,21 @@ public class UserWs {
         userService.createUser(user); // Save the user with the generated username
         return ResponseEntity.ok("Generated username: " + username);
     }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        System.err.println("loginUser called with request: " + loginRequest);
+        users user = userRepository.findByUsername(loginRequest.getUsername());
+        if (user != null && passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            // Use hashed password check
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        }
+    }
+
+
    // @PostMapping
    // public void createUsername(@RequestBody users user){
    //         userService.createUsername(user);

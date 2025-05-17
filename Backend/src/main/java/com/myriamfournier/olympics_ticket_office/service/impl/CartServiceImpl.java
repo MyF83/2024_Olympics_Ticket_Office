@@ -28,10 +28,11 @@ public class CartServiceImpl implements CartService{
         return cartRepository.findAllWithUsers();
     }
 
+    /* 
     @Override
     public List<carts> getAllWithUserselections() {
         return cartRepository.findAllWithUserselections();
-    }
+    }*/
 
 
     @Override
