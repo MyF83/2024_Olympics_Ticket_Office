@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.myriamfournier.olympics_ticket_office.pojo.keysgenerations;
 import com.myriamfournier.olympics_ticket_office.service.KeysgenerationService;
@@ -18,6 +19,7 @@ import com.myriamfournier.olympics_ticket_office.service.KeysgenerationService;
 @RequestMapping(ApiRegistration.API_REST
         + ApiRegistration.KEYSGENERATION)
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class KeysgenerationsWs {
     public static final String API_REST = "/api";
     public static final String KEYSGENERATIONS = "/keysgenerations";

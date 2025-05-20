@@ -16,4 +16,12 @@ public interface PolicyService{
 
     void deletePolicyById(Long id);
 
+   void setActivePolicyById(Long id, boolean isActive);
+
+    policies getActivePolicy(); // Get the active policy
+
+    policies getLastVersion(); // Get the last version of the policy
+
+    policies getLastVersionById(Long id); // Get the last version of the policy by ID
+
 }

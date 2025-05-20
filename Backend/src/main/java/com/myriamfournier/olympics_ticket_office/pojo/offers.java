@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
+//import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,13 +19,13 @@ import lombok.Setter;
 public class offers {
 
 @Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-@NotNull   
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long offer_id;
 
 
 private String title;
 private String description;
+private String image;
 private Integer rate;
 private Integer nbSpectators;
 
@@ -34,10 +34,11 @@ private Integer nbSpectators;
    public offers() {
 }
 
-public offers(String title, String description, Integer rate, Integer nbSpectators) {  
+public offers(String title, String description, String image, Integer rate, Integer nbSpectators) {  
         // Default constructor
     this.title = title;
     this.description = description;
+    this.image = image;
     this.rate = rate;
     this.nbSpectators = nbSpectators;
     }

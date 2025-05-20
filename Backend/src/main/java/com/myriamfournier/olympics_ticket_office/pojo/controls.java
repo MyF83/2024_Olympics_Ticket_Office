@@ -1,6 +1,7 @@
 package com.myriamfournier.olympics_ticket_office.pojo;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,11 +25,10 @@ import lombok.Setter;
 public class controls {
 
 @Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-@NotNull
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long control_id;
 
-private Date date;
+private Timestamp date;
 
 @Column(length=512)
 private String scancode;
@@ -48,6 +48,7 @@ public void setIsTicketValid(Boolean isTicketValid) {
 @JoinColumn(name= "ticket_id", nullable = true)
 private tickets tickets;
 
+/* 
 @ManyToOne
 // @JoinTable
 @JoinColumn(name= "userkey_id", nullable = true)
@@ -56,20 +57,24 @@ private userskeys userskeys;
 @ManyToOne
 // @JoinTable
 @JoinColumn(name= "salekey_id", nullable = true)
-private saleskeys saleskeys;
+private saleskeys saleskeys;*/
 
    // Default constructor (required by Hibernate)
    public controls() {
 }
 
-public controls(Date date, String scancode, Boolean isTicketValid, tickets tickets, userskeys userskeys, saleskeys saleskeys) {
+public controls(Timestamp date, String scancode, Boolean isTicketValid, tickets tickets/* , userskeys userskeys, saleskeys saleskeys*/) {
     // Default constructor
     this.date = date;
     this.scancode = scancode;
     this.isTicketValid = isTicketValid;
     this.tickets = tickets;
-    this.userskeys = userskeys;
-    this.saleskeys = saleskeys;
+    // this.userskeys = userskeys;
+    // this.saleskeys = saleskeys;
 
+    }
+
+    public tickets getTickets() {
+        return tickets;
     }
 }

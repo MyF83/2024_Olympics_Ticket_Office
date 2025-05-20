@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.myriamfournier.olympics_ticket_office.pojo.userskeys;
 import com.myriamfournier.olympics_ticket_office.service.UserskeyService;
@@ -18,6 +19,7 @@ import com.myriamfournier.olympics_ticket_office.service.UserskeyService;
 @RequestMapping(ApiRegistration.API_REST
         + ApiRegistration.USERSKEY)
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserskeysWs {
 
 
@@ -38,10 +40,7 @@ public class UserskeysWs {
         return userskeysService.getAllUserskeys(); // Assuming you have a userskeysService to fetch all userskeys
     }  
 
-    @GetMapping("users")
-    public List<userskeys> getAllWithUsers() {
-        return userskeysService.getAllWithUsers(); // Assuming you have a userskeysService to fetch all userskeys
-    } 
+   
 
     @GetMapping("keys")
     public List<userskeys> getAllWithKeysgenerations() {

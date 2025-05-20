@@ -1,33 +1,66 @@
 package com.myriamfournier.olympics_ticket_office.ws;
 
+import org.springframework.http.HttpStatus;
+import java.util.Optional;
+import java.io.Console;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.myriamfournier.olympics_ticket_office.pojo.LoginRequest;
+import com.myriamfournier.olympics_ticket_office.pojo.RegisterRequest;
+import com.myriamfournier.olympics_ticket_office.pojo.policies;
+import com.myriamfournier.olympics_ticket_office.repository.PolicyRepository;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.myriamfournier.olympics_ticket_office.service.UserService;
-
-import java.util.List;
-
-import com.myriamfournier.olympics_ticket_office.pojo.users;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+//import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+//import org.springframework.web.bind.annotation.CrossOrigin;
+//import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.myriamfournier.olympics_ticket_office.service.CartService;
+import com.myriamfournier.olympics_ticket_office.service.UserService;
+import com.myriamfournier.olympics_ticket_office.repository.UserRepository;
+import com.myriamfournier.olympics_ticket_office.pojo.users;
+import com.myriamfournier.olympics_ticket_office.pojo.carts;
+
+//import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.myriamfournier.olympics_ticket_office.configuration.JwtUtils;
 
 
-
-@RequestMapping(ApiRegistration.API_REST
-        + ApiRegistration.USER)
+@RequestMapping(ApiRegistration.API_REST + ApiRegistration.USER)
 @RestController
 public class UserWs {
+    @Autowired
+    private UserService userService;
 
     @Autowired
-    private final UserService userService;
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private PolicyRepository policyRepository;
+
+    @Autowired
+    private JwtUtils jwtUtils;
+
+    @Autowired
+    private CartService cartService; 
 
     public UserWs(UserService userService) {
         this.userService = userService;
@@ -111,7 +144,18 @@ public class UserWs {
     }   
     
 
-
+@GetMapping("/carts/user")
+public ResponseEntity<?> getUserCarts() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String username = authentication.getName();
+    users users = userRepository.findByUsername(username);
+    if (users == null) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+    }
+    // Fetch carts for this user
+    List<carts> carts = cartService.findByUser(users); // or cartRepository.findByUser(user)
+    return ResponseEntity.ok(carts);
+}
 
     /* 
     //GET method to retrieve a user by username
@@ -145,20 +189,68 @@ public class UserWs {
 //       ALL POST METHODS FOR USER ENTITY           //
 // /////////////////////////////////////////////// //
 
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request) {
+        System.err.println("registerUser called with request: " + request);
+        // Check if the username is already taken
+        String generatedUsername = userService.generateUniqueUsername(request.getFirstname(), request.getLastname());
+        users users = new users();
+        users.setFirstname(request.getFirstname());
+        users.setLastname(request.getLastname());
+        users.setUsername(generatedUsername);
+        users.setEmail(request.getEmail());
+        users.setPassword(passwordEncoder.encode(request.getPassword()));
+        // Set other fields to null or defaults as needed
+
+        // Fetch and set the accepted policy
+        if (request.getPolicyId() != null) {
+        policies acceptedPolicy = policyRepository.findById(request.getPolicyId()).orElse(null);
+        users.setPolicies(acceptedPolicy);
+    }
+        System.err.println("Policy set on user: " + (users.getPolicies() != null ? users.getPolicies().getPolicy_id() : "null"));
+        userService.createUser(users);
+        return ResponseEntity.ok(users); // Optionally return a DTO with the generated username
+    }
 
     @PostMapping
-    public void createUser(@RequestBody users user){
-            userService.createUser(user);
+    public void createUser(@RequestBody users users){
+            userService.createUser(users);
     }
 
 
     @PostMapping("/generate-username")
-    public ResponseEntity<String> generateUsername(@RequestBody users user) {
-        String username = userService.generateUniqueUsername(user.getFirstname(), user.getFirstname());
-        user.setUsername(username);
-        userService.createUser(user); // Save the user with the generated username
+    public ResponseEntity<String> generateUsername(@RequestBody users users) {
+        String username = userService.generateUniqueUsername(users.getFirstname(), users.getFirstname());
+        users.setUsername(username);
+        userService.createUser(users); // Save the user with the generated username
         return ResponseEntity.ok("Generated username: " + username);
     }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        System.err.println("loginUser called with request: " + loginRequest);
+        users users = userRepository.findByUsername(loginRequest.getUsername());
+        if (users != null && passwordEncoder.matches(loginRequest.getPassword(), users.getPassword())) {
+            // Generate JWT token (implement jwtUtil as needed)
+        String token = jwtUtils.generateToken(users.getUsername()); // or pass user details as needed
+
+        // Build response with token and user info
+        Map<String, Object> response = new HashMap<>();
+        response.put("token", token);
+        response.put("user_id", users.getUser_id());
+        response.put("firstname", users.getFirstname());
+        response.put("lastname", users.getLastname());
+        response.put("username", users.getUsername());
+        response.put("email", users.getEmail());
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        }
+        
+    }
+
+
    // @PostMapping
    // public void createUsername(@RequestBody users user){
    //         userService.createUsername(user);
@@ -170,11 +262,23 @@ public class UserWs {
 
     //PUT method to update an existing user
     // Example: PUT /api/user/update/{id}
-    @PutMapping("{id}")
-    public void updateUserById(@PathVariable("id") Long id, @RequestBody users user) {
-        userService.updateUserById(user, id); // Assuming you have a userService to update user by ID
+    //@PutMapping("{id}")
+    //public void updateUserById(@PathVariable("id") Long id, @RequestBody users user) {
+      //  userService.updateUserById(user, id); // Assuming you have a userService to update user by ID
 
+    //}
+    @PutMapping("{id}")
+public ResponseEntity<users> updateUserById(@PathVariable("id") Long id, @RequestBody users users) {
+     // Check for ID consistency first
+    if (users.getUser_id() != null && !users.getUser_id().equals(id)) {
+        return ResponseEntity.badRequest().build();
     }
+    users updatedUser = userService.updateUserById(users, id);
+    if (updatedUser == null) {
+        return ResponseEntity.notFound().build();
+    }
+    return ResponseEntity.ok(updatedUser);
+}
 /* 
     @PutMapping("{firstame}")
     public void updateUserFirstname(@PathVariable("fisrtname") String firstname, @RequestBody users user) {

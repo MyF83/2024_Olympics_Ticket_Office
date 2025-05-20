@@ -20,8 +20,7 @@ import lombok.Setter;
 public class userskeys {
 
 @Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-@NotNull
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long userkey_id;
 private Date date;
 
@@ -34,18 +33,13 @@ private users users;*/
 @JoinColumn(name= "key_id", nullable = true)
 private keysgenerations keysgenerations;
 
-
-@OneToOne(mappedBy = "userskeys") // Bidirectional relationship
-private users users;
-
-   // Default constructor (required by Hibernate)
-   public userskeys() {
+public userskeys() {
+    // Default constructor required by JPA
 }
 
-public userskeys(Date date, users users, keysgenerations keysgenerations) {
+public userskeys(Date date, /*users users,*/ keysgenerations keysgenerations) {
     // Default constructor
     this.date = date;
-    this.users = users;
     this.keysgenerations = keysgenerations;
     }
 
@@ -61,17 +55,17 @@ public userskeys(Date date, users users, keysgenerations keysgenerations) {
         this.keysgenerations = keysgenerations;
     }
 
+    
     public keysgenerations getKeyGenerated() {
         return keysgenerations;
     }
 
+     
     public void setKeyGenerated(keysgenerations keysgenerations) {
         this.keysgenerations = keysgenerations;
     }
 
-    public void setUser(users users) {
-        this.users = users;
-    }
+
 
 /* 
 public void setUser(users users2) {

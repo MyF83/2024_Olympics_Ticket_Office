@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
+//import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,12 +21,12 @@ public class events {
 
 
 @Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-@NotNull
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long event_id;
 
 private String title;
 private Date date;
+private String time;
 private String image;
 private String description;
 
@@ -63,10 +63,11 @@ private Integer nbseatsavailc3;
 }
 
 // Parameterized constructor
-public events(String title, Date date, String image, String description, sports sports, ceremonies ceremonies, challengers challenger1, challengers challenger2, Float pricec1, Integer nbseatssoldc1, Integer nbseatsavailc1, Float pricec2, Integer nbseatssoldc2, Integer nbseatsavailc2, Float pricec3, Integer nbseatssoldc3, Integer nbseatsavailc3) {  
+public events(String title, Date date, String time, String image, String description, sports sports, ceremonies ceremonies, challengers challenger1, challengers challenger2, Float pricec1, Integer nbseatssoldc1, Integer nbseatsavailc1, Float pricec2, Integer nbseatssoldc2, Integer nbseatsavailc2, Float pricec3, Integer nbseatssoldc3, Integer nbseatsavailc3) {  
             // Default constructor
         this.title = title;
         this.date = date;
+        this.time = time;
         this.image = image;
         this.description = description;
         this.sports = sports;

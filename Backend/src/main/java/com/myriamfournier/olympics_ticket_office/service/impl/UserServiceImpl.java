@@ -1,27 +1,36 @@
 package com.myriamfournier.olympics_ticket_office.service.impl;
 
+import java.util.Collections;
 import java.util.List;
-// import java.util.Optional;
+import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myriamfournier.olympics_ticket_office.pojo.users;
 import com.myriamfournier.olympics_ticket_office.pojo.userskeys;
+import com.myriamfournier.olympics_ticket_office.pojo.countries;
 import com.myriamfournier.olympics_ticket_office.pojo.keysgenerations;
 import com.myriamfournier.olympics_ticket_office.repository.UserRepository;
 import com.myriamfournier.olympics_ticket_office.repository.UserskeyRepository;
+import com.myriamfournier.olympics_ticket_office.repository.CountryRepository;
 import com.myriamfournier.olympics_ticket_office.repository.KeysgenerationRepository;
+import com.myriamfournier.olympics_ticket_office.repository.PolicyRepository;
 import com.myriamfournier.olympics_ticket_office.service.UserService;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import com.myriamfournier.olympics_ticket_office.pojo.policies;
+import com.myriamfournier.olympics_ticket_office.pojo.roles;
 
 @Service
 public class UserServiceImpl implements UserService {
     // Implement the methods defined in UserService interface here
     // For example:
     // @Override
-    // public User createUser(User user) {
+    // public Users createUser(Users users) {
     //     // Implementation code here
     //     return null;
     // }
@@ -35,7 +44,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserskeyRepository userskeyRepository; // Assuming you have a UserskeysRepository interface
+
+    @Autowired
+    private PolicyRepository policyRepository; // Repository for policies
    
+    @Autowired
+    private CountryRepository countryRepository; // Repository for countries
     
 
 /* 
@@ -72,26 +86,53 @@ public class UserServiceImpl implements UserService {
 */
 
 @Override
-public void createUser(users user) {
-    // Step 1: Generate a unique 256-character key
-    String uniqueKey = generateUnique256CharacterKey();
+public void createUser(users users) {
+    System.out.println("Creating user: " + users);
 
-    // Step 2: Save the key in the Keysgenerations table
-    keysgenerations keysEntity = new keysgenerations(uniqueKey);
+    // Step 1: Generate a unique 256-character key
+    String uniqueKey;
+    keysgenerations keysEntity;
+    do {
+        uniqueKey = generateUnique256CharacterKey();
+        System.out.println("Generated unique key: " + uniqueKey);
+
+        // Step 2: Check if the key already exists in the Keysgenerations table
+        keysEntity = keysgenerationRepository.findByKeyGenerated(uniqueKey);
+    } while (keysEntity != null);
+
+    // Step 3: Save the key in the Keysgenerations table
+    keysEntity = new keysgenerations(uniqueKey);
     keysEntity.setKeyGenerated(uniqueKey);
     keysgenerationRepository.save(keysEntity);
-    
+    System.out.println("Saved key in Keysgenerations table: " + keysEntity);
 
-    // Step 3: Create a new Userskeys object and link it to the generated key
+    // Step 4: Create a new Userskeys object and link it to the generated key
     userskeys userskeys = new userskeys();
     userskeys.setKey(keysEntity); // Link the key to the Userskeys object
     userskeyRepository.save(userskeys);
+    System.out.println("Linked key to Userskeys object: " + userskeys);
 
-    // Step 4: Link the Userskeys object to the User object
-    user.setUserskeys(userskeys); // Set the foreign key relationship
-    userRepository.save(user); // Save the User object
+    // Step 5: Link the Userskeys object to the User object
+    users.setUserskeys(userskeys);
+
+    // Step 6: Set the policy_id for the user (assuming a default policy exists)
+    if (users.getPolicies() != null) {
+        policies policy = policyRepository.findById(users.getPolicies().getPolicy_id()).orElse(null);
+        if (policy != null) {
+            users.setPolicies(policy);
+        } else {
+            System.out.println("Policy not found for ID: " + users.getPolicies().getPolicy_id());
+        }
+    }
+
+    // Step 7: Set the default role_id for the user
+    roles defaultRole = new roles();
+    defaultRole.setRole_id(Long.valueOf(3)); // Default role ID for USER as Long
+    users.setRoles(defaultRole);
+
+    userRepository.save(users);
+    System.out.println("User saved successfully: " + users);
 }
-
 
 
     private String generateUnique256CharacterKey() {
@@ -116,7 +157,32 @@ public void createUser(users user) {
         return keyBuilder.substring(0, 256); // Ensure the key is exactly 256 characters
     }
 
+@Override
+public users updateUserById(users users, Long id) {
+    users oldUser = getUserById(id);
+    if (oldUser != null) {
+        oldUser.setFirstname(users.getFirstname());
+        oldUser.setLastname(users.getLastname());
+        oldUser.setUsername(users.getUsername());
+        oldUser.setEmail(users.getEmail());
+        oldUser.setPassword(users.getPassword());
+        oldUser.setPhoneNumber(users.getPhoneNumber());
+        oldUser.setAddress(users.getAddress());
+        oldUser.setCity(users.getCity());
+        oldUser.setPostalCode(users.getPostalCode());
+        // Update country if provided
+        if (users.getCountries() != null && users.getCountries().getCountry_id() != null) {
+            countries countryEntity = countryRepository.findById(users.getCountries().getCountry_id()).orElse(null);
+            oldUser.setCountries(countryEntity);
+        }
+        // ... update other fields as needed ...
+        userRepository.save(oldUser);
+    }
+    return oldUser;
+}
 
+
+/* 
     @Override
     public void updateUserById(users users, Long id) {
             // (EN) A record is immutable,
@@ -135,13 +201,14 @@ public void createUser(users user) {
             oldUser.setUsername(users.getUsername());
             oldUser.setEmail(users.getEmail());
             oldUser.setPassword(users.getPassword());
+            oldUser.setPhoneNumber(users.getPhoneNumber());
             oldUser.setAddress(users.getAddress());
             oldUser.setCity(users.getCity());
             oldUser.setPostalCode(users.getPostalCode());
             userRepository.save(oldUser);
         }
     }
-
+*/
 
 
 
@@ -232,20 +299,42 @@ public String generateUniqueUsername(String firstname, String lastname) {
     String username = baseUsername;
     int counter = 1;
 
+    System.out.println("Generating unique username for: " + firstname + " " + lastname);
+
     // Check if the username already exists in the database
     while (userRepository.findByUsername(username) != null) {
+        System.out.println("Username already exists: " + username);
         username = baseUsername + "-" + counter;
         counter++;
     }
 
+    System.out.println("Generated unique username: " + username);
     return username;
 }
 
     @Override
     public users getUserByUsername(String username) {
-        users user = userRepository.findUserByUsername(username);
-        return user != null ? user : null; // Handle null check properly
+        users users = userRepository.findUserByUsername(username);
+
+        if(users == null) {
+            throw new UsernameNotFoundException("User not found with username : " + username);
+        }
+        // Just return the user entity, not a UserDetails object
+        return users;
     }
 
+    @Override
+    public boolean isUsernameTaken(String username) {
+        return userRepository.findUserByUsername(username) != null;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        users users = userRepository.findByUsername(username);
+        if (users == null) {
+            throw new UsernameNotFoundException("User not found with username: " + username);
+        }
+        return new org.springframework.security.core.userdetails.User(users.getUsername(), users.getPassword(), new ArrayList<>());
+    }
 
 }

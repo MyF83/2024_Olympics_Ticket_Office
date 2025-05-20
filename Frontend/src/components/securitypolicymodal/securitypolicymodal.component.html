@@ -1,0 +1,58 @@
+ <section class="modal-content">
+    <div class="modal-card">
+      <!-- Header -->
+      <div class="modal-header">
+        <p class="h3modal">{{ policy.title }}</p>
+      </div>
+  
+      <!-- Main content row -->
+        <div class="modal-main">
+            
+    
+            <div class="modal-details">
+            <!-- Policy Details -->
+                <div class="modal-details">
+                    <h4>Our security policy</h4>
+                    <p><strong>Description: </strong><br/> {{ policy.description }}</p>
+                    <p><strong>Creation date: </strong> {{ policy.creationDate }}</p>
+                    <p><strong>Version number: </strong> {{ policy.version }}</p>
+                </div>
+            </div>
+            <div class="modal-content">
+                
+                <div class="modal-content">
+  <div *ngIf="htmlContent; else loading">
+    <div [innerHTML]="htmlContent"></div>
+  </div>
+  <ng-template #loading>
+    <p *ngIf="policy.url">Loading policy details...</p>
+  </ng-template>
+</div>
+                
+                </div>
+        </div>
+  
+
+  
+      <!-- Footer for Closing Page-->
+        <div class="modal-footer">
+            <button class = "button" mat-button (click)="closeSecuritypolicymodal()">Close</button>
+        </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

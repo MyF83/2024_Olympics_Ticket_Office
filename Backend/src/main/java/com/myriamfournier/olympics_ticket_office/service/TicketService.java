@@ -11,12 +11,12 @@ import com.myriamfournier.olympics_ticket_office.service.impl.TicketServiceImpl;
 public interface TicketService{
 
     List<tickets> getAllTickets();
-    List<tickets> getAllWithUserskeys();
-    List<tickets> getAllWithSaleskeys();
+    // List<tickets> getAllWithUserskeys();
+    // List<tickets> getAllWithSaleskeys();
     List<tickets> getAllWithSales();
-    List<tickets> getAllWithCarts();
-    List<tickets> getAllWithUsers();
-    List<tickets> getAllWithUserselections();
+    // List<tickets> getAllWithCarts();
+    // List<tickets> getAllWithUsers();
+    // List<tickets> getAllWithUserselections();
 
     tickets getTicketById(Long id);
 

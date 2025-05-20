@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.myriamfournier.olympics_ticket_office.pojo.ceremonies;
 import com.myriamfournier.olympics_ticket_office.service.CeremonyService;
@@ -18,6 +19,7 @@ import com.myriamfournier.olympics_ticket_office.service.CeremonyService;
 @RequestMapping(ApiRegistration.API_REST
         + ApiRegistration.CEREMONY)
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class CeremonyWs {
 
 

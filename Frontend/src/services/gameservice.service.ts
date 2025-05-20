@@ -31,4 +31,9 @@ export class GameserviceService {
     getGames(): Observable<Gamesinterface[]> {
     return this.http.get<Gamesinterface[]>(this.apiUrl);
   }
+
+getEvents(): Observable<Event[]> {
+  return this.http.get<Event[]>('http://localhost:8080/api/event/all');
+}
+
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.myriamfournier.olympics_ticket_office.pojo.controls;
 import com.myriamfournier.olympics_ticket_office.service.ControlService;
@@ -18,6 +19,7 @@ import com.myriamfournier.olympics_ticket_office.service.ControlService;
 @RequestMapping(ApiRegistration.API_REST
         + ApiRegistration.CONTROL)
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class ControlWs {
 
 
@@ -42,7 +44,7 @@ public class ControlWs {
     public List<controls> getAllWithTickets() {
         return controlService.getAllWithTickets(); // Assuming you have a controlService to fetch all controls
     }  
-
+/* 
     @GetMapping("/userskeys")
     public List<controls> getAllWithUserskeys() {
         return controlService.getAllWithUserskeys(); // Assuming you have a controlService to fetch all controls
@@ -51,7 +53,7 @@ public class ControlWs {
     @GetMapping("/saleskeys")
     public List<controls> getAllWithSaleskeys() {
         return controlService.getAllWithSaleskeys(); // Assuming you have a controlService to fetch all controls
-    }  
+    }  */
 
 
     //GET method to retrieve a control by ID

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.myriamfournier.olympics_ticket_office.pojo.sales;
 import com.myriamfournier.olympics_ticket_office.service.SaleService;
@@ -18,6 +19,7 @@ import com.myriamfournier.olympics_ticket_office.service.SaleService;
 @RequestMapping(ApiRegistration.API_REST
         + ApiRegistration.SALE)
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class SaleWs {
 
 
@@ -38,10 +40,11 @@ public class SaleWs {
         return salesService.getAllSales(); // Assuming you have a salesService to fetch all sales
     }  
 
+    /* 
     @GetMapping("/users")
     public List<sales> getAllWithUsers() {
         return salesService.getAllWithUsers(); // Assuming you have a salesService to fetch all sales
-    } 
+    } */
 
     @GetMapping("/carts")
     public List<sales> getAllWithCarts() {

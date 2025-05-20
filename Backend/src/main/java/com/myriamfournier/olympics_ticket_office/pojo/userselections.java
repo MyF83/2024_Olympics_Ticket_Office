@@ -20,8 +20,7 @@ import lombok.Setter;
 public class userselections {
 
 @Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-@NotNull
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long usersel_id;
 
 private Integer nbPersons;

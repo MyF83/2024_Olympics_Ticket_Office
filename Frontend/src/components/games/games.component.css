@@ -155,28 +155,22 @@ color: #888;
 .card_moredetails_btn {
   padding: 10px 40px;
   background-color: #d6c278;
-  width :180px;
+  width: 180px;
   border: none;
   border-radius: 15px;
   font-size: 0.9em;
   font-weight: bold;
   color: #0e0d0d;
-  margin-top: auto;      /* Pushes the button to the bottom */
-  margin-bottom: 5px;   /* 20px space from the bottom */
+  margin-top: auto;
+  margin-bottom: 5px;
   vertical-align: bottom;
+  transition: background 0.2s, filter 0.2s;
 }
-.card_moredetails_btn .hover{
-  padding: 10px 40px;
-  background-color: rgba(209, 192, 80, 1);
-  width :180px;
-  border: none;
-  border-radius: 15px;
-  font-size: 1.1em;
-  color: #84816a;
-  margin-top: auto;      /* Pushes the button to the bottom */
-  margin-bottom: 20px;   /* 20px space from the bottom */
-  vertical-align: bottom;
-  
+
+.card_moredetails_btn:hover {
+  background-color: #d2c493;
+  filter: brightness(1.08);
+  cursor: pointer;
 }
 
 .card-details {

@@ -12,17 +12,20 @@ import com.myriamfournier.olympics_ticket_office.pojo.controls;
 public interface ControlRepository extends CrudRepository<controls, Long>{
 
 
-    @Query("SELECT e FROM controls e LEFT JOIN FETCH e.tickets LEFT JOIN FETCH e.userskeys LEFT JOIN FETCH e.saleskeys")
+    // @Query("SELECT e FROM controls e LEFT JOIN FETCH e.tickets LEFT JOIN FETCH e.userskeys LEFT JOIN FETCH e.saleskeys")
+    // List<controls> findAllWithDetails();
+
+    @Query("SELECT e FROM controls e LEFT JOIN FETCH e.tickets ")
     List<controls> findAllWithDetails();
 
     @Query("SELECT e FROM controls e LEFT JOIN FETCH e.tickets")
     List<controls> findAllWithTickets();
-    
+    /* 
     @Query("SELECT e FROM controls e LEFT JOIN FETCH e.userskeys")
     List<controls> findAllWithUserskeys();
     
     @Query("SELECT e FROM controls e LEFT JOIN FETCH e.saleskeys")
-    List<controls> findAllWithSaleskeys();
+    List<controls> findAllWithSaleskeys();*/
     
     
 

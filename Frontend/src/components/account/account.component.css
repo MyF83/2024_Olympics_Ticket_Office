@@ -7,4 +7,225 @@
     color: #d6c278;
     font-family: Arial, sans-serif;
     min-height : 55vh;
+    text-align : center;
+}
+
+
+.account-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 90%;
+    margin: 0 auto;
+    padding: 24px;
+    background-color: hsl(53, 100%, 97%);
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    min-height: 60vh;
+    gap: 20px;
+    margin-top: 32px;
+
+}
+
+.left-panel {
+    width: 200px;
+    background-color: #fff;
+    padding: 10px;
+    border-right: 1px solid #ccc;
+    min-height: 100%;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    min-width: 220px;
+    margin-right: 32px;
+}
+
+.right-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    justify-content: flex-start;
+}
+
+/* Center forms and content inside right-panel */
+.right-panel form,
+.right-panel > * {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Keep the page title at the left */
+h2 {
+    text-align: left;
+    margin-left: 0;
+}
+
+/* Account Card */
+.account-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 32px 28px;
+  width: 350px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.account-card h3 {
+  margin: 0 0 16px 0;
+  font-size: 1.4em;
+  color: #2a3b4c;
+  text-align:center;
+}
+
+
+.account-info-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.account-info-label {
+  font-weight: bold;
+  color: #d6c278;
+  min-width: 120px;
+}
+
+.account-info-value {
+  color: #444;
+  word-break: break-all;
+}
+
+.mat-raised-button {
+  padding: 10px 32px;
+  background-color: #d6c278;
+  border: none;
+  border-radius: 12px;
+  font-size: 1em;
+  font-weight: bold;
+  color: #0e0d0d;
+  margin-top: 18px;
+  transition: background 0.2s, filter 0.2s;
+}
+
+.account-action-btn:hover {
+  background-color: #f3e7b3;
+  filter: brightness(1.08);
+  cursor: pointer;
+}
+
+::ng-deep.button {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 40px;
+    background : rgb(252, 252, 240);
+    border: 1px solid #938f5f;
+    border-radius: 8px;
+    color : #0e0d0d;
+    font-weight : bold;
+    font-size : 0.85em;
+}
+
+::ng-deep.button:hover {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 40px;
+    background : rgb(216, 216, 189);
+    border: 1px solid #938f5f;
+    border-radius: 8px;
+    color : #0e0d0d;
+    font-weight : bold;
+    font-size : 0.9em;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  gap: 24px; /* Space between buttons */
+  margin-bottom: 16px;
+}
+
+.account_btn {
+  padding: 10px 40px;
+  background-color: #d6c278;
+  width: 280px;
+  border: none;
+  border-radius: 15px;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #0e0d0d;
+  margin: 0 0 5px 0; /* Remove left/right margin, keep only bottom */
+  vertical-align: bottom;
+  text-align : center;
+  transition: background 0.2s, filter 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top : 30px;
+}
+.account_btn:hover {
+  background-color: #d2c493;
+  filter: brightness(1.08);
+  cursor: pointer;
+}
+
+.account_back_btn {
+  padding: 10px 20px;
+  background-color: #d6c278;
+  width: 100px;
+  border: none;
+  border-radius: 15px;
+  font-size: 0.7em;
+  font-weight: bold;
+  color: #0e0d0d;
+  margin: 0 0 5px 0; /* Remove left/right margin, keep only bottom */
+  vertical-align: bottom;
+  text-align : center;
+  transition: background 0.2s, filter 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom : 40px;
+}
+.account_back_btn:hover {
+  background-color: #d2c493;
+  filter: brightness(1.08);
+  cursor: pointer;
+}
+
+.p_form {
+  margin-bottom : 40px;
+}
+
+
+.account_form_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 32px auto 5px auto; /* Center horizontally, add top margin */
+  text-align: center;
+  padding: 10px 10px;
+  background-color: #fffff1;
+  width: 400px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #0e0d0d;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom : 40px;
+  transition: background 0.2s, filter 0.2s;
+}
+
+::ng-deep.mdc-text-field--filled{
+  background-color:rgb(255, 251, 233) !important;
+  text-align: center;
 }

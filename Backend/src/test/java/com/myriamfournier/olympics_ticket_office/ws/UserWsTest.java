@@ -40,14 +40,14 @@ public class UserWsTest {
         mockUser.setUsername("Doe-John"); // Assuming username is a combination of last and first name
         mockUser.setEmail("olympicgamesfan@gmail.com");
         mockUser.setPassword("password123");    
-        mockUser.setPhonenumber("1234567890");
+        mockUser.setPhoneNumber("1234567890");
         mockUser.setAddress("1 Place de la Liberté");
-        mockUser.setCreationDate(new java.sql.Date(System.currentTimeMillis()));
+        mockUser.setCreationDate(new java.sql.Timestamp(System.currentTimeMillis()));
         mockUser.setRoles(null); // Assuming roles is set to null for this test
         mockUser.setUserskeys(null); // Assuming userskeys is set to null for this test         
         mockUser.setUserselections(null); // Assuming userselections is set to null for this test
         mockUser.setPolicies(null); // Assuming policies is set to null for this test
-        mockUser.setPolicySignDate(new java.sql.Date(System.currentTimeMillis()));
+        mockUser.setPolicySignDate(new java.sql.Timestamp(System.currentTimeMillis()));
         mockUser.setCity("Paris");
         mockUser.setPostalCode("75001");
         mockUser.setCountries(null); // Assuming countries is set to null for this test
@@ -75,7 +75,7 @@ public class UserWsTest {
         user1.setUsername("Doe-John");
         user1.setEmail("olympicgamesfan@gmail.com");
         user1.setPassword("password123");
-        user1.setPhonenumber("1234567890");
+        user1.setPhoneNumber("1234567890");
         user1.setAddress("1 Place de la Liberté");
 
         users user2 = new users(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
@@ -84,7 +84,7 @@ public class UserWsTest {
         user2.setUsername("Smith-Jane");
         user2.setEmail("janethequeen@gmail.com");
         user2.setPassword("password456");
-        user2.setPhonenumber("0987654321");
+        user2.setPhoneNumber("0987654321");
         user2.setAddress("2 Place de la Liberté");
 
         users user3 = new users(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
@@ -93,7 +93,7 @@ public class UserWsTest {
         user3.setUsername("Johnson-Alice");
         user3.setEmail("missjohnson@hotmail.com");
         user3.setPassword("password789");
-        user3.setPhonenumber("1122334455");
+        user3.setPhoneNumber("1122334455");
         user3.setAddress("3 Place de la Liberté");
 
         List<users> mockUsersList = List.of(user1, user2, user3);
@@ -122,27 +122,27 @@ public class UserWsTest {
         mockUser.setUsername("Doe-John"); // Assuming username is a combination of last and first name
         mockUser.setEmail("olympicgamesfan@gmail.com");
         mockUser.setPassword("password123");    
-        mockUser.setPhonenumber("1234567890");
+        mockUser.setPhoneNumber("1234567890");
         mockUser.setAddress("1 Place de la Liberté");
-        mockUser.setCreationDate(new java.sql.Date(System.currentTimeMillis()));
+        mockUser.setCreationDate(new java.sql.Timestamp(System.currentTimeMillis()));
         mockUser.setRoles(null); // Assuming roles is set to null for this test
         mockUser.setUserskeys(null); // Assuming userskeys is set to null for this test         
         mockUser.setUserselections(null); // Assuming userselections is set to null for this test
         mockUser.setPolicies(null); // Assuming policies is set to null for this test
-        mockUser.setPolicySignDate(new java.sql.Date(System.currentTimeMillis()));
+        mockUser.setPolicySignDate(new java.sql.Timestamp(System.currentTimeMillis()));
         mockUser.setCity("Paris");
         mockUser.setPostalCode("75001");
         mockUser.setCountries(null); // Assuming countries is set to null for this test
         when(userService.getUserById(userId)).thenReturn(mockUser);
         
         // Act: Call the method being tested
-        users user = userWs.getUserById(userId);
+        users users = userWs.getUserById(userId);
 
        // Assert: Verify the behavior and the result
         org.mockito.Mockito.verify(userService).getUserById(userId);
-        org.junit.jupiter.api.Assertions.assertNotNull(user);
-        org.junit.jupiter.api.Assertions.assertEquals("John", user.getFirstname());
-        org.junit.jupiter.api.Assertions.assertEquals("Doe", user.getLastname());
+        org.junit.jupiter.api.Assertions.assertNotNull(users);
+        org.junit.jupiter.api.Assertions.assertEquals("John", users.getFirstname());
+        org.junit.jupiter.api.Assertions.assertEquals("Doe", users.getLastname());
     }
 
     

@@ -1,6 +1,7 @@
 package com.myriamfournier.olympics_ticket_office.pojo;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 
@@ -43,30 +44,30 @@ public class tickets {
    // private static TicketRepository ticketRepository; // Inject the repository to query the database
    
 @Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-@NotNull
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long ticket_id;
 
-private Date date;
+private Timestamp date;
 
 @Column(length=512)
 private String keyAssembly;
 
 private String fileName;
 
-
+/* 
 @OneToOne
 @JoinColumn(name= "userkey_id", nullable = true)
 private  userskeys userskeys;
 
 @OneToOne
 @JoinColumn(name= "salekey_id", nullable = true)
-private  saleskeys saleskeys;
+private  saleskeys saleskeys;*/
 
 @OneToOne
 @JoinColumn(name= "sale_id", nullable = true)
 private  sales sales;
 
+/* 
 @OneToOne
 @JoinColumn(name= "cart_id", nullable = true)
 private  carts carts;
@@ -77,7 +78,7 @@ private  users users;
 
 @OneToOne
 @JoinColumn(name= "usersel_id", nullable = true)
-private  userselections userselections;
+private  userselections userselections;*/
 
 
 
@@ -85,28 +86,30 @@ private  userselections userselections;
    public tickets() {
 }
 
-public tickets(Date date, String keyAssembly, String fileName, userskeys userskeys, saleskeys saleskeys, sales sales, carts carts, users users, userselections userselections) {
+public tickets(Timestamp date, String keyAssembly, String fileName,/*  userskeys userskeys, saleskeys saleskeys,*/ sales sales/*,  carts carts, users users, userselections userselections*/) {
     // Default constructor
     this.date = date;
     this.keyAssembly = keyAssembly;
     this.fileName = fileName;
-    this.userskeys = userskeys;
-    this.saleskeys = saleskeys;
+    // this.userskeys = userskeys;
+    // this.saleskeys = saleskeys;
     this.sales = sales;
-    this.carts = carts;
-    this.users = users;
-    this.userselections = userselections;
+    // this.carts = carts;
+    // this.users = users;
+    // this.userselections = userselections;
     }
 
-    
- 
+    public sales getSales() {
+        return sales;
+    }
+ /* 
     public userskeys getUserskeys() {
         return userskeys;
     }
 
     public saleskeys getSaleskeys() {
         return saleskeys;
-    }
+    }*/
 
     
 /* 
@@ -115,12 +118,12 @@ public tickets(Date date, String keyAssembly, String fileName, userskeys userske
         throw new UnsupportedOperationException("Unimplemented method 'setKeyAssembly'");
     }*/
 
-    public Date getDate() {
+    public Timestamp getDate() {
 
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 

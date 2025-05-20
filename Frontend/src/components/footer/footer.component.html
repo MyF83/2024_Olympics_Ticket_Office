@@ -9,9 +9,10 @@
 
     <!-- Center Section -->
     <div class="footer-center">
-      <a href="#" class="footer-link">Politique de confidentialité</a>
-      <a href="#" class="footer-link">Conditions d'utilisation</a>
-      <a href="#" class="footer-link">Contactez-nous</a>
+      <a href="#" class="footer-link" (click)="logMessage('Link clicked'); openSecuritypolicymodal(null); $event.preventDefault()">Security policy</a>
+      <a href="#" class="footer-link">Confidentiality policy</a>
+      <a href="#" class="footer-link">Conditions of use</a>
+      <a href="#" class="footer-link">Contact us</a>
     </div>
 
     <!-- Right Section -->
@@ -76,3 +77,4 @@
   </div>
   <p class="Copyright">© 2025 Myriam Fournier. Tous droits réservés.</p>
 </footer>
+

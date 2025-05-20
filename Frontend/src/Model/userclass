@@ -1,0 +1,25 @@
+export class userclass {
+user_id: number;
+firstname: string;
+lastname: string;
+username: string;
+email: string;
+password: string;
+phoneNumber: string;
+address: string;
+creationDate: string;
+
+
+
+serialize() {
+    return {
+      user_id: this.user_id,
+      firstname: this.firstname,
+      lastname: this.lastname,
+      username: this.username,
+      email: this.email,
+      password: this.password,
+    }
+  }
+
+}

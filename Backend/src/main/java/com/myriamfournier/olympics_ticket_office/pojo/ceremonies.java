@@ -19,8 +19,7 @@ import lombok.Setter;
 public class ceremonies {
 
 @Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-@NotNull
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long cerem_id;  
 
 private String name;

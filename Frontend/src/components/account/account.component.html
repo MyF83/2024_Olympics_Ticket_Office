@@ -1,2 +1,214 @@
 <h2>Account</h2>
-<p>account works!</p>
+
+
+<div id="1-NOT-CONNECTED" *ngIf="!isConnected && currentView === 'main'" class="not-connected-message">
+    <h3>You are not connected</h3>
+    <p class="p_form">Please login or register to access your account page.</p>
+    <div class = "centered">
+        <button class="account_btn" (click)="setView('register')">Register</button>
+        <button class="account_btn" (click)="setView('login')">Login</button>
+    </div>
+</div> 
+
+<div class = "account_form_content" id="2-REGISTER" *ngIf="!isConnected && currentView === 'register'">
+    <h3>Register</h3>
+    <p class="p_form">To register, please fill in the form below.</p>
+    
+    <form (ngSubmit)="onRegister()">
+        <mat-form-field appearance="fill">
+            <mat-label >Firstname</mat-label>
+            <input matInput required [(ngModel)]="firstname" name="firstname" autocomplete="firstname"/>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Lastname</mat-label>
+            <input matInput required [(ngModel)]="lastname" name="lastname" autocomplete="lastname"/>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput required [(ngModel)]="email" name="email" autocomplete="email"/>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" required [(ngModel)]="password" name="password" autocomplete="current-password"/>
+        <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        </mat-form-field>
+        <div class="centered">
+            <div style="width:100%;">
+                <mat-checkbox [(ngModel)]="hasAcceptedTerms" name="hasAcceptedTerms" required>
+                    <p> I have read and accept the <a href="#" (click)="openSecurityPolicyModal($event)">security policy</a>.</p>
+                </mat-checkbox>
+            </div>
+        </div>
+        <div class = "centered">
+            <button class="account_back_btn" mat-button type="button" (click)="goBack()">Back</button>
+        </div>
+        
+        <div class="centered">
+            <button class="account_btn" type="submit" [disabled]="!hasAcceptedTerms">Register</button>
+        </div>
+    </form>
+</div>
+
+
+
+
+<div class = "account_form_content"  id="3-LOGIN" *ngIf="!isConnected && currentView === 'login'">
+    <h3>Login form</h3>
+    <p class="p_form">Please fill the fields below to connect.</p> 
+    <form (ngSubmit)="onLogin()">
+        <mat-form-field appearance="fill">
+            <mat-label>Username</mat-label>
+            <input matInput required [(ngModel)]="username" name="username" autocomplete="username"/>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" required [(ngModel)]="password" name="password" autocomplete="current-password"/>
+        <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        </mat-form-field>
+        <div class="centered">
+            <button class="account_btn" type="submit">Login</button>
+        </div>
+        </form>
+    <p>Don't have an account? <a href="#" (click)="currentView = 'register'; $event.preventDefault()">Register here</a></p>
+    <button class="account_back_btn" mat-button type="button" (click)="goBack()">Back</button>
+</div>
+
+
+<!-- When a standard user without privileges is connected : -->
+<div *ngIf="isConnected" class="account-container">
+    <div class="left-panel">
+        <button class="button" mat-button (click)="onEditInfo()">Edit My Information</button>
+        <button class="button" mat-button (click)="onViewCarts()">My Carts</button>
+        <button class="button" mat-button (click)="onViewPayments()">My Last Payments</button>
+        <button class="button" mat-button (click)="onViewTickets()">My Tickets</button>
+        <button class="button" mat-button (click)="onDisconnect()">Disconnect</button>
+        
+        <!-- Administration section, visible only for role_id 1 or 2 -->
+        <ng-container *ngIf="role_id === 1 || role_id === 2">
+            <div class="admin-section">
+                <h4>Administration</h4>
+                <button class="button" mat-button (click)="onManageEvents()">Manage Events</button>
+                <button class="button" mat-button (click)="onManageOffers()">Manage Offers</button>
+                <button class="button" mat-button (click)="onOffersSold()">Offers Sold</button>
+            </div>
+        </ng-container>
+    </div>
+    <div class="right-panel">
+        <div class = "account_form_content" width = "100%">
+            <h2 *ngIf="currentView === 'main'" style="text-align:center;">Welcome, {{username}} !</h2>
+            <ng-container *ngIf="currentView === 'editInfo'">
+                <h3>Editing my informations</h3>
+                <!-- Form for editing user information -->
+                <form (ngSubmit)="onSaveInfo()">
+                    <mat-form-field appearance="fill">
+                        <mat-label>First Name</mat-label>
+                        <input matInput required [(ngModel)]="firstname" name="firstName" />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput required [(ngModel)]="lastname" name="lastName" />
+                    </mat-form-field>
+
+                       <mat-form-field appearance="fill">
+                        <mat-label>Username</mat-label>
+                        <input matInput [(ngModel)]="username" name="username" disabled autocomplete="username" readonly />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input matInput required [(ngModel)]="email" name="email" />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Password</mat-label>
+                        <input matInput [type]="hidePassword ? 'password' : 'text'" [(ngModel)]="password" name="password" autocomplete="current-password" />
+                        <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+                            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Phone Number</mat-label>
+                        <input matInput required [(ngModel)]="phoneNumber" name="phoneNumber" />
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Address</mat-label>
+                        <textarea matInput [(ngModel)]="address" name="address"></textarea>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>City</mat-label>
+                        <input matInput [(ngModel)]="city" name="city" />
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Postal Code</mat-label>
+                        <input matInput [(ngModel)]="postalCode" name="postalCode" />
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Country</mat-label>
+                        <mat-select [(ngModel)]="country" name="country">
+                            <mat-option *ngFor="let country of countries" [value]="country.code">
+                                {{ country.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div class="centered">
+                        <button class="account_btn" type="submit">Save</button>
+                    </div>
+                </form>
+            </ng-container>
+        </div>
+        <ng-container *ngIf="currentView === 'carts'">
+            <h3>My Carts</h3>
+            <div *ngIf="userCarts?.length; else noCarts">
+                <mat-accordion>
+                <mat-expansion-panel *ngFor="let cart of userCarts">
+                    <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Cart #{{ cart.cart_id }} — {{ cart.date | date:'mediumDate' }} ({{ cart.user_id.userselections?.offers ? 1 : 0 }} items)
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Total: {{ cart.totalAmount | currency }}
+          </mat-panel-description>
+                </mat-expansion-panel-header>
+                <table mat-table [dataSource]="[cart.user_id.userselections.offers]" class="mat-elevation-z1" style="width:100%;">
+                <!--<table mat-table [dataSource]="cart.user_id.userselections?.offers ? [cart.user_id.userselections.offers] : []" ...></table>-->
+                    <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef>Offer</th>
+                    <td mat-cell *matCellDef="let offer">{{ offer.name }}</td>
+                </ng-container>
+                <ng-container matColumnDef="price">
+                    <th mat-header-cell *matHeaderCellDef>Price</th>
+                    <td mat-cell *matCellDef="let offer">{{ offer.price | currency }}</td>
+                </ng-container>
+                <ng-container matColumnDef="quantity">
+                    <th mat-header-cell *matHeaderCellDef>Qty</th>
+                    <td mat-cell *matCellDef="let offer">{{ offer.quantity }}</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="['name', 'price', 'quantity']"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['name', 'price', 'quantity'];"></tr>
+                </table>
+            </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+        <ng-template #noCarts>
+            <p>You have no carts yet.</p>
+        </ng-template>
+        </ng-container>
+        <ng-container *ngIf="currentView === 'payments'">
+            <h3>My Last Payments</h3>
+            <!-- Payments content here -->
+        </ng-container>
+        <ng-container *ngIf="currentView === 'tickets'">
+            <h3>My Tickets</h3>
+            <!-- Tickets content here -->
+        </ng-container>
+    </div>
+</div>
+
+
+

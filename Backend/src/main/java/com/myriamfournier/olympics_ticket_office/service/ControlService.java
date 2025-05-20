@@ -8,8 +8,8 @@ public interface ControlService{
 
     List<controls> getAllControls();
     List<controls> getAllWithTickets();
-    List<controls> getAllWithUserskeys();
-    List<controls> getAllWithSaleskeys();
+    // List<controls> getAllWithUserskeys();
+    // List<controls> getAllWithSaleskeys();
 
     controls getControlById(Long id);
 
@@ -19,6 +19,8 @@ public interface ControlService{
 
 
     void deleteControlById(Long id);
+
+    
 
 
     

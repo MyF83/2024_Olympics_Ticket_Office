@@ -1,6 +1,7 @@
 package com.myriamfournier.olympics_ticket_office.pojo;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,15 +22,15 @@ import lombok.Setter;
 public class sales {
 
 @Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-@NotNull
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long sale_id;
 
-private Date date;
+private Timestamp date;
 
+/* 
 @ManyToOne
 @JoinColumn(name= "user_id", nullable = true)
-private users users;
+private users users;*/
 
 @OneToOne
 @JoinColumn(name= "cart_id", nullable = true)
@@ -44,14 +45,20 @@ private saleskeys saleskeys;
    public sales() {
 }
 
-public sales(Date date, users users, carts carts, saleskeys saleskeys) {
+public sales(Timestamp date, /*users users,*/ carts carts, saleskeys saleskeys) {
         // Default constructor
         this.date = date;
-        this.users = users;
+        // this.users = users;
         this.carts = carts;
         this.saleskeys = saleskeys;
     }
 
+  public saleskeys getSaleskeys() {
+        return saleskeys;
+    }
 
+    public carts getCarts() {
+        return carts;
+    }
 
 }

@@ -2,6 +2,7 @@ export interface Gamesinterface {
     event_id: number;
     title: string;
     date: string;
+    time: string;
     image: string;
     description: string;
     sports: any; // If sports is null, you can use `any` or define its structure if needed

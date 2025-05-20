@@ -26,11 +26,17 @@ export class OffersComponent {
       });
     }
 
+    /*
     getImageForOffer(title: string): string {
       if (title.toLowerCase().includes('solo')) return 'png/Solo.png';
       if (title.toLowerCase().includes('duo')) return 'png/Duo.png';
-      if (title.toLowerCase().includes('quatro')) return 'png/Quatro.png';
+      if (title.toLowerCase().includes('family')) return 'png/Family.png';
       return 'png/empty.png'; 
+    }*/
+
+    addToCart(offer: Offersinterface) {
+      // TODO: Implement cart logic (e.g., call a CartService or emit an event)
+      alert(`Offer '${offer.title}' added to cart!`);
     }
 
 }
