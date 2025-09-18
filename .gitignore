@@ -29,5 +29,61 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+# VS Code
 .vscode/
+
+
+# Java/Maven/Gradle
+*.class
+*.jar
+*.war
+*.ear
+/target/
+/build/
+/out/
+!.mvn/wrapper/maven-wrapper.jar
+
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+*.txt
+
+# Angular/Node
+node_modules/
+dist/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+#.env
+
+# Angular build output
+/browser/
+.angular/
+coverage/
+
+# Node.js
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+pnpm-lock.yaml
+.npm/
+.npmrc
+.eslintcache
+
+# Angular CLI
+.angular/
+.angular/cache/
+.angular/local/
+.angular/tmp/
