@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/2024-olympics-ticket-office",
+            "outputPath": "dist/2024_Olympics_Ticket_Office",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -31,11 +31,8 @@
               "src/styles.css"
             ],
             "scripts": [],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            "server": "src/main.server.ts"
+           
           },
           "configurations": {
             "production": {
@@ -64,7 +61,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "proxyConfig": "proxy.conf.json"
+            "proxyConfig": "proxy.config.json"
           },
           "configurations": {
             "production": {

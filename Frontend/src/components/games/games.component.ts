@@ -88,12 +88,20 @@ export class HomeComponent implements OnInit {
   }
 
   openDetails(game: Gamesinterface): void {
-      this.dialog.open(GamesmodalComponent, {
+    const dialogRef = this.dialog.open(GamesmodalComponent, {
       width: '1100px',
       panelClass: 'custom-modal',
       data: game // Pass the game data to the modal
     });
-    console.log('Game details:', game); // Log the game details to the console
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.action === 'buy-ticket') {
+        // Here you have access to result.game (the selected event)
+        console.log('User wants to buy ticket for:', result.game);
+        // TODO: Call your cart service or further logic here
+      }
+    });
+    // Log the game details to the console
+    console.log('Game details:', game);
   }
 }
 

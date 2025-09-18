@@ -1,0 +1,414 @@
+::ng-deep .mat-horizontal-content-container {
+    overflow: hidden;
+    padding: 0 24px 24px 24px;
+    /* height: 50vh !important; */
+   /* margin-top : 2vh !important; */
+    /* min-height: 250px !important; */
+}
+
+::ng-deep .stepper-container {
+    /* pointer-events: none; */
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+::ng-deep .mat-horizontal-stepper-header-container {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    margin-top: 1vh !important;
+}
+
+
+
+/* Style overrides for Angular Material components : */
+
+::ng-deep .mat-button {
+  background-color: #d6c278 !important;
+  color: #0e0d0d !important;
+}
+
+::ng-deep .mat-form-field {
+  margin-bottom: 1em;
+}
+
+/* Circle around the numbers 1, 2, 3 in the stepper */
+::ng-deep .mat-step-icon {
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    flex-shrink: 0;
+    position: relative;
+    color: #0e0d0d !important;
+    background-color: #d3c89c !important;
+}
+::ng-deep .mat-step-icon-selected {
+    background-color: #b89411 !important;
+    color: #0e0d0d !important;
+    font-weight : bold;
+}
+
+/* Text of the "Next" button in the stepper */
+::ng-deep .mat-mdc-button:not(:disabled) {
+    color:  #d6c278 !important;
+    font-size:medium !important;
+    /*font-weight:bold*/
+}
+
+::ng-deep .mat-mdc-raised-button:not(:disabled) {
+    color: #0e0d0d !important;
+    background-color: #d6c278 !important;
+}
+
+
+::ng-deep .mat-step-header {
+    background-color: #f1eddf !important;
+    cursor: pointer;
+    border-radius: #b89411 !important;
+}
+
+::ng-deep .mat-step-header:hover:not([aria-disabled]), .mat-step-header:hover[aria-disabled=false] {
+    background-color: #e7debd !important;
+    cursor: pointer;
+        font-weight : bold;
+    border-radius: #b89411 !important;;
+}
+
+::ng-deep .mat-mdc-outlined-button:not(:disabled) {
+    color: #0e0d0d !important;
+
+    background-color: #b89411 !important;
+    border-color: #d6c278 !important;
+}
+
+
+
+::ng-deep #cdk-stepper-0-content-0 > button:hover {
+    background-color: #b89411 !important;
+    font-weight: bold;
+    color: white !important;
+}
+
+/* Text of the selection in the stepper */
+::ng-deep  #cdk-stepper-0-content-1 > button:hover {
+        font-weight: bold;
+        color: #ffffff !important;
+        background-color: #b89411 !important; /**/
+}
+
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: #f1eddf !important;
+}
+
+
+/* Text of the selection in the stepper */
+::ng-deep  .mat-stepper-horizontal:not(.mat-stepper-animating) .mat-horizontal-stepper-content.mat-horizontal-stepper-content-current {
+    overflow: visible;
+    color: #0e0d0d !important;
+    /* margin-top : 2vh !important; */  
+    height : 100% !important;
+}
+
+
+::ng-deep .mat-mdc-button:hover{
+    background-color: #b89411 !important;
+    font-weight: bold;
+    color: white !important;
+}
+
+
+/* All labels of nav button in stepper
+::ng-deep .mdc-button .mdc-button__label {
+    font-weight: bold;
+    color: #0e0d0d !important;
+}*/
+
+/* Div containing the 3 stepper steps buttons with 1, 2, 3 */
+
+::ng-deep .mat-step-header  {
+    white-space: nowrap;
+    display: flex;
+    height: 5vh !important;
+    align-items: center;
+    margin: 1vw !important;
+    border-radius: 3.5rem !important;
+    font-weight : bold !important;
+}
+
+::ng-deep .mat-step-header:hover  {
+    white-space: nowrap;
+    display: flex;
+    height: 5vh !important;
+    align-items: center;
+    margin: 1vw !important;
+    border-radius: 3.5rem !important;
+
+}
+
+/* Active step */
+::ng-deep .mat-step-header[aria-selected="true"] {
+  height: 6vh !important;
+  border-radius: 1.5rem !important;
+  background-color: #e7debd !important;
+  font-weight:bold !important
+}
+
+
+/* Label text of the stepper 3 of the small-label over the "Price 1" */
+::ng-deep .mdc-floating-label {
+  color: #b89411 !important;
+}
+
+/* the 2 following css are for the color of the selected option in the dropdown (price selection) */
+::ng-deep .mat-select-panel .mat-option.mat-active {
+  background-color: #d6c278 !important; /* Your desired color */
+  color: #222 !important;                /* Option text color */
+}
+::ng-deep .mat-mdc-select-panel .mdc-list-item--selected {
+  background-color: #d6c278 !important;
+  color: #222 !important;
+}
+
+
+
+
+/* test */
+::ng-deep .mat-mdc-step-header .mat-step-label {
+  color: #3b382a !important;
+  font-weight: bold;
+  }
+  ::ng-deep .mat-step-header .mat-step-label {
+  color: #3b382a !important;
+  
+}
+::ng-deep .mat-step-label {
+  color: #d6c278 !important; /* Change label color */
+  font-weight: bold;
+}
+
+/* Color of the Next button when coming from right to left */
+:ng-deep button.mat-mdc-button span {
+  color: #d6c278 !important;
+  font-size: medium !important;
+  /*font-weight: bold;*/
+}
+
+::ng-deep .mat-horizontal-stepper-content .mat-mdc-button {
+  color: #d6c278 !important;
+  font-size: medium !important;
+  /*font-weight: bold;*/
+}
+
+
+/* Color of the Next and Finish button on hover */
+::ng-deep .mat-mdc-button:hover {
+  color: #fff !important;
+  font-weight: normal !important;
+}
+
+/* only the Finish button on hover */
+::ng-deep .mat-horizontal-stepper-content .mat-mdc-button:last-child:hover {
+  color: #fff !important;
+  font-weight: normal !important;
+}
+
+
+
+/* Align the text in the dropdown selection */
+::ng-deep #cdk-stepper-0-content-2 > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+::ng-deep .mat-stepper-horizontal .mat-stepper-content form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2em; /* space between fields */
+}
+
+::ng-deep .mat-stepper-horizontal .mat-stepper-content form .mat-form-field {
+  width: 30vw !important; /* or your preferred width */
+  margin-bottom: 0 !important;
+    
+}
+
+
+::ng-deep app-ticket-stepper-modal .summary-block {
+  margin-top: 1vh !important;
+  margin-left: 3vw !important;
+  margin-right: 3vw !important;
+  margin-bottom: 2vh !important;
+}
+
+::ng-deep app-ticket-stepper-modal .summary-actions {
+  text-align: center;
+}
+
+
+/* For the offers buttons text in colums  */
+::ng-deep  .mdc-button .mdc-button__label {
+  display : inline-flex !important;
+  text-align: center !important;
+}
+
+
+/* Center offers vertically and add gap */
+::ng-deep .offer-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* vertical centering */
+  align-items: center;       /* horizontal centering */
+  margin-top: 1em;                /* space between offers */
+  gap : 0.5em;                   /* space between offers */
+  margin-bottom: 16px;
+  height:100%;
+  /*min-height: 60vh;   */       /* adjust as needed for vertical centering */
+}
+
+ /* Style for each offer button/card */
+::ng-deep .offer-buttons button {
+  width: 80vw;
+  max-width: 400px;
+  /*margin-top: 3em;*/
+}
+
+::ng-deep .offer-buttons,
+::ng-deep .mat-horizontal-stepper-content form {
+  /* min-height: 200px; /* or whatever fits your design 
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;*/
+}
+
+/* Stepper navigation buttons */
+::ng-deep .mat-step-header .mat-step-label {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+  max-width: none !important;
+}
+
+
+
+
+
+/* The following section is to stick Next and Submit buttons at the bottom */
+::ng-deep .mat-horizontal-stepper-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+
+    height: 100% !important;
+}
+/* Ensure the modal and stepper content fill the height */
+::ng-deep .mat-horizontal-content-container {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 50vh !important; 
+  min-height: 200px !important;
+  overflow: hidden;
+}
+/* Make the stepper content take available space */
+::ng-deep .mat-horizontal-stepper-content {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;  /* vertical centering */
+  align-items: center !important;      /* horizontal centering */
+}
+
+/* Make the form take available space */
+::ng-deep .mat-horizontal-stepper-content form {
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    height: 100%;
+}
+
+/* Stick the actions to the bottom */
+::ng-deep .stepper-actions {
+  margin-top: auto !important;
+  gap: 1em;
+  padding-bottom: 1em;
+  background: transparent;
+}
+/* End of section to stick Next and Submit buttons at the bottom */
+
+/* Center the content of the first step vertically */
+::ng-deep .mat-horizontal-stepper-content .step-content {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;   /* vertical centering */
+  align-items: center !important;       /* horizontal centering */
+  height: 100%;
+  
+}
+
+
+
+
+
+
+
+
+@media (max-width: 650px) {
+  ::ng-deep .mat-stepper-horizontal .mat-stepper-content form {
+    flex-direction: column;
+    gap: 1em;
+  }
+
+::ng-deep .mat-horizontal-stepper-header {
+   
+    /*display: flex;
+    height: 72px;
+    overflow: hidden;*/
+    align-items: center;
+    padding: 0 10px !important;
+   /* height: var(--mat-stepper-header-height, 72px);*/
+}
+
+
+
+}
+
+@media (max-width: 400px) {
+  ::ng-deep .mat-stepper-horizontal .mat-stepper-content form {
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  ::ng-deep .mat-step-text-label {
+    text-overflow: initial !important; 
+    overflow: visible !important; 
+    font-size: 11px !important;
+}
+  ::ng-deep .mat-step-header {
+    text-overflow: initial !important;
+    font-size: 13px !important;
+    margin-left:0 !important;
+}
+
+::ng-deep .mat-horizontal-stepper-header {
+   
+    /*display: flex;
+    height: 72px;
+    overflow: hidden;*/
+    align-items: center;
+    padding: 0 15px !important;
+   /* height: var(--mat-stepper-header-height, 72px);*/
+}
+
+}
+
+
+

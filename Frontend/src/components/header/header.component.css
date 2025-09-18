@@ -1,5 +1,5 @@
 header {
-    width: 100%;
+    /*width: 100%;
     display: block;
     justify-content: center;
     align-items: center;
@@ -7,24 +7,70 @@ header {
     position: relative;
     margin-top : 0px;
     padding : 0em 0em 0em 0em;
-    min-height : 18vh;
+    min-height : 18vh;*/
+      width: 100%;
+  box-sizing: border-box;
+  margin: 2vh auto; /* Adds vertical margin, centers horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   }
 
+.top-line{
+  /*display: inline-flex;
+    width: 80vw;
+    height: 0.5vh;
+    background: var(--blue-to-white-to-red-horizontal-gradient);
+    margin: 0;
+    padding: 0;*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2vw; /* Space between logo, titles, and social links */
+  width: 80vw;
+  margin: 0 auto;
+  height: auto;
+  background: var(--blue-to-white-to-red-horizontal-gradient);
+  padding: 1vh 0;
+  }  
+
+.bottom-line{
+  /*display: inline-flexbox;
+    width: auto;
+    height: 10vh;
+    background: var(--blue-to-white-to-red-horizontal-gradient);
+    margin: 0;
+    padding: 0;
+    */
+    display: inline-block;
+  justify-content: center;
+  align-items: center;
   
+  margin: 0 auto;
+  height: 10vh;
+  background: var(--blue-to-white-to-red-horizontal-gradient);
+  padding: 0;
+  } 
 
 .logo{
-    width : 7%;
-    display : inline;
+  /*height :10vh;
+  width : auto;
+   display : inline;
     margin-right : 5em;
     padding : 0 0 0 0;
-    margin-bottom : 0.5em;
+    margin-bottom : 0.5em;*/
+ display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: 10vh;
     }
     
 .nav {
-    width: 100%;
+    width: 100vw;
     min-height: 100%;
-    display: flex;
+    display: flex-block;
     justify-content: center;
+    text-align: center;
     align-items: center;
     box-sizing: inherit;
     position: relative;
@@ -35,8 +81,55 @@ header {
     justify-items: center;
    }
 
+.left-side {
+ display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
 
-   
+.titles {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  text-align: center;
+}
+
+.right-side{
+  /*display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-left : auto;
+  padding : 0 0 0 0;*/
+ display: flex;
+  align-items: center;      /* vertical centering */
+  justify-content: center;  /* horizontal centering */
+  height: 100%;             /* fill parent height */
+/*  min-height: 0;*/
+  
+}
+.social-links a, .social-links svg {
+  vertical-align: middle;
+}
+
+.main-title h1 {
+  font-size: clamp(1.2rem, 2vw + 1rem, 2.5rem);
+  margin: 0;
+  line-height: 1.2;
+  word-break: break-word;
+}
+   .social-links{
+display: flex;
+  align-items: center;      /* vertical centering for icons */
+  justify-content: center;
+  gap: 0.73rem;
+  width: 100%;
+  margin-top: 0;
+}
+
 
 .nav-icon {
     justify-items: center;
@@ -58,11 +151,16 @@ header {
      
    }
 
+     .info{
+     display: inline;
+     margin : 0;
+   }
+
 
    .divider {
     width: 3px;
-    background: var(--blue-to-white-to-red-horizontal-gradient);
-    margin-inline: 1 rem;
+    background: var(--dark-gold) ! important;
+    margin-inline: 1rem;
   }
   
   .pill-group {
@@ -126,7 +224,7 @@ header {
     display: flex;
     align-items: center;
     gap: 0.73rem;
-    margin-top: 1.5rem;
+
   }
   
   .social-links path {
@@ -141,6 +239,16 @@ header {
 
 
   @media screen and (max-width: 650px) {
+    .top-line {
+    flex-direction: column;
+    gap: 1vh;
+    width: 95vw;
+    padding: 1vh 0;
+  }
+  .main-title h1 {
+    font-size: 1.1rem;
+    margin-top : 0.5rem;
+  }
     .content {
       flex-direction: column;
       width: max-content;
@@ -152,5 +260,26 @@ header {
       background: var(--blue-to-white-to-red-vertical-gradient);
       margin-block: 0.5rem;
     }
+
+    .bottom-line {
+    flex-direction: column;
+    height: auto;
+    padding: 1vh 0;
+    text-align: center;
+  }
+  .pill-group {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 90vw;
+  }
+    .pill {
+    min-width: 60vw;
+    
+    margin: 0.5rem 0;
+    justify-content: center;
+    align-items: center;
+  }
   }
   

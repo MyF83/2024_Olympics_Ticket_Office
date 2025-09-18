@@ -162,43 +162,79 @@
                 </form>
             </ng-container>
         </div>
-        <ng-container *ngIf="currentView === 'carts'">
-            <h3>My Carts</h3>
-            <div *ngIf="userCarts?.length; else noCarts">
-                <mat-accordion>
-                <mat-expansion-panel *ngFor="let cart of userCarts">
-                    <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Cart #{{ cart.cart_id }} — {{ cart.date | date:'mediumDate' }} ({{ cart.user_id.userselections?.offers ? 1 : 0 }} items)
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        Total: {{ cart.totalAmount | currency }}
-          </mat-panel-description>
-                </mat-expansion-panel-header>
-                <table mat-table [dataSource]="[cart.user_id.userselections.offers]" class="mat-elevation-z1" style="width:100%;">
-                <!--<table mat-table [dataSource]="cart.user_id.userselections?.offers ? [cart.user_id.userselections.offers] : []" ...></table>-->
-                    <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef>Offer</th>
-                    <td mat-cell *matCellDef="let offer">{{ offer.name }}</td>
-                </ng-container>
-                <ng-container matColumnDef="price">
-                    <th mat-header-cell *matHeaderCellDef>Price</th>
-                    <td mat-cell *matCellDef="let offer">{{ offer.price | currency }}</td>
-                </ng-container>
-                <ng-container matColumnDef="quantity">
-                    <th mat-header-cell *matHeaderCellDef>Qty</th>
-                    <td mat-cell *matCellDef="let offer">{{ offer.quantity }}</td>
-                </ng-container>
-                <tr mat-header-row *matHeaderRowDef="['name', 'price', 'quantity']"></tr>
-                <tr mat-row *matRowDef="let row; columns: ['name', 'price', 'quantity'];"></tr>
-                </table>
-            </mat-expansion-panel>
-            </mat-accordion>
-        </div>
-        <ng-template #noCarts>
-            <p>You have no carts yet.</p>
-        </ng-template>
-        </ng-container>
+
+ <!-- Cart Panel -->       
+<ng-container *ngIf="currentView === 'carts'">
+  <h3>My Carts</h3>
+  <div *ngIf="userCarts?.length; else noCarts">
+    <!-- Table 1: Properties in header, values in a single row -->
+    <h2>Selected Offer :</h2>
+    <table mat-table [dataSource]="cartOfferDetails" class="mat-elevation-z1" style="width:100%;">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+  </ng-container>
+  <ng-container matColumnDef="discountRate">
+    <th mat-header-cell *matHeaderCellDef>Discount Rate</th>
+    <td mat-cell *matCellDef="let row">{{ row.discountRate }}</td>
+  </ng-container>
+  <ng-container matColumnDef="nbSpectators">
+    <th mat-header-cell *matHeaderCellDef>Impacted Spectators</th>
+    <td mat-cell *matCellDef="let row">{{ row.nbSpectators }}</td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="['name', 'discountRate', 'nbSpectators']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['name', 'discountRate', 'nbSpectators'];"></tr>
+</table>
+
+    <!-- Table 2: Properties in left column, values in right column -->
+    <h2>Selected Event :</h2>
+    <table mat-table [dataSource]="cartEventDetails" class="mat-elevation-z1" style="width:100%;">
+      <ng-container matColumnDef="property">
+        <th mat-header-cell *matHeaderCellDef>Property</th>
+        <td mat-cell *matCellDef="let element">{{ element.property }}</td>
+      </ng-container>
+      <ng-container matColumnDef="value">
+        <th mat-header-cell *matHeaderCellDef>Value</th>
+        <td mat-cell *matCellDef="let element">{{ element.value }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="['property', 'value']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['property', 'value'];"></tr>
+    </table>
+
+    <!-- Table 3: Properties in header, values in a single row -->
+    <h2>Selected Conditions :</h2>
+    <table mat-table [dataSource]="[userCarts[0]]" class="mat-elevation-z1" style="width:100%;">
+      <ng-container matColumnDef="nbPersons">
+        <th mat-header-cell *matHeaderCellDef>Nb of Persons</th>
+        <td mat-cell *matCellDef="let cart">{{ cart?.nbPersons }}</td>
+      </ng-container>
+      <ng-container matColumnDef="classOfSeats">
+        <th mat-header-cell *matHeaderCellDef>Class of seats</th>
+        <td mat-cell *matCellDef="let cart">{{ cart?.classOfSeats }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="['nbPersons', 'classOfSeats']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['nbPersons', 'classOfSeats'];"></tr>
+    </table>
+
+    <!-- Table 4: Properties in left column, values in right column -->
+    <h2>Coast :</h2>
+    <table mat-table [dataSource]="cartCoastDetails" class="mat-elevation-z1" style="width:100%;">
+      <ng-container matColumnDef="property">
+        <th mat-header-cell *matHeaderCellDef>Property</th>
+        <td mat-cell *matCellDef="let element">{{ element.property }}</td>
+      </ng-container>
+      <ng-container matColumnDef="value">
+        <th mat-header-cell *matHeaderCellDef>Value</th>
+        <td mat-cell *matCellDef="let element">{{ element.value }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="['property', 'value']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['property', 'value'];"></tr>
+    </table>
+  </div>
+  <ng-template #noCarts>
+    <p>You have no carts yet.</p>
+  </ng-template>
+</ng-container>
         <ng-container *ngIf="currentView === 'payments'">
             <h3>My Last Payments</h3>
             <!-- Payments content here -->

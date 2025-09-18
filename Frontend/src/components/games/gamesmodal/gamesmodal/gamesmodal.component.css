@@ -1,8 +1,11 @@
 /* Modal Content */
 .app-modal-window .modal-dialog {
-  width: 1100px;
+ /*width: 1100px;*/
+ height: 100vh;
   
 }
+
+
 
 .modal-content {
   width : 100%;
@@ -27,26 +30,38 @@
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   padding: 24px 32px;
-  display: flex;
-  flex-direction: column;
+  
   gap: 20px;
   width: 100%;
   max-width: 1100px;
   box-sizing: border-box;
+  
+  
+  height: 90vh;
+  overflow-y: auto; /* Enable vertical scroll if content overflows */
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Header */
 .modal-header {
-  width : 100%;
-  border-bottom: 2px solid #f4f4e2;
+  /*width : 100%;
   padding-top : 0px;
   padding-bottom : 0px;
   margin-top : 0px;
   margin-bottom : 0px;
   max-height : 30px;
-  vertical-align : text-top;
+ background: #fff;
+  vertical-align : text-top;*/
   color : #d6c278;
+  border-bottom: 2px solid #f4f4e2;
   text-shadow: 0 0 0.1px #a29919;
+  position: sticky;
+  top: 0;
+   
+  z-index: 2; /* Ensures it stays above other content */
+  
 }
 
 
@@ -58,6 +73,10 @@
   gap: 16px; /* Add spacing between the image and details */
   align-items: center; /* Center align the content */
   color : #333;
+  height:90vh;
+   /* padding-top: 15px;  Adjust to match .modal-header height */
+  overflow-y: auto; /* Enable vertical scroll if content overflows */
+  flex: 1 1 auto;
 }
 
 /* Image */
@@ -78,11 +97,25 @@
 
 /* Footer */
 .modal-footer {
-  display: flex;
+  /*display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  border-top: 2px solid #f4f4e2;
+  padding-top: 12px;*/
+  /*display: flex;
   justify-content: flex-end;
   gap: 20px;
   border-top: 2px solid #f4f4e2;
   padding-top: 12px;
+  position: absolute;
+  bottom: 0;
+  margin: 1vh;*/
+  display: flex;
+  justify-content: center; /* Center the buttons horizontally */
+  gap: 20px; /* Equal space between buttons */
+  border-top: 2px solid #f4f4e2;
+  padding-top: 12px;
+  margin: 1vh 0 0 0;
 }
 
 
@@ -92,6 +125,7 @@
 @media (max-width: 768px) {
   .modal-card {
     max-width: 100%;
+    height : 100vh;
     flex-direction: column;
   }
 
@@ -143,7 +177,7 @@
     font-size: 0.8em;
     font-weight : bold;
     color: #2a2727;
-    margin-top:10px;
+    margin-top:0px;
     margin-bottom: 0px;
 }
 
@@ -202,4 +236,25 @@ h5 {
 
 @media screen and (max-width:950px){
 	.modal-container{min-width:0;width:100%;}
+}
+
+
+/* For Chrome, Edge, Safari */
+.modal-card::-webkit-scrollbar {
+  width: 20px; /* Scrollbar width */
+}
+
+.modal-card::-webkit-scrollbar-thumb {
+  background: #d6c278; /* Thumb color */
+  border-radius: 6px;
+}
+
+.modal-card::-webkit-scrollbar-track {
+  background: #f4f4e2; /* Track color */
+}
+
+/* For Firefox */
+.modal-card {
+  scrollbar-width: thin; /* "auto", "thin", or "none" */
+  scrollbar-color: #d6c278 #f4f4e2; /* thumb color track color */
 }

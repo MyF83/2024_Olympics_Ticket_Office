@@ -14,11 +14,11 @@ export class AccountsServiceService {
    
   updateDataUser(userData: any): Observable<any> {
     // Return the HTTP request as an Observable
-return this.http.put(`http://localhost:8080/api/user/${userData.user_id}`, userData);
+return this.http.put(`/api/user/${userData.user_id}`, userData);
   }
 
 
-  private apiUrl = 'http://localhost:8080/api/user';
+  private apiUrl = '/api/user';
 
   constructor(private http: HttpClient) { }
 
@@ -27,12 +27,12 @@ return this.http.put(`http://localhost:8080/api/user/${userData.user_id}`, userD
   }
 
   login(username: string, password: string) {
-    return this.http.post<any>('http://localhost:8080/api/user/login', { username, password });
+    return this.http.post<any>('/api/user/login', { username, password });
   }
 
   registerUser(data: { firstname: string; lastname: string; email: string; password: string; policyId: number }) {
     return this.http.post<AccountsInterface>(
-      'http://localhost:8080/api/user/register',
+      '/api/user/register',
       data
     );
   }

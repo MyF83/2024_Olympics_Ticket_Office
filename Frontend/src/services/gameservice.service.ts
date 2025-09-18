@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class GameserviceService {
-  private apiUrl = 'http://localhost:8080/api/event'; // Backend URL for events
+  private apiUrl = '/api/event'; // Backend URL for events
   
   
   // url = 'http://localhost:4200/games';
@@ -33,7 +33,7 @@ export class GameserviceService {
   }
 
 getEvents(): Observable<Event[]> {
-  return this.http.get<Event[]>('http://localhost:8080/api/event/all');
+  return this.http.get<Event[]>('/api/event/all');
 }
 
 }

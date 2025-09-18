@@ -1,0 +1,7 @@
+CREATE DATABASE IF NOT EXISTS jo2024;
+USE jo2024;
+
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'jEjsveCsj@LOsO*YiD9Ipa';
+CREATE USER IF NOT EXISTS 'rootMyr25'@'%' IDENTIFIED WITH mysql_native_password BY 'jEjsveCsj@LOsO*YiD9Ipa';
+GRANT ALL PRIVILEGES ON jo2024.* TO 'rootMyr25'@'%';
+FLUSH PRIVILEGES;

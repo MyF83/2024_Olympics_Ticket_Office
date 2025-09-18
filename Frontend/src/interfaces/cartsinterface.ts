@@ -1,4 +1,12 @@
 export interface CartsInterface {
+    amount: any;
+    price: any;
+    city: any;
+    postalCode: any;
+    address: any;
+    time: any;
+    description: any;
+    title: any;
     cart_id: number;
     date : string;
     totalAmount: number;

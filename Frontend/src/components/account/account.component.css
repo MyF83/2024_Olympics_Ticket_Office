@@ -213,7 +213,8 @@ h2 {
   text-align: center;
   padding: 10px 10px;
   background-color: #fffff1;
-  width: 400px;
+  max-width: 400px;
+  width:80vw;
   border: none;
   border-radius: 8px;
   font-size: 0.9em;

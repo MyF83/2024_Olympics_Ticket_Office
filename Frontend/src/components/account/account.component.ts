@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import  { AccountsInterface } from '../../interfaces/accountsinterface';
 import { AccountsServiceService } from '../../services/accountsservice.service'; // Import the service
@@ -22,6 +22,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CartsServiceService } from '../../services/cartsservice.service'; // Import the CartService
 import { CartsInterface } from '../../interfaces/cartsinterface';
 import { MatTableModule } from '@angular/material/table';
+import { CdkTableDataSourceInput } from '@angular/cdk/table';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-account',
@@ -46,6 +48,9 @@ export class AccountComponent implements OnInit {
   hidePassword: boolean = true;
   role_id: number | null = null;
   htmlContent: SafeHtml | null = null;
+
+  nbPersons: number = 1;
+selectedPriceClass: number = 1; // 1, 2, or 3
   
   previousView: 'main' | 'register' | 'login' | 'create' | 'editInfo' | 'payments' | 'tickets' | 'login' | 'connected' |  'manageEvents' | 'manageOffers' | 'offersSold' | 'carts' = 'main';
   currentView: 'main' | 'register' | 'create' | 'editInfo' | 'payments' | 'tickets' | 'login' | 'connected' |  'manageEvents' | 'manageOffers' | 'offersSold' | 'carts' = 'main';
@@ -75,8 +80,8 @@ export class AccountComponent implements OnInit {
   countries: { code: string, name: string }[] = [];
   policy: { policy_id: number; title: string; description: string; url: string; creationDate: string; version: number; isActive: boolean; };
   userCarts: CartsInterface[] = [];
-  
- 
+
+  private redirectToCartsAfterAuth = false;
 
   constructor(
     private accountService: AccountsServiceService,
@@ -86,7 +91,9 @@ export class AccountComponent implements OnInit {
     private securitypolicyService: SecuritypolicyService, // inject the service
     private location: Location, // Inject Location service for navigation
     private cdr: ChangeDetectorRef,
-    private cartsService: CartsServiceService
+    private cartsService: CartsServiceService,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private route: ActivatedRoute
   ) {
     // Initialize policy with default values
     this.policy = {
@@ -120,6 +127,27 @@ if (activePolicy) {
       console.log('Fetching Account details:', this.account);
     });
     this.fetchCountries();
+
+  // Persistence of the connection state:
+  // Check if the user is already connected by looking for a token in sessionStorage or localStorage 
+  if (isPlatformBrowser(this.platformId)) {
+    const token = sessionStorage.getItem('token') || localStorage.getItem('token');
+    if (token) {
+      this.isConnected = true;
+    }
+  }
+
+  this.route.queryParams.subscribe(params => {
+    if (params['view'] === 'login') {
+      this.currentView = 'login';
+    } else if (params['view'] === 'register') {
+      this.currentView = 'register';
+    }
+    if (params['view'] === 'login' || params['view'] === 'register') {
+      this.currentView = params['view'];
+      this.redirectToCartsAfterAuth = true;
+    }
+  });
   }
 
   fetchCountries(): void {
@@ -148,14 +176,41 @@ if (activePolicy) {
         };
         console.log('Sending account data to backend:', registerData); // Debugging log
         this.accountService.registerUser(registerData).subscribe({
-            next: (response) => {
+            next: (response: any) => {
                 this.isConnected = true;
                 this.previousView = this.currentView;
                 this.currentView = 'main';
                 alert('Account created successfully! Your username is: ' + response.username);
                 console.log('User registered:', response);
+                // Check for pending cart in localStorage
+                const pendingCart = localStorage.getItem('pending_cart');
+                if (pendingCart) {
+                  const ticketData = JSON.parse(pendingCart);
+                  this.cartsService.createCartForUser(ticketData).subscribe(
+                    (res: any) => {
+                      console.log('Cart creation response:', res);
+                      localStorage.removeItem('pending_cart');
+                      this.cartsService.getUserCarts().subscribe((carts: CartsInterface[]) => {
+                        console.log('Fetched carts after cart creation:', carts);
+                        this.userCarts = carts;
+                        this.currentView = 'carts';
+                        this.redirectToCartsAfterAuth = false;
+                      });
+                    },
+                    (err: any) => {
+                      console.error('Cart creation error:', err);
+                      alert('Failed to create cart.');
+                    }
+                  );
+                } else if (this.redirectToCartsAfterAuth) {
+                  this.cartsService.getUserCarts().subscribe((carts: CartsInterface[]) => {
+                    this.userCarts = carts;
+                    this.currentView = 'carts';
+                    this.redirectToCartsAfterAuth = false;
+                  });
+                }
             },
-            error: (err) => {
+            error: (err: any) => {
                 alert('Registration failed. Please try again.');
                 console.error('Registration error:', err);
             }
@@ -192,42 +247,83 @@ if (activePolicy) {
 
   onLogin() {
     console.log('Login fields:', this.username, this.password);
-    this.previousView = this.currentView;  
+    this.previousView = this.currentView;
     this.currentView = 'main';
-      if (this.username && this.password) {
-        // Define loginData here:  
-        const loginData = {
-          username: this.username,
-          password: this.password
-        };
-          this.accountService.login(this.username, this.password).subscribe({
-              next: (response) => {
-                console.log('Login response:', response);
-                // Save the JWT token to sessionStorage if present :
-                if (response.token) {
-                  sessionStorage.setItem('token', response.token);
-                }  
-                  this.isConnected = true;
-                  this.role_id = response.roles?.role_id || response.role_id || null;
-                  this.user_id = response.user_id;
-                  this.cdr.detectChanges(); // <-- Force view update
-                  alert('Login successful! Welcome back, ' + this.username + '!');
-                  console.log('User logged in:', response);
-                  // Fetch carts now that the user is authenticated
-  this.cartsService.getUserCarts().subscribe((carts: CartsInterface[]) => this.userCarts = carts);
-                  this.http.post<{ token: string }>('http://localhost:8080/api/user/login', loginData)
-                    .subscribe(response => {
-                      sessionStorage.setItem('token', response.token);
-                      // ...other login logic...
-                    });
+    if (this.username && this.password) {
+      const loginData = {
+        username: this.username,
+        password: this.password
+      };
+      this.accountService.login(this.username, this.password).subscribe({
+        next: (response: any) => {
+          console.log('Login response:', response); // Debug login response
+          // Save the JWT token to sessionStorage if present :
+          if (response.token) {
+            sessionStorage.setItem('token', response.token);
+          }
+          // Handle roles as array or object
+          if (Array.isArray(response.roles)) {
+            // If roles is an array, find the highest privilege role
+            this.role_id = response.roles.length > 0 ? response.roles[0].role_id : null;
+          } else if (response.roles && response.roles.role_id) {
+            this.role_id = response.roles.role_id;
+          } else {
+            this.role_id = response.role_id || null;
+          }
+          this.user_id = response.user_id;
+          this.isConnected = true;
+          this.cdr.detectChanges(); // <-- Force view update
+          alert('Login successful! Welcome back, ' + this.username + '!');
+          console.log('User logged in:', response);
+          // Check for pending cart in localStorage
+          const pendingCart = localStorage.getItem('pending_cart');
+          if (pendingCart) {
+            const ticketData = JSON.parse(pendingCart);
+            this.cartsService.createCartForUser(ticketData).subscribe(
+              (res: any) => {
+                console.log('Cart creation response:', res);
+                localStorage.removeItem('pending_cart');
+                this.cartsService.getUserCarts().subscribe((carts: CartsInterface[]) => {
+                  console.log('Fetched carts after cart creation:', carts);
+                  this.userCarts = carts;
+                  this.currentView = 'carts';
+                  this.redirectToCartsAfterAuth = false;
+                });
               },
-              error: (err) => {
-                  alert('Login failed. Please check your credentials.');
-                  console.error('Login error:', err);
+              (err: any) => {
+                console.error('Cart creation error:', err);
+                alert('Failed to create cart.');
               }
-          });
-          
-      }
+            );
+          } else {
+            this.cartsService.getUserCarts().subscribe((carts: CartsInterface[]) => {
+              console.log('Fetched carts:', carts); // Debug cart fetch
+              this.userCarts = carts;
+              if (this.redirectToCartsAfterAuth) {
+                this.currentView = 'carts';
+                this.redirectToCartsAfterAuth = false;
+              }
+            });
+          }
+        },
+        error: (err: any) => {
+          alert('Login failed. Please check your credentials.');
+          console.error('Login error:', err);
+        }
+      });
+    }
+  }
+
+
+  onLogout() {
+    sessionStorage.removeItem('token');
+    // localStorage.removeItem('token');
+    this.isConnected = false;
+    this.currentView = 'main';
+    this.role_id = null;
+    this.user_id = 0;
+    this.username = '';
+    console.log('User logged out');
   }
 
   onEditInfo() {
@@ -364,6 +460,11 @@ onLoginSuccess(userId: number) {
 
     onViewCarts() {
       this.currentView = 'carts';
+      if (this.isConnected) {
+        this.cartsService.getUserCarts().subscribe((carts: CartsInterface[]) => {
+          this.userCarts = carts;
+        });
+      }
       console.log('View Carts clicked');
 
     }
@@ -373,5 +474,59 @@ onLoginSuccess(userId: number) {
   return this.http.get<CartsInterface[]>('http://localhost:8080/api/user/carts/user');
 }
 
+get cartCoastDetails() {
+  const cart = this.userCarts[0];
+  if (!cart) return [];
+  const offer = cart.user_id?.userselections?.offers;
+  const events = cart.user_id?.userselections?.events;
+  const sports = events?.sports;
+  const ceremonies = events?.ceremonies;
+
+  let seatPrice = 0;
+  const priceKey = ('price' + this.selectedPriceClass) as 'price1' | 'price2' | 'price3';
+
+  if (sports && typeof sports[priceKey] === 'number') {
+    seatPrice = sports[priceKey];
+  } else if (ceremonies && typeof (ceremonies as any)[priceKey] === 'number') {
+    seatPrice = (ceremonies as any)[priceKey];
+  }
+
+  const nbSeats = this.nbPersons;
+  const offerRate = offer?.rate || 0;
+  const amount = (nbSeats * seatPrice) * (1 - offerRate / 100);
+
+  return [
+    { property: 'Unit Price', value: seatPrice },
+    { property: 'Nb of Seats', value: nbSeats },
+    { property: 'Amount', value: amount }
+  ];
+}
+
+get cartOfferDetails() {
+  const cart = this.userCarts[0];
+  if (!cart || !cart.user_id.userselections.offers) return [];
+  return [{
+    name: cart.user_id.userselections.offers.title,
+    discountRate: cart.user_id.userselections.offers.rate,
+    nbSpectators: cart.user_id.userselections.offers.nbSpectators
+  }];
+}
+
+get cartEventDetails() {
+  const cart = this.userCarts[0];
+  if (!cart || !cart.user_id?.userselections?.events) return [];
+  const events = cart.user_id.userselections.events;
+  const sports = events.sports;
+  const ceremonies = events.ceremonies;
+  return [
+    { property: 'Title', value: events.title || sports?.name || ceremonies?.name || '' },
+    { property: 'Description', value: events.description || sports?.description || ceremonies?.description || '' },
+    { property: 'Date', value: events.date || '' },
+    { property: 'Time', value: events.time || '' },
+    { property: 'Address', value: sports?.sites?.address || ceremonies?.sites?.address || '' },
+    { property: 'Postal Code', value: sports?.sites?.postalCode || ceremonies?.sites?.postalCode || '' },
+    { property: 'City', value: sports?.sites?.city || ceremonies?.sites?.city || '' }
+  ];
+}
 
 }

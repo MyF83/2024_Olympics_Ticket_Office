@@ -47,32 +47,34 @@
             <h6><strong>Postal Code:</strong> {{ game.sports.sites.postalCode }}</h6>
             <h6><strong>Country:</strong> {{ game.sports.sites.countries?.name }}</h6>
           </div>
+
+          <!-- Inline Details Blocks -->
+          <div class="inline-details-blocks">
+            <!-- Pricing Details -->
+            <div class="equal-blocks">
+              <h4>Pricing</h4>
+              <h5><strong>Starting Price:</strong> {{ +game.pricec1 | currency:'EUR':'symbol' }}</h5>
+              <h5><strong>Medium Price:</strong> {{ +game.pricec2 | currency:'EUR':'symbol' }}</h5>
+              <h5><strong>Premium Price:</strong> {{ +game.pricec3 | currency:'EUR':'symbol' }}</h5>
+            </div>
+  
+            <!-- Available Seats Section -->
+            <div class="equal-blocks">
+              <h4>Available Seats</h4>
+              <h5><strong>Starting Price Seats:</strong> {{ game.nbseatsavailc1 }}</h5>
+              <h5><strong>Medium Price Seats:</strong> {{ game.nbseatsavailc2 }}</h5>
+              <h5><strong>Premium Price Seats:</strong> {{ game.nbseatsavailc3 }}</h5>
+            </div>
+          </div>
+
         </div>
+
       </div>
-  
-      <!-- Inline Details Blocks -->
-      <div class="inline-details-blocks">
-        <!-- Pricing Details -->
-        <div class="equal-blocks">
-          <h4>Pricing</h4>
-          <h5><strong>Starting Price:</strong> {{ +game.pricec1 | currency:'EUR':'symbol' }}</h5>
-          <h5><strong>Medium Price:</strong> {{ +game.pricec2 | currency:'EUR':'symbol' }}</h5>
-          <h5><strong>Premium Price:</strong> {{ +game.pricec3 | currency:'EUR':'symbol' }}</h5>
-        </div>
-  
-        <!-- Available Seats Section -->
-        <div class="equal-blocks">
-          <h4>Available Seats</h4>
-          <h5><strong>Starting Price Seats:</strong> {{ game.nbseatsavailc1 }}</h5>
-          <h5><strong>Medium Price Seats:</strong> {{ game.nbseatsavailc2 }}</h5>
-          <h5><strong>Premium Price Seats:</strong> {{ game.nbseatsavailc3 }}</h5>
-        </div>
-      </div>
-  
+
       <!-- Footer -->
       <div class="modal-footer">
-        <button class = "button1" mat-button (click)="closeModal()">Close</button>
-        <button class = "button2" mat-button (click)="buyTicket()">Buy Ticket</button>
+        <button class="button1" mat-button (click)="closeModal()">Close</button>
+        <button class="button2" mat-button (click)="buyTicket()">Buy Ticket</button>
       </div>
     </div>
-  </section>
+</section>

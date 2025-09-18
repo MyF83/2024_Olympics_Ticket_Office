@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SecuritypolicyService { // it corresponds to the Policies table's service
-  private apiUrl = 'http://localhost:8080/api/policy';
+  private apiUrl = '/api/policy';
 
   constructor(private http: HttpClient) { }
 

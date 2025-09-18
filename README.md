@@ -63,6 +63,61 @@ Pour les Gestionnaires :
 
 ## Comment lancer le projet ?
 
+### Lancement de l'application SANS docker :
+Cela revient à lancer l'application comme le développeur le fait pour tester son code.
+
+0) Base de données : soit vous avez un server MySQL lancé sur votre machine, et dans ce cas, créez une base "jo2024" avec les identifiants et mots de passe que vous trouverez dans le fichier application.properties dans le dossier Backend du Projet, soit vous vous crééz unede la même façon la base de données MySQL chez un hebergeur (ex : AlwaysData)
+
+1) Ouvrir le projet avec votre IDE favori. Ici pour l'exemple ce sera à l'aide de VSCode.
+
+   - ouvrir un terminal: dans VSCode c'est en tapant SHIFT+CTRL+Y (puis aller dans l'onglet TERMINAL).
+
+   - taper : cd ./backend   (+ ENTER) : cela vous positionne dans le dossier Backend de votre projet. Pour vérifier votre emplacement taper : pwd (+ ENTER)
+
+   - taper : mvn spring-boot:run "-Dspring.profiles.active=local"
+
+<!-- OLD : 
+   - taper : 
+   mysql -u rootMyr25 -p < src/main/resources/init-database.sql + ENTER
+   Puis :
+   mvn clean spring-boot:run "-Dspring.profiles.active=local"
+   sinon : 
+   mvn spring-boot:run "-Dspring.profiles.active=local"  (+ ENTER) et attendre que la fin du BUILD SUCCESS indiqué par "Application started" -->
+
+   - taper : cd .. (+ ENTER) pour remonter à la racine du projet
+   - taper : cd ./frontend (+ ENTER) pour votre rendre dans le frontend
+   - taper : ng serve (+ ENTER)  pour lancer Angular qui va construire le frontend.
+
+2) Aller dans votre navigateur à l'adresse :
+   http://localhost:4200
+
+   L'application va s'affichier, vous serez automatiquement redirigé sur http://localhost:4200/games
+     
+### Lancement de l'application AVEC docker :
+Cela permet d'être certain que l'application va se lancer, puisqu'avec Docker nous sommes affranchis des problèmatiques de version des dépendances, des applications et du système d'exploitation.
+Pour cela :
+
+- Si vous avez congiguré un server MySQL ou tout autre server de bases de données sur l'ordinateur que vous utilisez, pensez à stopper le service MySQL ou autre (Xampp, Wamp, etc), qui utiliserait déjà le port 3306. Pour se faire, par exemple sur windows dans une fenêtre de commande tapez "services.msc" et dans la la fenêtre qui s'ouvre, allez à la ligne MySQL, faites clic-droit et choisissez "Arrêter".  
+Sinon si vous n'y arrivez pas, pour libérer le port 3306 vous devezouvrir un terminal en mode administrateur sur votre machine et taper :
+netstat -ano | findstr :3306
+Si le port est utilisé, un code PID vous est indiqué, il suffira de taper ensuite : 
+kill <PID>.
+Si vous rejouez la commande précédente netstat -ano | findstr :3306, elle ne renverra cette fois aucune information.
+
+- Docker Desktop doit être lancé/ouvert
+
+- ouvrir un terminal à la racine du projet : dans VSCode c'est en tapant SHIFT+CTRL+Y (puis aller dans l'onglet TERMINAL).
+
+- taper :
+"docker-compose up -d; docker-compose logs -f startup-check"  (sans les guillemets bien sûr)
+
+Attendre la fin de toutes les étapes de build de l'application
+
+- aller dans votre navigateur à l'adresse :
+   http://localhost:80 ou http://localhost
+   L'application va s'afficher
+
+
 ### Les outils indispensables :
 
 Afin de pouvoir lancer le projet en local, vous devez avoir ces outils sur votre machine. Je vous détaille ici les versions utilisées : 

@@ -12,7 +12,7 @@ export class CartsServiceService {
 constructor(private http: HttpClient) { }
 
  getUserCarts(): Observable<CartsInterface[]> {
-  return this.http.get<CartsInterface[]>('http://localhost:8080/api/user/carts/user');
+  return this.http.get<CartsInterface[]>('/api/user/carts/user');
 }
  
 
@@ -24,4 +24,10 @@ constructor(private http: HttpClient) { }
     mergeGuestCart(guestCart: Offersinterface[], userId: number) {
   return this.http.post(`/api/cart/merge`, { userId, items: guestCart });
 }
+
+  // Add a method to create a cart for the authenticated user
+  createCartForUser(ticketData: any): Observable<any> {
+    console.log('Sending ticketData to backend:', ticketData); // Debug log
+    return this.http.post('/api/user/carts', ticketData);
+  }
 }
