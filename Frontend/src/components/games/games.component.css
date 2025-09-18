@@ -1,0 +1,185 @@
+/* Ensure the component has a visible layout */
+:host {
+  display: block;
+  margin: 0 auto;
+  width : 90%;
+  padding: 20px;
+  background-color: hsl(53, 100%, 95%);
+  color: #d6c278;
+  font-family: Arial, sans-serif;
+  min-height : 55vh;
+}
+
+/* Add styles for a title */
+.games-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+
+/* Add styles for a list of games */
+.games-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.games-list li {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.games-list li:last-child {
+  border-bottom: none;
+}
+
+.games-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.game-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 24px 20px;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.2s;
+  margin-bottom : 30px;
+}
+
+.game-card:hover {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.16);
+}
+
+.game-image {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  object-fit: cover;
+  background: #f0f0f0;
+}
+
+.game-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.3em;
+  color: #2a3b4c;
+}
+
+.game-card p {
+  margin: 6px 0;
+  color: #444;
+  font-size: 1em;
+}
+
+.game-card h4, .game-card h5 {
+  margin: 16px 0 8px 0;
+  color : #d6c278;
+  text-shadow: 0 0 0.1px #a29919;
+  font-size: 1.1em;
+}
+
+/* Search button section : */
+form {
+  display: flex;
+  gap: 8px;
+  justify-content: left;
+  margin-bottom: 16px;
+}
+
+form input[type="text"] {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  font-size: 1em;
+}
+
+form button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  background: #1976d2;
+  color: #fff;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+form button:hover {
+  background: #125ea2;
+}
+
+
+/* Modal (games page) section : */
+/* Modal styles */
+.modal-backdrop {
+position: fixed;
+top: 0; left: 0; right: 0; bottom: 0;
+background: rgba(0,0,0,0.5);
+z-index: 1000;
+}
+.modal {
+position: fixed;
+top: 50%; left: 50%;
+transform: translate(-50%, -50%);
+background: #fff;
+border-radius: 12px;
+box-shadow: 0 4px 32px rgba(0,0,0,0.2);
+padding: 32px 24px;
+z-index: 1001;
+max-width: 90vw;
+max-height: 90vh;
+overflow-y: auto;
+}
+.modal-content {
+position: relative;
+}
+.close-btn {
+position: absolute;
+top: 8px; right: 12px;
+background: none;
+border: none;
+font-size: 2em;
+cursor: pointer;
+color: #888;
+}
+
+.card_moredetails_btn {
+  padding: 10px 40px;
+  background-color: #d6c278;
+  width: 180px;
+  border: none;
+  border-radius: 15px;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #0e0d0d;
+  margin-top: auto;
+  margin-bottom: 5px;
+  vertical-align: bottom;
+  transition: background 0.2s, filter 0.2s;
+}
+
+.card_moredetails_btn:hover {
+  background-color: #d2c493;
+  filter: brightness(1.08);
+  cursor: pointer;
+}
+
+.card-details {
+  margin-bottom : 30px;
+}
+
+/* gamesmodal.component.css */
+.modal-content {
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 16px;
+}

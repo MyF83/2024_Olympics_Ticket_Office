@@ -1,0 +1,98 @@
+
+{
+    "games": [
+        {
+            "id": 1,
+            "name": "Men's Double Sculls of Rowing ",
+            "date": "2024-07-26",
+            "sport": "Rowing",
+            "place": "Stade de France, Paris",
+            "description": "Rowing events are held in a row on flat water over a distance of 2,000 meters. Boats are made up of one, two, four, or eight rowers. A distinction is made between single sculls (one oar in each hand) and point sculls (one oar used with both hands).",
+            "imageUrl": "./public/jpg/Rowing-sml.jpg",
+            "ticketPrice": 100,
+            "status": "available"
+        },
+        {
+            "id": 2,
+            "name": "Quarter final of women Sport Climbing",
+            "date": "2024-07-27",
+            "sport": "Sport Climbing",
+            "place": "Parc des Expositions, Bourget",
+            "description": "Combined climbing, as its name suggests, combines two climbing disciplines: bouldering involves climbing 4.5 m high structures, without ropes but with landing mats, within a limited time and with as few attempts as possible.",
+            "imageUrl": "./public/jpg/Sport-Climbing-sml.jpg",
+            "ticketPrice": 150,
+            "status": "sold out"
+        },
+        {
+            "id": 3,
+            "name": "Mountain Biking",
+            "date": "2024-07-28",
+            "sport": "Mountain Biking",
+            "place": "Elancourt Hill, Elancourt (Yvelines)",
+            "description": "At the Paris 2024 Olympic Games, the mountain biking events will take place on Elancourt Hill (Yvelines), the highest point in the Paris region at 231 meters above sea level. Athletes will have to master a winding 4.3-kilometer circuit.",
+            "imageUrl": "./public/jpg/Mountain-Bike-sml.jpg",
+            "ticketPrice": 120,
+            "status": "available"
+        },
+        {
+            "id": 4,
+            "name": "Men's Round of 16 of Golf",
+            "date": "2024-07-29",
+            "sport": "Golf",
+            "place": "Bercy Arena, Paris",
+            "description": "The golf events at the Paris 2024 Olympic Games will consist of a men's and women's individual tournament. Each tournament will be played stroke play (cumulative score), with a total of 72 holes played over four days. The player with the lowest cumulative score after four days will be declared the winner.",
+            "imageUrl": "./public/jpg/Golf-sml.jpg",
+            "ticketPrice": 130,
+            "status": "available"
+        },
+        {
+            "id": 5,
+            "name": "Women's Final of Fencing",
+            "date": "2024-07-31",
+            "sport": "Fencing",
+            "place": "Stade de France, Paris",
+            "description": "The individual competitions at Paris 2024 will feature approximately 34 to 37 shooters per weapon and will be held in a single-elimination bracket of 64 incomplete. Once all shooters have an initial ranking, a draw in brackets of two will be held for all shooters in the bracket.",
+            "imageUrl": "./public/jpg/Fencing-sml.jpg",
+            "ticketPrice": 200,
+            "status": "available"
+        },
+        
+        {
+            "id": 6,
+            "name": "Men's HalSemi-Final of Diving",
+            "date": "2024-08-05",
+            "sport": "Diving",
+            "place": "Aquatic Centre, Paris",
+            "description": "The Olympic Games are a major international multi-sport event.",
+            "imageUrl": "./public/jpg/Diving-sml.jpg",
+            "ticketPrice": 200,
+            "status": "available"
+        },
+
+        {
+            "id": 7,
+            "name": "Athletics",
+            "date": "2024-07-30",
+            "sport": "Athletics",
+            "place": "Stade de France, Paris",
+            "description": "The Olympic Games are a major international multi-sport event.",
+            "imageUrl": "./public/jpg/Athletics-sml.jpg",
+            "ticketPrice": 200,
+            "status": "available"
+        },
+        {
+            "id": 8,
+            "name": "Men's Singles of Table Tennis",
+            "date": "2024-07-30",
+            "sport": "Table Tennis",
+            "place": "Stade de France, Paris",
+            "description": "All events are held by direct elimination. In singles, there are up to 70 table tennis players per tournament (men and women). The competition begins with a preliminary round, then the draws begin in the first round, which corresponds to a round of 32.",
+            "imageUrl": "./public/jpg/Table-tennis-sml.jpg",
+            "ticketPrice": 200,
+            "status": "available"
+        }
+
+    
+
+    ]
+}

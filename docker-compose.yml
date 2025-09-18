@@ -1,0 +1,164 @@
+version: "3.8"
+
+networks:
+  jo2024mfournier:
+    driver: bridge
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: db
+    restart: unless-stopped
+    environment:
+      # MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      # MYSQL_DATABASE: ${MYSQL_DATABASE}
+      # MYSQL_USER: ${MYSQL_USER}
+      # MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: jEjsveCsj@LOsO*YiD9Ipa
+      MYSQL_DATABASE: jo2024
+      MYSQL_USER: rootMyr25
+      MYSQL_PASSWORD: jEjsveCsj@LOsO*YiD9Ipa
+    ports:
+      - "3306:3306"
+    volumes:
+      # - mysql-data:/var/lib/mysql
+      # - ./init:/docker-entrypoint-initdb.d
+      # - ./Backend/src/main/resources/import.sql:/docker-entrypoint-initdb.d/02-import.sql
+      - mysql-data:/var/lib/mysql
+      # - ./Backend/src/main/resources/import.sql:/docker-entrypoint-initdb.d/02-import.sql
+    networks:
+      - jo2024mfournier
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "rootMyr25", "--password=jEjsveCsj@LOsO*YiD9Ipa"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+    command: --default-authentication-plugin=mysql_native_password
+
+  jo2024-back:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    container_name: jo2024-back
+    # restart: on-failure
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    # Fixed command syntax - removed duplicate echo and fixed quotes
+    # command: ["/bin/sh", "-c", "echo 'Waiting 60 seconds before starting backend...' && sleep 60 && echo 'Starting Spring Boot application...' && java -jar app.war"]
+    command: >
+      /bin/sh -c '
+      echo "Waiting 60 seconds before starting backend..." &&
+      sleep 60 &&
+      echo "Starting Spring Boot application..." &&
+      java -jar app.war
+      '
+    ports:
+      - "8080:8080"
+    environment:
+      # - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/jo2024?allowPublicKeyRetrieval=true&useSSL=false
+      # - SPRING_DATASOURCE_USERNAME=rootMyr25
+      # - SPRING_DATASOURCE_PASSWORD=jEjsveCsj@LOsO*YiD9Ipa
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/jo2024
+      - SPRING_DATASOURCE_USERNAME=rootMyr25
+      - SPRING_DATASOURCE_PASSWORD=jEjsveCsj@LOsO*YiD9Ipa
+      - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK=INFO
+      - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB=INFO
+      # - SQL_INIT_MODE=never
+      # - DEFER_INIT=false
+    # volumes:
+    #   - ./db/init:/data/init
+    #   - ./db/datas/docker-import.sql:/data/import.sql
+    # command: >
+    #   /bin/sh -c "
+    #   sleep 30 &&
+    #   mysql -h db -u rootMyr25 -pjEjsveCsj@LOsO*YiD9Ipa jo2024 < /data/import.sql &&
+    #   mysql -h db -u rootMyr25 -pjEjsveCsj@LOsO*YiD9Ipa jo2024 < /data/init/02-import.sql"
+    networks:
+      - jo2024mfournier
+      # Add healthcheck for data-loader dependency
+    healthcheck:
+      # test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+ 
+ 
+  data-loader:
+    image: mysql:8.0
+    depends_on:
+      jo2024-back:
+        condition: service_healthy
+    volumes:
+      # - ./Backend/src/main/resources/schema.sql:/schema.sql:ro
+      # - ./Backend/src/main/resources/import.sql:/import.sql:ro
+      # - ./Backend/src/main/resources/schema.sql:/tmp/schema.sql:ro
+      # - ./Backend/src/main/resources/import.sql:/tmp/import.sql:ro
+      # - ./Backend/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      # - ./Backend/src/main/resources/import.sql:/docker-entrypoint-initdb.d/02-import.sql
+       - ./db/datas/docker-import.sql:/data/docker-import.sql
+      # - ./db/schema.sql:/data/schema.sql
+       - ./db/init:/data/init
+    command: >
+     /bin/sh -c '
+      microdnf install -y curl &&
+      echo "Waiting for backend health check..." &&
+      until curl -f http://jo2024-back:8080/actuator/health 2>/dev/null; do
+        echo "Waiting for backend..."
+        sleep 5
+      done &&
+      echo "Backend is healthy, importing data..." &&
+      mysql -h db -u rootMyr25 -pjEjsveCsj@LOsO*YiD9Ipa jo2024 < /data/docker-import.sql &&
+      echo "Data import completed"
+      '
+    networks:
+      - jo2024mfournier
+
+  jo2024-front:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    container_name: jo2024-front
+    ports:
+      - "80:80"
+    depends_on:
+      jo2024-back:
+        condition: service_healthy
+      data-loader:
+        condition: service_completed_successfully
+    command: >
+      /bin/sh -c '
+      echo "Waiting for backend and data to be ready..." &&
+      sleep 30 &&
+      echo "Starting nginx..." &&
+      nginx -g "daemon off;"
+      '
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:80"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+    networks:
+      - jo2024mfournier
+
+  startup-check:
+    image: busybox
+    depends_on:
+      jo2024-front:
+        condition: service_healthy
+    command: echo "All services are up and running!"
+    networks:
+      - jo2024mfournier
+
+
+
+
+volumes:
+  mysql-data:

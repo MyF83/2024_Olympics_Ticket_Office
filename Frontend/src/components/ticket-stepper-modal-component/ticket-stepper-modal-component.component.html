@@ -1,0 +1,68 @@
+<ng-container *ngIf="!showSummary" class="stepper-container">
+  <mat-horizontal-stepper #stepper linear>
+    <mat-step [completed]="true" label="Choose Event">
+      <div class="step-content">
+      <p>Event: {{ data.game.title }}</p>
+      </div>
+      <div style="flex:1 1 auto;"></div>
+      <div class="stepper-actions">
+      <button mat-button matStepperNext (click)="showOfferSelection = true">Next</button>
+      </div>
+    </mat-step>
+    <mat-step label="Choose Offer">
+      <div *ngIf="showOfferSelection" class="offer-buttons">
+        <button *ngFor="let offer of offerTypes"
+                mat-raised-button
+                [color]="offer.color"
+                [class.selected-offer]="selectedOfferType === offer.type"
+                (click)="selectOfferType(offer.type)">
+          {{ offer.name }}<br>
+          <small>{{ offer.desc }}</small>
+        </button>
+      </div>
+
+      <div class="stepper-actions">
+      <button mat-button matStepperNext [disabled]="!selectedOffer">Next</button>
+      </div>
+    </mat-step>
+    <mat-step label="Specify Conditions">
+       <div class="step-content">
+      <form>
+        <mat-form-field>
+          <mat-label>Number of seats</mat-label>
+          <input matInput type="number" [(ngModel)]="nbSpectators" name="nbSpectators" min="1" placeholder="Number of Spectators">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Price Class</mat-label>
+          <mat-select [(ngModel)]="priceClass" name="priceClass">
+            <mat-option [value]="1">Price 1</mat-option>
+            <mat-option [value]="2">Price 2</mat-option>
+            <mat-option [value]="3">Price 3</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+      </div>
+      <div class="stepper-actions">
+      <button mat-button (click)="finish()">Finish</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</ng-container>
+
+<ng-container *ngIf="showSummary">
+  <div class="summary-block">
+    <h3>Summary of your choices</h3>
+    <ul>
+      <li><strong>Event:</strong> {{ data.game.title }}</li>
+      <li><strong>Offer:</strong> {{ selectedOffer?.name }} ({{ selectedOffer?.discountRate }}% for {{ selectedOffer?.nbSpectators }} person(s))</li>
+      <li><strong>Number of Spectators:</strong> {{ nbSpectators }}</li>
+      <li><strong>Price Class:</strong> {{ priceClass }}</li>
+    </ul>
+    <p>To complete your purchase and proceed to payment, you must be connected.</p>
+    <div class="summary-actions">
+      <button mat-stroked-button color="warn" (click)="closeAndClearCart()">Close</button>
+      <button mat-raised-button color="primary" (click)="goToRegister()">Register</button>
+      <button mat-raised-button color="accent" (click)="goToLogin()">Login</button>
+    </div>
+  </div>
+</ng-container>

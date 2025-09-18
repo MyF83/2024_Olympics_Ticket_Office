@@ -1,0 +1,23 @@
+<h2>Offers</h2>
+<p>Here are our price offers : </p>
+
+<!-- Offers List Section -->
+<section class="offers-container">
+
+    <div class="offer-card" *ngFor="let offer of offers">
+        
+        <h3 class="offers-title">{{ offer.title }} </h3>
+        <p> {{ offer.description }} </p>
+        <strong>Discount percentage : </strong><p class="offers-infos">{{ offer.rate }} % </p>
+        <strong>Number of people for whom this offer applies : </strong><p class="offers-infos"> {{ offer.nbSpectators }} person(s)</p>
+        
+        <!--<button class="offer_moredetails_btn" mat-button (click)="openDetails(offer)">More details</button>-->
+        
+        <img [src]="offer.image" alt="{{ offer.title }}" class="offers_img">
+        <!--<img class="offers_img" [src]="getImageForOffer(offer.title)" [alt]="offer.title">-->
+    
+        <button class="card_moredetails_btn" mat-button (click)="addToCart(offer)">Add to cart</button>
+    
+    </div>    
+
+</section>

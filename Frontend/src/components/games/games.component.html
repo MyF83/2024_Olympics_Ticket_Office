@@ -1,0 +1,86 @@
+
+<h2>List of available game or ceremony purposes</h2>
+<section>
+    <form (submit)="filterGames(); $event.preventDefault()">
+        <input type="text" placeholder="Filter by Sport, ceremony ..." [(ngModel)]="searchTerm" (input)="filterGames()" name="search" />
+        <!-- <button type="submit">Search</button>-->
+    </form>
+</section>
+ 
+<!-- Games List Section -->
+<section class="games-container">
+
+    <div class="game-card" *ngFor="let game of filteredGames">
+        <h3>{{ game.title }}</h3>
+        <img [src]="game.image" alt="{{ game.title }}" class="game-image">
+        <p><strong>Date:</strong> {{ game.date }} <strong>Time:</strong> {{ game.time }}</p>
+        <!-- <p><strong>Description:</strong> {{ game.description }}</p> -->
+
+        <!-- Ceremonies Section -->
+        <div class="card-details" *ngIf="game.ceremonies">
+            
+            <!-- Ceremonies Section -->
+                <h4>Ceremony Details</h4>
+                <p><strong>Name:</strong> {{ game.ceremonies.name }}</p>
+                <!--<p><strong>Description:</strong> {{ game.ceremonies.description }}</p>-->
+
+                <!-- Sites of Ceremonies Section -->
+                <div *ngIf="game.ceremonies.sites">
+                    <h5>Site of the ceremony :</h5>
+                    <p><strong>Place : </strong> {{ game.ceremonies.sites.name }}</p>
+                    <!-- <p><strong>Description : </strong> {{ game.ceremonies.sites.description }}</p> -->
+                    <!-- <p><strong>Address : </strong> {{ game.ceremonies.sites.address }}</p> -->
+                    <p><strong>City : </strong> {{ game.ceremonies.sites.city }}</p>
+                    <!-- <p><strong>Postal Code : </strong> {{ game.ceremonies.sites.postalCode }}</p> -->
+                    <!--<p><strong>Country:</strong> {{ game.ceremonies.sites.countries.name }}</p>-->
+                </div>  
+        </div>
+
+        <!-- Sports Section -->
+        <div class="card-details" *ngIf="game.sports">
+
+                <!-- Sports Section -->
+                <h4>Sport Details</h4>
+                <p><strong>Sport :</strong> {{ game.sports?.name }}</p>
+                <p><strong>Challenger 1 :</strong></p>
+                <p> {{ game.challenger1?.name }} </p>
+                <p><strong>Challenger 2 :</strong></p>
+                <p> {{ game.challenger2?.name }} </p>
+                <!--<p><strong>Description:</strong> {{ game.sports.description }}</p>-->
+                <p><strong>Is this a paralympic competition ?</strong></p>
+                <p> {{ game.sports.isParalympic ? 'yes, this is a paralympic game.' : 'no' }}</p>
+
+                <!-- Sites of Sports Section -->
+                <div *ngIf="game.sports.sites">
+                    <h5>Site of the competition :</h5>
+                    <p><strong>Place:</strong> {{ game.sports?.sites?.name }}</p>
+                    <!--<p><strong>Description:</strong> {{ game.sports.sites.description }}</p>-->
+                    <!--<p><strong>Address:</strong> {{ game.sports.sites.address }}</p>-->
+                    <p><strong>City:</strong> {{ game.sports?.sites?.city }}</p>
+                    <!--<p><strong>Postal Code:</strong> {{ game.sports.sites.postalCode }}</p>-->
+                    <!--<p><strong>Country:</strong> {{ game.sports.sites.countries.name }}</p>-->
+                </div>
+        </div>
+
+            <!-- Available Seats Section for both ceremonies and sports -->
+            <!--<div>
+                <h4>Available seats</h4>
+                <p><strong>Number of seats available at starting price:</strong> {{ game.nbseatsavailc1 }}</p>
+                <p><strong>Number of seats available at medium price:</strong> {{ game.nbseatsavailc2 }}</p>
+                <p><strong>Number of seats available at premium price:</strong> {{ game.nbseatsavailc3 }}</p>
+            </div>-->
+
+            <!-- Pricing Section for both ceremonies and sports 
+             <div>
+                <h4>Pricing</h4>
+                <p><strong>Starting price:</strong> {{ game.pricec1 | currency:'EUR':'symbol'  }}</p>
+                <p><strong>Medium price:</strong> {{ game.pricec2 | currency:'EUR':'symbol'  }}</p>
+                <p><strong>Premium price:</strong> {{ game.pricec3 | currency:'EUR':'symbol'  }}</p>
+            </div>-->
+            
+                <button class="card_moredetails_btn" mat-button (click)="openDetails(game)">More details</button>
+                        
+    </div>
+    
+
+</section>
