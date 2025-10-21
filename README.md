@@ -7,11 +7,43 @@ Comme une image vaut mille mots, voici à quoi ressemble l'application :
 
 ![Alt text](./Frontend/public/img/Accueil.png)
 
+![Alt text](./Frontend/public/img/Games.png)
 
 ![Alt text](./Frontend/public/img/Games-Modal.png)
 
-
 ![Alt text](./Frontend/public/img/Offers.png)
+
+![Alt text](./Frontend/public/img/Informations.png)
+
+![Alt text](./Frontend/public/img/Security-Policy)
+
+![Alt text](./Frontend/public/img/Login.png)
+
+![Alt text](./Frontend/public/img/Account.png)
+
+![Alt text](./Frontend/public/img/Login.png)
+
+![Alt text](./Frontend/public/img/Cart-to-complete.png)
+
+![Alt text](./Frontend/public/img/Completed-Cart.png)
+
+![Alt text](./Frontend/public/img/Completed-Cart-Selected.png)
+
+![Alt text](./Frontend/public/img/Complete-Carte-step1.png)
+
+![Alt text](./Frontend/public/img/Complete-Carte-step2.png)
+
+![Alt text](./Frontend/public/img/Complete-Carte-step3.png)
+
+![Alt text](./Frontend/public/img/Complete-Carte-Summary.png)
+
+![Alt text](./Frontend/public/img/Complete-Carte-Summary.png)
+
+![Alt text](./Frontend/public/img/Completed-Cart-Selected)
+
+![Alt text](./Frontend/public/img/Completed-Cart-Payment)
+
+![Alt text](./Frontend/public/img/Completed-Cart-Offers-Soldpng)
 
 
 ## Structure du projet
