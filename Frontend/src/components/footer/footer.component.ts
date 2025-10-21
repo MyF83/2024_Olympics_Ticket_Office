@@ -3,10 +3,13 @@ import { SecuritypolicymodalComponent } from '../securitypolicymodal/securitypol
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Securitypolicy } from '../../interfaces/securitypolicy';
 import { SecuritypolicyService } from '../../services/securitypolicy.service';
+import { ConfidentialitypolicymodalComponent } from '../confidentialitypolicymodal/confidentialitypolicymodal.component';
+import { ConditionsofusemodalComponent } from '../conditionsofusemodal/conditionsofusemodal.component';
+import { ContactusmodalComponent } from '../contactusmodal/contactusmodal.component';
 
 @Component({
   selector: 'app-footer',
-  imports: [MatDialogModule, SecuritypolicymodalComponent],
+  imports: [MatDialogModule],
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']
 })
@@ -57,6 +60,47 @@ opencloseSecuritypolicymodal(policy: Securitypolicy): void {
 
   logMessage(message: string): void {
     console.log(message);
+  }
+
+openConfidentialityModal(): void {
+      this.dialog.open(ConfidentialitypolicymodalComponent, {
+      width: '800px',
+      data: {
+        title: 'Confidentiality Policy',
+        description: 'Our confidentiality policy...',
+        url: './assets/policies/confidentiality.html', // If loading external HTML
+        creationDate: '2023-10-01',
+        version: '1.0'
+      }
+    });
+  }
+
+
+
+  openConditionsModal(): void {
+    this.dialog.open(ConditionsofusemodalComponent, {
+      width: '800px',
+      data: {
+        title: 'Conditions of Use',
+        description: 'Our terms and conditions...',
+        url: './assets/policies/conditions.html',
+        creationDate: '2023-10-01',
+        version: '1.0'
+      }
+    });
+  }
+
+openContactModal(): void {
+    this.dialog.open(ContactusmodalComponent, {
+      width: '800px',
+      data: {
+        title: 'Contact Us',
+        description: 'Get in touch with our support team...',
+        url: './assets/policies/contact.html',
+        creationDate: '2023-10-01',
+        version: '1.0'
+      }
+    });
   }
 
 }

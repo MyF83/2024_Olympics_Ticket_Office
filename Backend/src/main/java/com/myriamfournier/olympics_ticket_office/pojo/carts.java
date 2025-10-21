@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,15 +32,9 @@ private Timestamp date;
 @JoinColumn(name= "user_id", nullable = true)
 private users users;
 
-@OneToMany
-private List<offers> offers;
-
-
-
-
-// @ManyToOne
-// @JoinColumn(name= "usersel_id", nullable = true)
-// private userselections userselections;
+@OneToOne
+@JoinColumn(name= "usersel_id", nullable = true)
+private userselections userselections;
 
 private Float totalAmount;
 
@@ -48,28 +43,14 @@ private Float totalAmount;
    public carts() {
 }
 
-public carts(Timestamp date, users users, offers offers, /*userselections userselections,*/ Float totalAmount) {
-    // Default constructor
+public carts(Timestamp date, users users, userselections userselections, Float totalAmount) {
     this.date = date;       
     this.users = users;
-    this.offers = (List<com.myriamfournier.olympics_ticket_office.pojo.offers>) offers;
-    // this.userselections = userselections;
+    this.userselections = userselections;
     this.totalAmount = totalAmount;
-
-
     }
 
-      public users getUsers() {
-        return users;
-    }
-
-      public void setOffers(List<offers> offers) {
-        this.offers = offers;
-    }
-
-      public List<offers> getOffers() {
-        return offers;
-    }
+    // Users getter/setter provided by Lombok @Getter/@Setter
 
     public void setTotalAmount(double totalAmount) {
         this.totalAmount = (float) totalAmount;
@@ -94,6 +75,26 @@ public carts(Timestamp date, users users, offers offers, /*userselections userse
 
     public Timestamp getDate() {
         return date;
+    }
+
+    public Long getCart_id() {
+        return cart_id;
+    }
+
+    public void setCart_id(Long cart_id) {
+        this.cart_id = cart_id;
+    }
+
+    public users getUsers() {
+        return users;
+    }
+
+    public userselections getUserselections() {
+        return userselections;
+    }
+
+    public void setUserselections(userselections userselections) {
+        this.userselections = userselections;
     }
 
  }

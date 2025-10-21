@@ -80,23 +80,53 @@
 
 <!-- When a standard user without privileges is connected : -->
 <div *ngIf="isConnected" class="account-container">
-    <div class="left-panel">
-        <button class="button" mat-button (click)="onEditInfo()">Edit My Information</button>
-        <button class="button" mat-button (click)="onViewCarts()">My Carts</button>
-        <button class="button" mat-button (click)="onViewPayments()">My Last Payments</button>
-        <button class="button" mat-button (click)="onViewTickets()">My Tickets</button>
-        <button class="button" mat-button (click)="onDisconnect()">Disconnect</button>
+    <!-- Mobile burger menu button -->
+    <div class="mobile-header" *ngIf="isMobile">
+        <button class="burger-menu-btn" (click)="toggleMobileMenu()">
+            <mat-icon>{{ isMobileMenuOpen ? 'close' : 'menu' }}</mat-icon>
+        </button>
+        <h2 class="mobile-title">My Account</h2>
+    </div>
+    
+    <!-- Left panel - desktop always visible, mobile toggle -->
+    <div class="left-panel" [class.mobile-menu-open]="isMobileMenuOpen" [class.mobile-hidden]="isMobile && !isMobileMenuOpen">
+        <!-- Mobile menu overlay -->
+        <div class="mobile-overlay" *ngIf="isMobile && isMobileMenuOpen" (click)="closeMobileMenu()"></div>
+        
+        <!-- User greeting at the top -->
+        <div class="user-greeting">
+            <div class="greeting-content">
+                <span class="greeting-icon">👋</span>
+                {{firstname}} {{lastname}} is connected
+            </div>
+        </div>
+        
+        <button class="menu-button" mat-button (click)="onEditInfo(); closeMobileMenu()">Edit My Information</button>
+        <button class="menu-button" mat-button (click)="onViewCarts(); closeMobileMenu()">My Carts</button>
+        <button class="menu-button" mat-button (click)="onViewPayments(); closeMobileMenu()">My Last Payments</button>
+        <button class="menu-button" mat-button (click)="onViewTickets(); closeMobileMenu()">My Tickets</button>
+        <button class="menu-button logout-btn" mat-button (click)="logout(); closeMobileMenu()">
+          🚪 Secure Logout
+        </button>
+        
+        <!-- Session Status Indicator (for debugging) -->
+        <div class="session-status">
+          <div class="session-label">Session Status:</div>
+          <div class="session-active">✅ Active</div>
+          <div class="session-time">Last Activity: {{ getLastActivityTime() }}</div>
+        </div>
         
         <!-- Administration section, visible only for role_id 1 or 2 -->
         <ng-container *ngIf="role_id === 1 || role_id === 2">
             <div class="admin-section">
                 <h4>Administration</h4>
-                <button class="button" mat-button (click)="onManageEvents()">Manage Events</button>
-                <button class="button" mat-button (click)="onManageOffers()">Manage Offers</button>
-                <button class="button" mat-button (click)="onOffersSold()">Offers Sold</button>
+                <button class="menu-button admin-btn" mat-button (click)="onManageEvents(); closeMobileMenu()">Manage Events</button>
+                <button class="menu-button admin-btn" mat-button (click)="onManageOffers(); closeMobileMenu()">Manage Offers</button>
+                <button class="menu-button admin-btn" mat-button (click)="onOffersSold(); closeMobileMenu()">Offers Sold</button>
             </div>
         </ng-container>
     </div>
+    
     <div class="right-panel">
         <div class = "account_form_content" width = "100%">
             <h2 *ngIf="currentView === 'main'" style="text-align:center;">Welcome, {{username}} !</h2>
@@ -166,70 +196,132 @@
  <!-- Cart Panel -->       
 <ng-container *ngIf="currentView === 'carts'">
   <h3>My Carts</h3>
+  
+  <!-- Global Payment Button (only show if carts are selected) -->
+  <div *ngIf="getSelectedCartsCount() > 0" style="margin-bottom: 30px; padding: 20px; border: 2px solid #4CAF50; border-radius: 8px; background-color: #f1f8e9; text-align: center;">
+    <button mat-raised-button color="primary" (click)="proceedToGlobalPayment()" style="font-size: 1.1em; padding: 12px 24px;">
+      💳 Proceed to Global Payment
+    </button>
+    <p style="margin-top: 10px; color: #2e7d32; font-size: 0.9em;">
+      By clicking this button you will be sent to the payment module to pay all the carts you have selected here on this page.
+    </p>
+    <p style="margin: 5px 0; color: #2e7d32;"><strong>Selected carts:</strong> {{ getSelectedCartsCount() }} | <strong>Total amount:</strong> {{ globalPaymentAmount | currency:'EUR':'symbol':'1.2-2' }}</p>
+  </div>
+  
   <div *ngIf="userCarts?.length; else noCarts">
-    <!-- Table 1: Properties in header, values in a single row -->
-    <h2>Selected Offer :</h2>
-    <table mat-table [dataSource]="cartOfferDetails" class="mat-elevation-z1" style="width:100%;">
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let row">{{ row.name }}</td>
-  </ng-container>
-  <ng-container matColumnDef="discountRate">
-    <th mat-header-cell *matHeaderCellDef>Discount Rate</th>
-    <td mat-cell *matCellDef="let row">{{ row.discountRate }}</td>
-  </ng-container>
-  <ng-container matColumnDef="nbSpectators">
-    <th mat-header-cell *matHeaderCellDef>Impacted Spectators</th>
-    <td mat-cell *matCellDef="let row">{{ row.nbSpectators }}</td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="['name', 'discountRate', 'nbSpectators']"></tr>
-  <tr mat-row *matRowDef="let row; columns: ['name', 'discountRate', 'nbSpectators'];"></tr>
-</table>
+    <!-- Display each cart individually -->
+    <div *ngFor="let cart of userCarts; let i = index" class="cart-card">
+      <div class="card-header">
+        <h4 class="card-title">Cart #{{ i + 1 }}</h4>
+        <div class="card-badge" [class.incomplete]="isCartIncomplete(cart)" [class.complete]="isCartComplete(cart)">
+          {{ isCartIncomplete(cart) ? 'Incomplete' : 'Ready' }}
+        </div>
+      </div>
+      
+      <!-- Cart Status Indicator for each cart -->
+      <div *ngIf="isCartIncomplete(cart)" class="status-banner incomplete">
+        <div class="status-icon">⚠️</div>
+        <div class="status-content">
+          <h5>Incomplete Selection</h5>
+          <p>Please complete your event and seating selection to proceed with payment.</p>
+        </div>
+        <button class="action-btn btn-primary" (click)="completeCartSelection(cart)">
+          📋 Complete Selection
+        </button>
+      </div>
+      
+      <div *ngIf="isCartComplete(cart)" class="status-banner complete">
+        <div class="status-icon">✅</div>
+        <div class="status-content">
+          <h5>Selection Complete</h5>
+          <p>This cart is ready for payment.</p>
+        </div>
+      </div>
 
-    <!-- Table 2: Properties in left column, values in right column -->
-    <h2>Selected Event :</h2>
-    <table mat-table [dataSource]="cartEventDetails" class="mat-elevation-z1" style="width:100%;">
-      <ng-container matColumnDef="property">
-        <th mat-header-cell *matHeaderCellDef>Property</th>
-        <td mat-cell *matCellDef="let element">{{ element.property }}</td>
-      </ng-container>
-      <ng-container matColumnDef="value">
-        <th mat-header-cell *matHeaderCellDef>Value</th>
-        <td mat-cell *matCellDef="let element">{{ element.value }}</td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="['property', 'value']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['property', 'value'];"></tr>
-    </table>
+      <!-- Cart Details -->
+      <div class="card-content">
+        <div class="card-section">
+          <h5 class="section-title">Selected Offer</h5>
+          <div class="card-field">
+            <span class="field-label">Offer Name</span>
+                                                <span class="field-value">{{ cart.user_id?.userselections?.offers?.title || 'Not selected' }}</span>
+          </div>
+          <div class="card-field">
+            <span class="field-label">Discount Rate</span>
+                                                <span class="field-value">{{ cart.user_id?.userselections?.offers?.rate || 0 }}%</span>
+          </div>
+          <div class="card-field">
+            <span class="field-label">Persons Concerned</span>
+                                                <span class="field-value">{{ cart.user_id?.userselections?.offers?.nbSpectators || 'Not selected' }}</span>
+          </div>
+        </div>
 
-    <!-- Table 3: Properties in header, values in a single row -->
-    <h2>Selected Conditions :</h2>
-    <table mat-table [dataSource]="[userCarts[0]]" class="mat-elevation-z1" style="width:100%;">
-      <ng-container matColumnDef="nbPersons">
-        <th mat-header-cell *matHeaderCellDef>Nb of Persons</th>
-        <td mat-cell *matCellDef="let cart">{{ cart?.nbPersons }}</td>
-      </ng-container>
-      <ng-container matColumnDef="classOfSeats">
-        <th mat-header-cell *matHeaderCellDef>Class of seats</th>
-        <td mat-cell *matCellDef="let cart">{{ cart?.classOfSeats }}</td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="['nbPersons', 'classOfSeats']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['nbPersons', 'classOfSeats'];"></tr>
-    </table>
+        <div class="card-section">
+          <h5 class="section-title">Selected Event</h5>
+          <div class="card-field">
+            <span class="field-label">Event Title</span>
+                                                <span class="field-value">{{ cart.user_id?.userselections?.events?.title || 'Not selected' }}</span>
+          </div>
+          <div class="card-field">
+            <span class="field-label">Date</span>
+                                                <span class="field-value">{{ cart.user_id?.userselections?.events?.date || 'Not selected' }}</span>
+          </div>
+          <div class="card-field">
+            <span class="field-label">Location</span>
+            <span class="field-value">{{ getEventLocation(cart) || 'Not selected' }}</span>
+          </div>
+        </div>
 
-    <!-- Table 4: Properties in left column, values in right column -->
-    <h2>Coast :</h2>
-    <table mat-table [dataSource]="cartCoastDetails" class="mat-elevation-z1" style="width:100%;">
-      <ng-container matColumnDef="property">
-        <th mat-header-cell *matHeaderCellDef>Property</th>
-        <td mat-cell *matCellDef="let element">{{ element.property }}</td>
-      </ng-container>
-      <ng-container matColumnDef="value">
-        <th mat-header-cell *matHeaderCellDef>Value</th>
-        <td mat-cell *matCellDef="let element">{{ element.value }}</td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="['property', 'value']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['property', 'value'];"></tr>
-    </table>
+        <div class="card-section">
+          <h5 class="section-title">Booking Details</h5>
+          <div class="card-field">
+            <span class="field-label">Number of Seats</span>
+                                                <span class="field-value">{{ cart.user_id?.userselections?.nbPersons || 'Not selected' }}</span>
+          </div>
+          <div class="card-field">
+            <span class="field-label">Seat Class</span>
+            <span class="field-value">{{ getSeatClassName('price1') }}</span>
+          </div>
+          <div class="card-field">
+            <span class="field-label">Seat Price</span>
+            <span class="field-value">{{ getSeatPrice(cart) }}€</span>
+          </div>
+        </div>
+
+        <div class="card-section">
+          <h5 class="section-title">Cost Summary</h5>
+          <div class="card-field">
+            <span class="field-label">Cost Before Reduction</span>
+            <span class="field-value">{{ calculateCostBeforeReduction(cart) }}€</span>
+          </div>
+          <div class="card-field">
+            <span class="field-label">Total with Discount</span>
+            <span class="field-value highlight">{{ calculateTotalAmountWithDiscount(cart) }}€</span>
+          </div>
+          <div class="card-field">
+            <span class="field-label">Created</span>
+            <span class="field-value">{{ formatCartCreationDate(cart.date) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cart Action Buttons -->
+      <div class="card-actions">
+        <!-- Close button (always visible) -->
+        <button class="action-btn btn-secondary" (click)="closeCart(cart)">
+          🗑️ Close Cart
+        </button>
+        
+        <!-- Checkbox for complete carts only -->
+        <div *ngIf="isCartComplete(cart)" class="selection-control">
+          <mat-checkbox 
+            [checked]="selectedCartsForPayment.get(cart.cart_id.toString()) || false" 
+            (change)="onCartSelectionChange(cart, $event.checked)">
+            Select for global payment
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
   </div>
   <ng-template #noCarts>
     <p>You have no carts yet.</p>
@@ -239,9 +331,170 @@
             <h3>My Last Payments</h3>
             <!-- Payments content here -->
         </ng-container>
-        <ng-container *ngIf="currentView === 'tickets'">
+        <ng-container *ngif="currentView === 'tickets'">
             <h3>My Tickets</h3>
-            <!-- Tickets content here -->
+            <button class="action-btn btn-primary" (click)="refreshTickets()" style="margin-bottom: 15px;">
+                <mat-icon>refresh</mat-icon> Refresh Tickets
+            </button>
+            
+            <!-- Tickets display -->
+            <div *ngIf="userTickets?.length; else noTickets">
+                <div *ngFor="let ticket of userTickets; let i = index" class="ticket-card">
+                    <div class="card-header">
+                        <h4 class="card-title">Ticket #{{ i + 1 }}</h4>
+                        <div class="card-badge success">Valid</div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="card-section">
+                            <h5 class="section-title">Ticket Information</h5>
+                            <div class="card-field">
+                                <span class="field-label">Ticket Number</span>
+                                <span class="field-value">{{ ticket.ticketNumber || 'N/A' }}</span>
+                            </div>
+                            <div class="card-field">
+                                <span class="field-label">Purchase Date</span>
+                                                  <span class="field-value">{{ ticket.date ? (ticket.date | date:'short') : 'N/A' }}</span>
+                            </div>
+                            <div class="card-field">
+                                <span class="field-label">File Name</span>
+                                <span class="field-value">{{ ticket.fileName || 'N/A' }}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-section" *ngIf="ticket.sales">
+                            <h5 class="section-title">Event Details</h5>
+                            <div class="card-field">
+                                <span class="field-label">Event</span>
+                                <span class="field-value">{{ ticket.eventTitle || 'Event information not available' }}</span>
+                            </div>
+                            <div class="card-field">
+                                <span class="field-label">Date</span>
+                                <span class="field-value">{{ ticket.eventDate || 'Date not available' }}</span>
+                            </div>
+                            <div class="card-field">
+                                <span class="field-label">Location</span>
+                                <span class="field-value">{{ ticket.eventLocation || 'Location not available' }}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-section" *ngIf="ticket.qrCodePath">
+                            <h5 class="section-title">QR Code</h5>
+                            <div class="qr-code-container">
+                                <img [src]="'/api/qr-codes/' + ticket.fileName" 
+                                     alt="Ticket QR Code" 
+                                     class="qr-code-image"
+                                     (error)="onQRCodeError($event)">
+                                <p class="qr-code-caption">Present this QR code at the event entrance</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-actions">
+                        <button class="action-btn btn-secondary" (click)="downloadTicket(ticket)">
+                            📥 Download
+                        </button>
+                        <button class="action-btn btn-primary" (click)="viewTicketDetails(ticket)">
+                            👁️ View Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <ng-template #noTickets>
+                <div class="empty-state">
+                    <div class="empty-icon">🎫</div>
+                    <h4>No Tickets Yet</h4>
+                    <p>Your purchased tickets will appear here after completing payment.</p>
+                    <button class="action-btn btn-primary" (click)="refreshTickets()">
+                        🔄 Refresh
+                    </button>
+                </div>
+            </ng-template>
+        </ng-container>
+        
+        <!-- Admin: Offers Sold View -->
+        <ng-container *ngIf="currentView === 'offersSold' && (role_id === 1 || role_id === 2)">
+            <h3>Sales Dashboard</h3>
+            
+            <!-- Sales Summary Card -->
+            <div class="sales-summary-card">
+                <h4>📊 Total Sales Summary</h4>
+                <div class="sales-total">
+                    <span class="currency">€</span>
+                    <span class="amount">{{ totalSales | number:'1.2-2' }}</span>
+                </div>
+                <p class="sales-period">Total revenue from all ticket sales</p>
+            </div>
+            
+            <!-- Sales List -->
+            <div class="sales-list" *ngIf="!salesLoading; else loadingSales">
+                <h4>🎫 Recent Sales</h4>
+                <div class="sales-grid">
+                    <div class="sale-card" *ngFor="let sale of salesList; trackBy: trackBySaleId">
+                        <div class="sale-header">
+                            <span class="sale-id">Sale #{{ sale.saleId }}</span>
+                            <span class="sale-date">{{ sale.date | date:'short' }}</span>
+                        </div>
+                        
+                        <div class="sale-details">
+                            <div class="card-field">
+                                <span class="field-label">Customer</span>
+                                <span class="field-value">{{ sale.customerName }}</span>
+                            </div>
+                            <div class="card-field">
+                                <span class="field-label">Event</span>
+                                <span class="field-value">{{ sale.eventTitle }}</span>
+                            </div>
+                            <div class="card-field">
+                                <span class="field-label">Offer</span>
+                                <span class="field-value">{{ sale.offerTitle }}</span>
+                            </div>
+                            <div class="card-field">
+                                <span class="field-label">Tickets</span>
+                                <span class="field-value">{{ sale.ticketCount }} x {{ sale.seatClass }}</span>
+                            </div>
+                            <div class="card-field amount-field">
+                                <span class="field-label">Amount</span>
+                                <span class="field-value amount">€{{ sale.amount | number:'1.2-2' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <ng-template #loadingSales>
+                <div class="loading-state">
+                    <div class="loading-spinner"></div>
+                    <p>Loading sales data...</p>
+                </div>
+            </ng-template>
+        </ng-container>
+        
+        <!-- Admin: Manage Events View -->
+        <ng-container *ngIf="currentView === 'manageEvents' && (role_id === 1 || role_id === 2)">
+            <h3>📅 Manage Events</h3>
+            <div class="admin-panel">
+                <p>Event management functionality will be implemented here.</p>
+                <div class="feature-placeholder">
+                    <mat-icon style="font-size: 48px; color: #ccc;">event</mat-icon>
+                    <h4>Coming Soon</h4>
+                    <p>Create, edit, and manage Olympic events and schedules.</p>
+                </div>
+            </div>
+        </ng-container>
+        
+        <!-- Admin: Manage Offers View -->
+        <ng-container *ngIf="currentView === 'manageOffers' && (role_id === 1 || role_id === 2)">
+            <h3>🎯 Manage Offers</h3>
+            <div class="admin-panel">
+                <p>Offer management functionality will be implemented here.</p>
+                <div class="feature-placeholder">
+                    <mat-icon style="font-size: 48px; color: #ccc;">local_offer</mat-icon>
+                    <h4>Coming Soon</h4>
+                    <p>Create, edit, and manage ticket offers and pricing strategies.</p>
+                </div>
+            </div>
         </ng-container>
     </div>
 </div>

@@ -1,7 +1,5 @@
 package com.myriamfournier.olympics_ticket_office.pojo;
 
-
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,15 +9,10 @@ import jakarta.persistence.ManyToOne;
 //import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "challengers")
-@Getter
-@Setter
 public class challengers {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,16 +24,37 @@ public class challengers {
     @JoinColumn(name = "country_id", nullable = true) 
     private countries countries;
 
- 
-// Default constructor (required by Hibernate)
-public challengers() {
+    // Default constructor (required by Hibernate)
+    public challengers() {
     }
     
-
-public challengers(String name, countries countries) {
+    public challengers(String name, countries countries) {
         // Default constructor
         this.name = name;
         this.countries = countries;
     }
 
+    public Long getChallenger_id() {
+        return challenger_id;
+    }
+
+    public void setChallenger_id(Long challenger_id) {
+        this.challenger_id = challenger_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public countries getCountries() {
+        return countries;
+    }
+
+    public void setCountries(countries countries) {
+        this.countries = countries;
+    }
 }

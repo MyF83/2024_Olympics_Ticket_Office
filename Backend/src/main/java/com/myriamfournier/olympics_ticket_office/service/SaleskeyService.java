@@ -12,12 +12,15 @@ public interface SaleskeyService{
 
     saleskeys getSaleskeyById(Long id);
 
+    saleskeys createSalekey(Long sale_id);
+    
     void createSaleskey(saleskeys saleskeys);
 
     void updateSaleskeyById(saleskeys saleskeys, Long id);
 
-
     void deleteSaleskeyById(Long id);
+    
+    String generateSaleKeyHash(Long sale_id);
 
 
     

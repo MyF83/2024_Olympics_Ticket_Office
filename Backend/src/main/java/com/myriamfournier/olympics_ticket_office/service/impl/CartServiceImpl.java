@@ -83,38 +83,29 @@ private UserRepository userRepository;
   
     @Override
     public void mergeGuestCart(Long userId, List<offers> items) {
-       // 1. Find the user's cart (assuming one active cart per user)
+       // This method is simplified since cart only contains basic info
+       // The actual offer/event data is stored in userselections linked to the user
+       
+       // Find or create user cart
         List<carts> allCarts = cartRepository.findAllWithDetails();
         carts userCart = null;
-            for (carts carts : allCarts) {
-            if (carts.getUsers() != null && carts.getUsers().getUser_id().equals(userId)) {
-                userCart = carts;
+        for (carts cart : allCarts) {
+            if (cart.getUsers() != null && cart.getUsers().getUser_id().equals(userId)) {
+                userCart = cart;
                 break;
             }
-    }
-        // 2. If no cart exists, create one
+        }
+        
+        // If no cart exists, create one (this would typically be done through the main cart creation flow)
         if (userCart == null) {
             userCart = new carts();
-            users users = userRepository.findById(userId).orElse(null); // Assuming you have a UserRepository
-            userCart.setUser(users); // or setUsers(users) if you have a users entity
-            userCart.setOffers(new ArrayList<>());
+            users user = userRepository.findById(userId).orElse(null);
+            userCart.setUser(user);
             userCart.setTotalAmount(0.0);
-        }
-
-           // 3. Add items from guest cart (avoid duplicates)
-            List<offers> currentOffers = userCart.getOffers() != null ? userCart.getOffers() : new ArrayList<>();
-            for (offers guestOffer : items) {
-                boolean alreadyInCart = currentOffers.stream()
-                    .anyMatch(o -> o.getOffer_id().equals(guestOffer.getOffer_id()));
-                if (!alreadyInCart) {
-                    currentOffers.add(guestOffer);
-                    // Optionally update totalAmount here
-                }
-            }
-            userCart.setOffers(currentOffers);
-
-            // 4. Save the cart
+            java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(System.currentTimeMillis());
+            userCart.setDate(currentTimestamp);
             cartRepository.save(userCart);
+        }
     }
 
 @Override

@@ -8,10 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-import com.myriamfournier.olympics_ticket_office.service.UserService;
-import com.myriamfournier.olympics_ticket_office.service.impl.UserDetailsServiceImpl;
-
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -20,12 +18,11 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 @Component
 public class JwtFilter extends OncePerRequestFilter{
 
-    private final UserService userService;
-    // private final UserDetailsServiceImpl userDetailsServiceImpl;
+    private final UserDetailsService userDetailsService;
     private final JwtUtils jwtUtils;
 
-    public JwtFilter(UserService userService , JwtUtils jwtUtils) {
-        this.userService = userService;
+    public JwtFilter(UserDetailsService userDetailsService, JwtUtils jwtUtils) {
+        this.userDetailsService = userDetailsService;
         this.jwtUtils = jwtUtils;
     }
   
@@ -40,16 +37,27 @@ public class JwtFilter extends OncePerRequestFilter{
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);
-            username = jwtUtils.extractUsername(jwt);
+            try {
+                username = jwtUtils.extractUsername(jwt);
+            } catch (Exception e) {
+                // Token is invalid or expired, just continue without authentication
+                System.err.println("Failed to extract username from token: " + e.getMessage());
+            }
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userService.loadUserByUsername(username);
-            if (jwtUtils.validateToken(jwt, userDetails)) {
-                UsernamePasswordAuthenticationToken authenticationToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            // Check if the token is blacklisted first
+            if (jwtUtils.isTokenBlacklisted(jwt)) {
+                // Token is blacklisted, so deny access
+                // We simply don't set the authentication context
+            } else {
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                if (jwtUtils.validateToken(jwt, userDetails)) {
+                    UsernamePasswordAuthenticationToken authenticationToken =
+                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                }
             }
         }
 

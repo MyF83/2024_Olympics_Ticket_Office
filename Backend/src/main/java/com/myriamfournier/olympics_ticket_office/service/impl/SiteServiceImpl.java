@@ -63,6 +63,7 @@ public class SiteServiceImpl implements SiteService{
             oldSite.setNbseatsc1(sites.getNbseatsc1());
             oldSite.setNbseatsc2(sites.getNbseatsc2());
             oldSite.setNbseatsc3(sites.getNbseatsc3());
+            oldSite.setPlanUrl(sites.getPlanUrl());
             siteRepository.save(oldSite);
         }
     }

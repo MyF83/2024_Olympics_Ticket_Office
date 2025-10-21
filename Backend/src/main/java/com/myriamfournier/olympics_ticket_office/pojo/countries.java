@@ -5,13 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "countries")
-@Getter
-@Setter
 public class countries {
 
     @Id
@@ -21,19 +17,37 @@ public class countries {
     private String name;
     private String description;
 
-    
-   // Default constructor (required by Hibernate)
-   public countries() {
+// Default constructor (required by Hibernate)
+public countries() {
 }
 
-
 public countries(String name, String description) {
-        // Default constructor
-        this.name = name;
-        this.description = description;
-    }
+    // Default constructor
+    this.name = name;
+    this.description = description;
+}
 
+public Long getCountry_id() {
+    return country_id;
+}
 
+public void setCountry_id(Long country_id) {
+    this.country_id = country_id;
+}
 
+public String getName() {
+    return name;
+}
 
+public void setName(String name) {
+    this.name = name;
+}
+
+public String getDescription() {
+    return description;
+}
+
+public void setDescription(String description) {
+    this.description = description;
+}
 }

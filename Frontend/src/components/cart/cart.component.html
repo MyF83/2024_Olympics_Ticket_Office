@@ -1,1 +1,41 @@
-<p>cart works!</p>
+<div class="cart-container">
+  <h1>My Cart</h1>
+  
+  <div *ngIf="isLoading" class="loading-spinner">
+    <p>Loading your cart...</p>
+  </div>
+  
+  <div *ngIf="!isLoading && errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+  
+  <div *ngIf="!isLoading && !errorMessage && userCarts.length === 0" class="empty-cart">
+    <p>Your cart is empty. Browse our <a routerLink="/offers">offers</a> to find something!</p>
+  </div>
+  
+  <div *ngIf="!isLoading && !errorMessage && userCarts.length > 0" class="cart-items">
+    <div class="cart-list">
+      <div *ngFor="let cart of userCarts" class="cart-item">
+        <div class="cart-info">
+          <h3>Cart #{{ cart.cart_id }}</h3>
+          <p class="cart-date">Created: {{ cart.date | date:'medium' }}</p>
+          
+          <div class="offer-details" *ngIf="cart.offers?.length > 0">
+            <div *ngFor="let offer of cart.offers" class="offer-item">
+              <h4>{{ offer.title }}</h4>
+              <p>{{ offer.description }}</p>
+              <p>Rate: {{ offer.rate }}</p>
+            </div>
+          </div>
+          
+          <p class="cart-total">Total Amount: {{ cart.totalAmount | currency }}</p>
+        </div>
+        
+        <div class="cart-actions">
+          <button class="checkout-btn" (click)="proceedToCheckout(cart)">Checkout</button>
+          <button class="remove-btn" (click)="removeFromCart(cart.cart_id)">Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

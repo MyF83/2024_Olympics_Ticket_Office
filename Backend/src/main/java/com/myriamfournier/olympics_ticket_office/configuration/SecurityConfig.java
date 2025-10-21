@@ -46,15 +46,16 @@ public class SecurityConfig implements WebMvcConfigurer{
     
     private final UserDetailsService userService;
     private final JwtUtils jwtUtils;
-    
-    @Autowired
-     private JwtFilter jwtFilter; // <-- Injection of the JwtFilter here
 
-   
-
-    public SecurityConfig(UserDetailsService userService , JwtUtils jwtUtils) {
+    public SecurityConfig(UserDetailsService userService, JwtUtils jwtUtils) {
         this.userService = userService;
         this.jwtUtils = jwtUtils;
+    }
+    
+    // Create JwtFilter as a bean instead of autowiring it
+    @Bean
+    public JwtFilter jwtFilter() {
+        return new JwtFilter(userService, jwtUtils);
     }
 
     @Autowired
@@ -112,7 +113,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
             .requestMatchers("/api/country/**").permitAll()
             .requestMatchers("/api/user/carts/user").authenticated()
             .anyRequest().permitAll()) // Changed from authenticated() to permitAll()
-        .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+        .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class)
         .build();
 }
 

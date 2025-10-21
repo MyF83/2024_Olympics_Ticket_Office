@@ -15,13 +15,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "controls")
-@Getter
-@Setter
 public class controls {
 
 @Id
@@ -34,14 +30,6 @@ private Timestamp date;
 private String scancode;
 
 private Boolean isTicketValid;
-
-public Boolean getIsTicketValid() {
-    return isTicketValid;
-}
-
-public void setIsTicketValid(Boolean isTicketValid) {
-    this.isTicketValid = isTicketValid;
-}
 
 @ManyToOne
 // @JoinTable
@@ -71,10 +59,45 @@ public controls(Timestamp date, String scancode, Boolean isTicketValid, tickets 
     this.tickets = tickets;
     // this.userskeys = userskeys;
     // this.saleskeys = saleskeys;
+}
 
-    }
+public Long getControl_id() {
+    return control_id;
+}
 
-    public tickets getTickets() {
-        return tickets;
-    }
+public void setControl_id(Long control_id) {
+    this.control_id = control_id;
+}
+
+public Timestamp getDate() {
+    return date;
+}
+
+public void setDate(Timestamp date) {
+    this.date = date;
+}
+
+public String getScancode() {
+    return scancode;
+}
+
+public void setScancode(String scancode) {
+    this.scancode = scancode;
+}
+
+public Boolean getIsTicketValid() {
+    return isTicketValid;
+}
+
+public void setIsTicketValid(Boolean isTicketValid) {
+    this.isTicketValid = isTicketValid;
+}
+
+public tickets getTickets() {
+    return tickets;
+}
+
+public void setTickets(tickets tickets) {
+    this.tickets = tickets;
+}
 }

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.myriamfournier.olympics_ticket_office.pojo.users;
@@ -18,6 +20,7 @@ import com.myriamfournier.olympics_ticket_office.repository.CountryRepository;
 import com.myriamfournier.olympics_ticket_office.repository.KeysgenerationRepository;
 import com.myriamfournier.olympics_ticket_office.repository.PolicyRepository;
 import com.myriamfournier.olympics_ticket_office.service.UserService;
+import com.myriamfournier.olympics_ticket_office.service.UserskeyService;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -51,7 +54,19 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private CountryRepository countryRepository; // Repository for countries
     
-
+    @Autowired
+    private UserskeyService userskeyService; // Service for user key generation
+    
+    // Use lazy injection to break circular dependency
+    @Autowired
+    private ObjectProvider<PasswordEncoder> passwordEncoderProvider; // For encoding passwords
+    
+    // Helper method to get the encoder when needed
+    private PasswordEncoder getPasswordEncoder() {
+        return passwordEncoderProvider.getObject();
+    }
+    
+    
 /* 
     @Override
     public users getUserByFirstName(String Firstname) {
@@ -89,33 +104,18 @@ public class UserServiceImpl implements UserService {
 public void createUser(users users) {
     System.out.println("Creating user: " + users);
 
-    // Step 1: Generate a unique 256-character key
-    String uniqueKey;
-    keysgenerations keysEntity;
-    do {
-        uniqueKey = generateUnique256CharacterKey();
-        System.out.println("Generated unique key: " + uniqueKey);
+    // Step 1: Save the user to the database first
+    userRepository.save(users);
+    System.out.println("User saved successfully: " + users);
 
-        // Step 2: Check if the key already exists in the Keysgenerations table
-        keysEntity = keysgenerationRepository.findByKeyGenerated(uniqueKey);
-    } while (keysEntity != null);
+    // Step 2: Generate user key using UserskeyService (SHA-256, 64 hex characters)
+    userskeys userKey = userskeyService.createUserkey(users.getUser_id());
+    System.out.println("User key generated: " + userKey);
 
-    // Step 3: Save the key in the Keysgenerations table
-    keysEntity = new keysgenerations(uniqueKey);
-    keysEntity.setKeyGenerated(uniqueKey);
-    keysgenerationRepository.save(keysEntity);
-    System.out.println("Saved key in Keysgenerations table: " + keysEntity);
+    // Step 3: Link the user key to the user
+    users.setUserskeys(userKey);
 
-    // Step 4: Create a new Userskeys object and link it to the generated key
-    userskeys userskeys = new userskeys();
-    userskeys.setKey(keysEntity); // Link the key to the Userskeys object
-    userskeyRepository.save(userskeys);
-    System.out.println("Linked key to Userskeys object: " + userskeys);
-
-    // Step 5: Link the Userskeys object to the User object
-    users.setUserskeys(userskeys);
-
-    // Step 6: Set the policy_id for the user (assuming a default policy exists)
+    // Step 4: Set the policy_id for the user (if provided)
     if (users.getPolicies() != null) {
         policies policy = policyRepository.findById(users.getPolicies().getPolicy_id()).orElse(null);
         if (policy != null) {
@@ -125,37 +125,16 @@ public void createUser(users users) {
         }
     }
 
-    // Step 7: Set the default role_id for the user
+    // Step 5: Set the default role_id for the user
     roles defaultRole = new roles();
     defaultRole.setRole_id(Long.valueOf(3)); // Default role ID for USER as Long
     users.setRoles(defaultRole);
 
+    // Step 6: Update the user with the key relationship
     userRepository.save(users);
-    System.out.println("User saved successfully: " + users);
+    System.out.println("User updated with user key: " + users);
 }
 
-
-    private String generateUnique256CharacterKey() {
-        String baseKey = generate256CharacterKey();
-        String uniqueKey = baseKey;
-        int counter = 1;
-    
-        // Check if the key already exists in the database
-        while (keysgenerationRepository.existsByKeyGenerated(uniqueKey)) {
-            uniqueKey = baseKey + "-" + counter;
-            counter++;
-        }
-    
-        return uniqueKey;
-    }
-
-    private String generate256CharacterKey() {
-        StringBuilder keyBuilder = new StringBuilder();
-        while (keyBuilder.length() < 256) {
-            keyBuilder.append(java.util.UUID.randomUUID().toString().replace("-", ""));
-        }
-        return keyBuilder.substring(0, 256); // Ensure the key is exactly 256 characters
-    }
 
 @Override
 public users updateUserById(users users, Long id) {
@@ -163,9 +142,19 @@ public users updateUserById(users users, Long id) {
     if (oldUser != null) {
         oldUser.setFirstname(users.getFirstname());
         oldUser.setLastname(users.getLastname());
-        oldUser.setUsername(users.getUsername());
+        // Don't update username as it shouldn't be changed
+        // Only set username from the update if it's not null or empty
+        if (users.getUsername() != null && !users.getUsername().isEmpty()) {
+            oldUser.setUsername(users.getUsername());
+        }
         oldUser.setEmail(users.getEmail());
-        oldUser.setPassword(users.getPassword());
+        // Encode password if provided
+        if (users.getPassword() != null && !users.getPassword().isEmpty()) {
+            String rawPassword = users.getPassword();
+            String encodedPassword = getPasswordEncoder().encode(rawPassword);
+            System.err.println("Password update - Raw: " + rawPassword + ", Encoded: " + encodedPassword);
+            oldUser.setPassword(encodedPassword);
+        }
         oldUser.setPhoneNumber(users.getPhoneNumber());
         oldUser.setAddress(users.getAddress());
         oldUser.setCity(users.getCity());
@@ -302,7 +291,7 @@ public String generateUniqueUsername(String firstname, String lastname) {
     System.out.println("Generating unique username for: " + firstname + " " + lastname);
 
     // Check if the username already exists in the database
-    while (userRepository.findByUsername(username) != null) {
+    while (userRepository.findUserByUsername(username) != null) {
         System.out.println("Username already exists: " + username);
         username = baseUsername + "-" + counter;
         counter++;
@@ -330,7 +319,7 @@ public String generateUniqueUsername(String firstname, String lastname) {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        users users = userRepository.findByUsername(username);
+        users users = userRepository.findUserByUsername(username);
         if (users == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }

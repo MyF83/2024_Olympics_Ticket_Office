@@ -17,13 +17,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "users")
-@Getter
-@Setter
 public class users {
 
 @Id
@@ -71,58 +67,177 @@ private countries countries;
 @JsonIgnore
 private List<carts> carts;
 
-/* 
-  public static String getUsername(String lastname, String firstname) {
-        String userName =  lastname + "-" +  firstname; // Assuming username is a combination of first and last name
-        return userName;
-    }*/
-
-
-   // Default constructor (required by Hibernate)
-   public users() {
+// Default constructor (required by Hibernate)
+public users() {
 }
 
+public users(String firstname, String lastname, String username, String email, String password, String phoneNumber, Date creationDate, roles roles, userskeys userskeys, userselections userselections, policies policies, Date policySignDate, String address, String city, String postalCode, countries countries) {  
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.username = username;
+    this.email = email;
+    this.password = password;
+    this.phoneNumber = phoneNumber;
+    this.creationDate = new Timestamp(System.currentTimeMillis());
+    this.roles = roles;
+    this.userskeys = userskeys;
+    this.userselections = userselections;
+    this.policies = policies;
+    this.policySignDate = new Timestamp(System.currentTimeMillis());
+    this.address = address;
+    this.city = city;
+    this.postalCode = postalCode;
+    this.countries = countries;
+}
 
-    public users(String firstname, String lastname, String username, String email, String password, String phoneNumber, Date creationDate, roles roles, userskeys userskeys, userselections userselections, policies policies, Date policySignDate, String address, String city, String postalCode, countries countries) {  
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.creationDate = new Timestamp(System.currentTimeMillis());
-        this.roles = roles;
-        this.userskeys = userskeys;
-        this.userselections = userselections;
-        this.policies = policies;
-        this.policySignDate = new Timestamp(System.currentTimeMillis());
-        this.address = address;
-        this.city = city;
-        this.postalCode = postalCode;
-        this.countries = countries;
-    }
-    /*
-    public users(String string, String string2, String string3, String string4, String string5, String string6,
-            String string7, Object object, Object object2, Object object3, Object object4, Object object5, Object object6,
-            Object object7, Object object8) {
-        
-    }*/
+@PrePersist
+protected void onPrePersist() {
+    this.creationDate = Timestamp.valueOf(LocalDateTime.now());
+    this.policySignDate = Timestamp.valueOf(LocalDateTime.now());
+}
 
-    public userskeys getUserskeys() {
-        return userskeys;
+// Getters and Setters
+public Long getUser_id() {
+    return user_id;
+}
 
-    }
+public void setUser_id(Long user_id) {
+    this.user_id = user_id;
+}
 
-    @PrePersist
-    protected void onPrePersist() {
-        this.creationDate = Timestamp.valueOf(LocalDateTime.now());
-        this.policySignDate = Timestamp.valueOf(LocalDateTime.now());
-    }
+public String getFirstname() {
+    return firstname;
+}
 
+public void setFirstname(String firstname) {
+    this.firstname = firstname;
+}
 
-    public List<carts> getCarts() {
-        return carts;
-    }
+public String getLastname() {
+    return lastname;
+}
 
+public void setLastname(String lastname) {
+    this.lastname = lastname;
+}
 
+public String getUsername() {
+    return username;
+}
+
+public void setUsername(String username) {
+    this.username = username;
+}
+
+public String getEmail() {
+    return email;
+}
+
+public void setEmail(String email) {
+    this.email = email;
+}
+
+public String getPassword() {
+    return password;
+}
+
+public void setPassword(String password) {
+    this.password = password;
+}
+
+public String getPhoneNumber() {
+    return phoneNumber;
+}
+
+public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+}
+
+public String getAddress() {
+    return address;
+}
+
+public void setAddress(String address) {
+    this.address = address;
+}
+
+public Timestamp getCreationDate() {
+    return creationDate;
+}
+
+public void setCreationDate(Timestamp creationDate) {
+    this.creationDate = creationDate;
+}
+
+public roles getRoles() {
+    return roles;
+}
+
+public void setRoles(roles roles) {
+    this.roles = roles;
+}
+
+public userskeys getUserskeys() {
+    return userskeys;
+}
+
+public void setUserskeys(userskeys userskeys) {
+    this.userskeys = userskeys;
+}
+
+public userselections getUserselections() {
+    return userselections;
+}
+
+public void setUserselections(userselections userselections) {
+    this.userselections = userselections;
+}
+
+public policies getPolicies() {
+    return policies;
+}
+
+public void setPolicies(policies policies) {
+    this.policies = policies;
+}
+
+public Timestamp getPolicySignDate() {
+    return policySignDate;
+}
+
+public void setPolicySignDate(Timestamp policySignDate) {
+    this.policySignDate = policySignDate;
+}
+
+public String getCity() {
+    return city;
+}
+
+public void setCity(String city) {
+    this.city = city;
+}
+
+public String getPostalCode() {
+    return postalCode;
+}
+
+public void setPostalCode(String postalCode) {
+    this.postalCode = postalCode;
+}
+
+public countries getCountries() {
+    return countries;
+}
+
+public void setCountries(countries countries) {
+    this.countries = countries;
+}
+
+public List<carts> getCarts() {
+    return carts;
+}
+
+public void setCarts(List<carts> carts) {
+    this.carts = carts;
+}
 }

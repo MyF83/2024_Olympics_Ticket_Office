@@ -1,0 +1,122 @@
+<ng-container *ngIf="!showSummary" class="stepper-container">
+  <mat-horizontal-stepper #stepper linear>
+    <!-- Step 1: Remind the user of the selected offer -->
+    <mat-step label="Selected Offer">
+      <div class="step-content">
+        <h4>Your Selected Offer</h4>
+        <div class="offer-details">
+          <p><strong>Offer Name:</strong> {{ selectedOffer?.title }}</p>
+          <p><strong>Discount Rate:</strong> {{ selectedOffer?.rate }}%</p>
+          <p><strong>Number of Persons Concerned:</strong> {{ selectedOffer?.nbSpectators }}</p>
+          <p><strong>Description:</strong> {{ selectedOffer?.description }}</p>
+        </div>
+      </div>
+      <div class="stepper-actions">
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+
+    <!-- Step 2: Event Selection -->
+    <mat-step label="Select Event">
+      <div class="step-content">
+        <h4>Choose an Event</h4>
+        <div class="event-selection" style="max-height: 300px; overflow-y: auto;">
+          <div *ngFor="let event of availableEvents" class="event-option" 
+               [class.selected]="selectedEvent?.event_id === event.event_id"
+               (click)="selectEvent(event)"
+               style="border: 1px solid #ddd; margin: 10px 0; padding: 15px; cursor: pointer; border-radius: 5px;">
+            <!-- Event Image -->
+            <div class="event-image" style="margin-bottom: 10px;">
+              <img [src]="event.image" [alt]="event.title" 
+                   style="width: 100%; max-height: 120px; object-fit: cover; border-radius: 5px; display: block;">
+            </div>
+            <!-- Event Details -->
+            <h5>{{ event.title }}</h5>
+            <p><strong>Date:</strong> {{ event.date }}</p>
+            <p><strong>Time:</strong> {{ event.time }}</p>
+            <p><strong>Description:</strong> {{ event.description }}</p>
+            <div class="price-info">
+              <span>Category 1: {{ event.pricec1 }}€ | </span>
+              <span>Category 2: {{ event.pricec2 }}€ | </span>
+              <span>Category 3: {{ event.pricec3 }}€</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stepper-actions">
+        <button mat-button matStepperPrevious>Previous</button>
+        <button mat-button matStepperNext [disabled]="!selectedEvent">Next</button>
+      </div>
+    </mat-step>
+
+    <!-- Step 3: Conditions Selection -->
+    <mat-step label="Specify Conditions">
+      <div class="step-content">
+        <h4>Set Your Conditions</h4>
+        <form>
+          <mat-form-field>
+            <mat-label>Number of seats</mat-label>
+            <input matInput type="number" [(ngModel)]="nbPersons" name="nbPersons" min="1" max="10" placeholder="Number of seats">
+          </mat-form-field>
+          
+          <mat-form-field>
+            <mat-label>Seat Class</mat-label>
+            <mat-select [(ngModel)]="seatClass" name="seatClass">
+              <mat-option value="price1">{{ getSeatClassName('price1') }} - {{ selectedEvent?.pricec1 }}€</mat-option>
+              <mat-option value="price2">{{ getSeatClassName('price2') }} - {{ selectedEvent?.pricec2 }}€</mat-option>
+              <mat-option value="price3">{{ getSeatClassName('price3') }} - {{ selectedEvent?.pricec3 }}€</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="stepper-actions">
+        <button mat-button matStepperPrevious>Previous</button>
+        <button mat-button (click)="goToSummary()">Next</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</ng-container>
+
+<!-- Summary Step -->
+<ng-container *ngIf="showSummary">
+  <div class="summary-block">
+    <h3>Summary of your choices</h3>
+    <div class="summary-content">
+      <h4>Selected Offer:</h4>
+      <ul>
+        <li><strong>Offer:</strong> {{ selectedOffer?.title }}</li>
+        <li><strong>Discount Rate:</strong> {{ selectedOffer?.rate }}%</li>
+        <li><strong>Persons Concerned:</strong> {{ selectedOffer?.nbSpectators }}</li>
+      </ul>
+      
+      <h4>Selected Event:</h4>
+      <ul>
+        <li><strong>Event:</strong> {{ selectedEvent?.title }}</li>
+        <li><strong>Date:</strong> {{ selectedEvent?.date }}</li>
+        <li><strong>Time:</strong> {{ selectedEvent?.time }}</li>
+      </ul>
+      
+      <h4>Conditions:</h4>
+      <ul>
+        <li><strong>Number of Seats:</strong> {{ nbPersons }}</li>
+        <li><strong>Seat Class:</strong> {{ getSeatClassName(seatClass) }}</li>
+        <li><strong>Price per seat:</strong> {{ getSeatPrice() }}€</li>
+      </ul>
+      
+      <h4>Total Cost:</h4>
+      <ul>
+        <li><strong>Base Price:</strong> {{ (getSeatPrice() * nbPersons).toFixed(2) }}€</li>
+        <li><strong>Discount ({{ selectedOffer?.rate }}%):</strong> -{{ (getSeatPrice() * nbPersons * selectedOffer?.rate / 100).toFixed(2) }}€</li>
+        <li><strong>Total Amount:</strong> {{ calculateTotalAmount().toFixed(2) }}€</li>
+      </ul>
+    </div>
+    
+    <div class="summary-actions">
+      <button mat-stroked-button color="warn" (click)="closeModal()" [disabled]="isLoading">Close</button>
+      <button mat-raised-button color="primary" (click)="validateSelection()" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Validate</span>
+        <span *ngIf="isLoading">Updating...</span>
+      </button>
+    </div>
+  </div>
+</ng-container>

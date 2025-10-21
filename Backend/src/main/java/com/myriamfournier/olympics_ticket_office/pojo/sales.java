@@ -12,13 +12,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "sales")
-@Getter
-@Setter
 public class sales {
 
 @Id
@@ -40,25 +36,47 @@ private carts carts;
 @JoinColumn(name= "salekey_id", nullable = true)
 private saleskeys saleskeys;
 
-
-   // Default constructor (required by Hibernate)
-   public sales() {
+// Default constructor (required by Hibernate)
+public sales() {
 }
 
 public sales(Timestamp date, /*users users,*/ carts carts, saleskeys saleskeys) {
-        // Default constructor
-        this.date = date;
-        // this.users = users;
-        this.carts = carts;
-        this.saleskeys = saleskeys;
-    }
+    // Default constructor
+    this.date = date;
+    // this.users = users;
+    this.carts = carts;
+    this.saleskeys = saleskeys;
+}
 
-  public saleskeys getSaleskeys() {
-        return saleskeys;
-    }
+public Long getSale_id() {
+    return sale_id;
+}
 
-    public carts getCarts() {
-        return carts;
-    }
+public void setSale_id(Long sale_id) {
+    this.sale_id = sale_id;
+}
 
+public Timestamp getDate() {
+    return date;
+}
+
+public void setDate(Timestamp date) {
+    this.date = date;
+}
+
+public carts getCarts() {
+    return carts;
+}
+
+public void setCarts(carts carts) {
+    this.carts = carts;
+}
+
+public saleskeys getSaleskeys() {
+    return saleskeys;
+}
+
+public void setSaleskeys(saleskeys saleskeys) {
+    this.saleskeys = saleskeys;
+}
 }

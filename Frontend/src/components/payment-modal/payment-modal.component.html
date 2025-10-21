@@ -1,0 +1,80 @@
+<div class="payment-modal-container">
+  <h2 mat-dialog-title>Complete Your Payment</h2>
+
+  <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()" class="payment-form">
+    <!-- Card Holder Name -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Cardholder Name</mat-label>
+      <input matInput formControlName="cardholderName" placeholder="As appears on card">
+      <mat-error *ngIf="cardholderName?.errors?.['required'] && cardholderName?.touched">
+        Cardholder name is required
+      </mat-error>
+      <mat-error *ngIf="cardholderName?.errors?.['minlength'] && cardholderName?.touched">
+        Cardholder name must be at least 2 characters
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Card Number -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Card Number</mat-label>
+      <input matInput formControlName="cardNumber" placeholder="1234 5678 9012 3456" (input)="formatCardNumber($event)" maxlength="19">
+      <mat-error *ngIf="cardNumber?.errors?.['required'] && cardNumber?.touched">
+        Card number is required
+      </mat-error>
+      <mat-error *ngIf="cardNumber?.errors?.['pattern'] && cardNumber?.touched">
+        Please enter a valid 16-digit card number
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Expiration Date & CVV -->
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Expiry Date</mat-label>
+        <input matInput formControlName="expiryDate" placeholder="MM/YY" (input)="formatExpiryDate($event)" maxlength="5">
+        <mat-error *ngIf="expiryDate?.errors?.['required'] && expiryDate?.touched">
+          Expiry date is required
+        </mat-error>
+        <mat-error *ngIf="expiryDate?.errors?.['pattern'] && expiryDate?.touched">
+          Please use format MM/YY
+        </mat-error>
+        <mat-error *ngIf="expiryDate?.errors?.['expired'] && expiryDate?.touched">
+          This card has expired
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>CVV</mat-label>
+        <input matInput formControlName="cvv" placeholder="123" (input)="formatCVV($event)" maxlength="3">
+        <mat-error *ngIf="cvv?.errors?.['required'] && cvv?.touched">
+          CVV is required
+        </mat-error>
+        <mat-error *ngIf="cvv?.errors?.['pattern'] && cvv?.touched">
+          Please enter a valid 3-digit CVV
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Error and success messages -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+
+    <!-- Action Buttons -->
+    <div mat-dialog-actions class="payment-actions">
+      <button mat-button (click)="onCancel()" type="button" [disabled]="isProcessing">Cancel</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="isProcessing || paymentForm.invalid">
+        Complete Payment
+      </button>
+    </div>
+  </form>
+
+  <!-- Processing overlay -->
+  <div class="processing-overlay" *ngIf="isProcessing">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Processing your payment...</p>
+  </div>
+</div>

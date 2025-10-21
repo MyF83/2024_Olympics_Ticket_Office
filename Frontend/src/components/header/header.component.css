@@ -196,6 +196,12 @@ display: flex;
     background: color-mix(in srgb, var(--pill-accent) 10%, transparent);
     color: var(--bright-gold);
   }
+
+ 
+  .pill.activebutton {
+    background: color-mix(in srgb, var(--pill-accent) 50%, transparent);
+    color: var(--really-bright-gold);
+  }
   
   .pill-group .pill:nth-child(6n + 1) {
     --pill-accent: var(--dark-gold);

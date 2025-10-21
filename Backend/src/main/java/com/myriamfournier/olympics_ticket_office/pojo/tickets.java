@@ -4,10 +4,6 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
-
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.SpringApplication;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,111 +11,107 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
-//import java.io.FileOutputStream;
-//import java.io.File;
-//import java.nio.file.Paths;
-//import com.google.zxing.client.j2se.MatrixToImageWriter;
 
-//import com.google.zxing.BarcodeFormat;
-//import com.google.zxing.common.BitMatrix;
-//import com.google.zxing.qrcode.QRCodeWriter;
-//import com.myriamfournier.olympics_ticket_office.Application;
-//import com.myriamfournier.olympics_ticket_office.repository.TicketRepository;
-//import org.springframework.boot.SpringApplication;
-//import org.springframework.context.ApplicationContext;
-
-// import com.myriamfournier.olympics_ticket_office.pojo.userskeys;
-// import com.myriamfournier.olympics_ticket_office.pojo.saleskeys;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.myriamfournier.QRCode.QRCodeGenerator;
 
 @Entity
 @Table(name = "tickets")
-@Getter
-@Setter
 public class tickets {
-
-    //@Autowired
-   // private static TicketRepository ticketRepository; // Inject the repository to query the database
    
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long ticket_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long ticket_id;
 
-private Timestamp date;
+    private Timestamp date;
 
-@Column(length=512)
-private String keyAssembly;
+    @Column(length=512)
+    private String keyAssembly;
 
-private String fileName;
+    private String fileName;
 
-/* 
-@OneToOne
-@JoinColumn(name= "userkey_id", nullable = true)
-private  userskeys userskeys;
+    @Column(length=50, unique=true)
+    private String ticketNumber;
 
-@OneToOne
-@JoinColumn(name= "salekey_id", nullable = true)
-private  saleskeys saleskeys;*/
+    @Column(length=255)
+    private String qrCodePath;
 
-@OneToOne
-@JoinColumn(name= "sale_id", nullable = true)
-private  sales sales;
+    @OneToOne
+    @JoinColumn(name= "sale_id", nullable = true)
+    private sales sales;
 
-/* 
-@OneToOne
-@JoinColumn(name= "cart_id", nullable = true)
-private  carts carts;
+    @Transient
+    @Autowired
+    private QRCodeGenerator qrCodeGenerator;
 
-@OneToOne
-@JoinColumn(name= "user_id", nullable = true)
-private  users users;
-
-@OneToOne
-@JoinColumn(name= "usersel_id", nullable = true)
-private  userselections userselections;*/
-
-
-
-   // Default constructor (required by Hibernate)
-   public tickets() {
-}
-
-public tickets(Timestamp date, String keyAssembly, String fileName,/*  userskeys userskeys, saleskeys saleskeys,*/ sales sales/*,  carts carts, users users, userselections userselections*/) {
-    // Default constructor
-    this.date = date;
-    this.keyAssembly = keyAssembly;
-    this.fileName = fileName;
-    // this.userskeys = userskeys;
-    // this.saleskeys = saleskeys;
-    this.sales = sales;
-    // this.carts = carts;
-    // this.users = users;
-    // this.userselections = userselections;
+    // Default constructor (required by Hibernate)
+    public tickets() {
     }
 
-    public sales getSales() {
-        return sales;
+    public tickets(Timestamp date, String keyAssembly, String fileName, sales sales, String ticketNumber, String qrCodePath) {
+        this.date = date;
+        this.keyAssembly = keyAssembly;
+        this.fileName = fileName;
+        this.sales = sales;
+        this.ticketNumber = ticketNumber;
+        this.qrCodePath = qrCodePath;
     }
- /* 
-    public userskeys getUserskeys() {
-        return userskeys;
+
+    /**
+     * Generates a ticket with a unique ticket number and QR code
+     * 
+     * @param sales The associated sale
+     * @return The generated ticket
+     */
+    public static tickets createTicket(sales sales) {
+        if (sales == null || sales.getCarts() == null || sales.getCarts().getUsers() == null) {
+            throw new IllegalArgumentException("Sales must include cart and user information");
+        }
+        
+        QRCodeGenerator generator = new QRCodeGenerator();
+        
+        // Get user first and last name
+        String firstname = sales.getCarts().getUsers().getFirstname();
+        String lastname = sales.getCarts().getUsers().getLastname();
+        
+        // Generate unique ticket number
+        String ticketNumber = generator.generateTicketNumber(firstname, lastname);
+        
+        // Generate the QR code data from user key and sale key
+        String userKeyValue = sales.getCarts().getUsers().getUserskeys().getKeysgenerations().getKeyGenerated();
+        String saleKeyValue = sales.getSaleskeys().getKeysgenerations().getKeyGenerated();
+        String keyAssembly = generator.getKeyAssembly(userKeyValue, saleKeyValue);
+        
+        // Generate unique filename for the QR code
+        String uniqueFileName = generator.generateUnique40CharacterName();
+        
+        // Generate QR code and get the path
+        String qrCodePath = generator.generateQRCode(keyAssembly, uniqueFileName);
+        
+        // Create and return the ticket
+        tickets ticket = new tickets();
+        ticket.setDate(new Timestamp(System.currentTimeMillis()));
+        ticket.setKeyAssembly(keyAssembly);
+        ticket.setFileName(uniqueFileName);
+        ticket.setSales(sales);
+        ticket.setTicketNumber(ticketNumber);
+        ticket.setQrCodePath(qrCodePath);
+        
+        return ticket;
     }
 
-    public saleskeys getSaleskeys() {
-        return saleskeys;
-    }*/
+    // Getters and Setters
+    public Long getTicket_id() {
+        return ticket_id;
+    }
 
-    
-/* 
-    public void setKeyAssembly(String keyAssembly2) {
-
-        throw new UnsupportedOperationException("Unimplemented method 'setKeyAssembly'");
-    }*/
+    public void setTicket_id(Long ticket_id) {
+        this.ticket_id = ticket_id;
+    }
 
     public Timestamp getDate() {
-
         return date;
     }
 
@@ -127,132 +119,51 @@ public tickets(Timestamp date, String keyAssembly, String fileName,/*  userskeys
         this.date = date;
     }
 
+    public String getKeyAssembly() {
+        return keyAssembly;
+    }
 
-/* Error : double call to method getuserskeys/getUserskeys
-    public Object getuserskeys() {
+    public void setKeyAssembly(String keyAssembly) {
+        this.keyAssembly = keyAssembly;
+    }
 
-        throw new UnsupportedOperationException("Unimplemented method 'getuserskeys'");
-    
+    public String getFileName() {
+        return fileName;
+    }
 
-    public Sales getSales() {
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
+    public String getTicketNumber() {
+        return ticketNumber;
+    }
+
+    public void setTicketNumber(String ticketNumber) {
+        this.ticketNumber = ticketNumber;
+    }
+
+    public String getQrCodePath() {
+        return qrCodePath;
+    }
+
+    public void setQrCodePath(String qrCodePath) {
+        this.qrCodePath = qrCodePath;
+    }
+
+    public sales getSales() {
         return sales;
     }
 
     public void setSales(sales sales) {
         this.sales = sales;
-    }}*/
-
-   
-
-
-/* 
-    public String getKeyAssembly() {
-      
-        throw new UnsupportedOperationException("Unimplemented method 'getKeyAssembly'");
-    }*/
-
-    
-    /* 
-    private String generate40CharacterName() {
-            StringBuilder keyBuilder = new StringBuilder();
-            while (keyBuilder.length() < 40) {
-                keyBuilder.append(java.util.UUID.randomUUID().toString().replace("-", ""));
-            }
-            return keyBuilder.substring(0, 40); // Ensure the key is exactly 40 characters
-        }
-    
-    private String generateUnique40CharacterName() {
-        String baseName = generate40CharacterName();
-        String uniqueName = baseName;
-        int counter = 1;
-        
-        // Check if the name already exists in the database
-        while (ticketRepository.existsByFileName(uniqueName)) {
-            uniqueName = baseName + "-" + counter;
-            counter++;
-        }
-        
-        return uniqueName;
     }
 
-        public static void main(String[] args) {
-
-        // Start the Spring Boot application context
-            ApplicationContext context = SpringApplication.run(Application.class, args);
-
-            // Get the tickets bean from the application context
-            tickets ticketInstance = context.getBean(tickets.class);
-
-            // Call the generateUnique40CharacterName() method on the instance
-            String name = ticketInstance.generateUnique40CharacterName();
-
-
-            // Create an instance of the tickets class
-           // OLD : tickets ticketInstance = new tickets(date, keyAssembly, fileName, userskeys, saleskeys, sales, carts, users, userselections);
-        
-            // Call the generate40CharacterName() method on the instance
-            // String name = ticketInstance.generate40CharacterName();
-            // OLD : String name = ticketInstance.generateUnique40CharacterName(); // Generate a unique 40-character name
-            // System.out.println("Generated file name: " + name);
-        
-            // QR code data
-            String data = "Contente, ça marche !";
-            // System.out.println("QR code data: " + data);
-        
-            // QR code size
-            int size = 500;
-        
-            // Generate the QR code matrix
-            BitMatrix bitMatrix = generateMatrix(data, size);
-            if (bitMatrix == null) {
-                System.out.println("QR code generation failed.");
-                return;
-            }
-            // System.out.println("QR code generated successfully.");
-        
-            // Define the output file path and format
-            String imageFormat = "png";
-
-                    // OLD : new File("c:/QRcode/").mkdirs();
-                    // OLD : String outputFileName = "c:/QRcode/" + name + "." + imageFormat;
-            // Resolve the QRcodes folder in the resources directory
-            String outputFolder = Paths.get("src", "main", "resources", "QRcodes").toAbsolutePath().toString();
-            new File(outputFolder).mkdirs(); // Ensure the folder exists
-            // System.out.println("Output file name: " + outputFileName);
-        
-            String outputFileName = outputFolder + File.separator + name + "." + imageFormat;
-            // System.out.println("Output file name: " + outputFileName);
-            // Save the complete output filename into the fileName variable of the class :
-            // OLD tickets.fileName = outputFileName;
-            ticketInstance.setFileName(outputFileName);
-            // System.out.println("Output file name: " + tickets.fileName);
-            
-            // Write the QR code to the file
-            // System.out.println("Writing image to file...");
-            writeImage(outputFileName, imageFormat, bitMatrix);
-            // System.out.println("Image written successfully.");
-        }
-
-    private static void writeImage(String outputFileName, String imageFormat, BitMatrix bitMatrix) {
-        try (FileOutputStream fileOutputStream = new FileOutputStream(new File(outputFileName))) {
-            MatrixToImageWriter.writeToStream(bitMatrix, imageFormat, fileOutputStream);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public QRCodeGenerator getQrCodeGenerator() {
+        return qrCodeGenerator;
     }
-  
 
-    private static BitMatrix generateMatrix(String data, int size) {
-        try {
-            BitMatrix bitMatrix = new QRCodeWriter().encode(data, BarcodeFormat.QR_CODE, size, size);
-            return bitMatrix;
-        } catch (com.google.zxing.WriterException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public void setQrCodeGenerator(QRCodeGenerator qrCodeGenerator) {
+        this.qrCodeGenerator = qrCodeGenerator;
     }
-*/
-    
-
 }

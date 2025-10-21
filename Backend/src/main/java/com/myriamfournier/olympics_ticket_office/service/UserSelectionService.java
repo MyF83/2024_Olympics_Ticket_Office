@@ -19,8 +19,7 @@ public interface UserSelectionService{
 
     void deleteUserSelectionById(Long id);
 
-
-    
-
+    // Calculate amount for userselection based on new formula
+    Float calculateAmount(userselections userSelection);
 
 }

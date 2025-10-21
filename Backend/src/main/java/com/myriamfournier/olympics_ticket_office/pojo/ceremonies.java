@@ -9,13 +9,9 @@ import jakarta.persistence.ManyToOne;
 // import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "ceremonies")
-@Getter
-@Setter
 public class ceremonies {
 
 @Id
@@ -38,5 +34,37 @@ public ceremonies(String name, String description, sites sites) {
     this.name = name;       
     this.description = description;
     this.sites = sites;
-    }
+}
+
+public Long getCerem_id() {
+    return cerem_id;
+}
+
+public void setCerem_id(Long cerem_id) {
+    this.cerem_id = cerem_id;
+}
+
+public String getName() {
+    return name;
+}
+
+public void setName(String name) {
+    this.name = name;
+}
+
+public String getDescription() {
+    return description;
+}
+
+public void setDescription(String description) {
+    this.description = description;
+}
+
+public sites getSites() {
+    return sites;
+}
+
+public void setSites(sites sites) {
+    this.sites = sites;
+}
 }
