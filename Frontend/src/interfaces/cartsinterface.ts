@@ -10,6 +10,16 @@ export interface CartsInterface {
     cart_id: number;
     date : string;
     totalAmount: number;
+    
+    // Missing properties referenced in template
+    offer_name?: string;
+    discount_rate?: number;
+    offer_nb_spectators?: number;
+    event_date?: string;
+    event_location?: string;
+    nb_persons?: number;
+    seat_class?: number;
+    
     user_id: {
         user_id: number;
         firstname: string;
@@ -37,6 +47,7 @@ export interface CartsInterface {
             usersel_id: number;
             nbPersons: number;
             amount: number;
+            seat_class?: string;
                     offers : {
                         offer_id: number;
                         title: string;

@@ -1,3 +1,47 @@
+<h2>Informations</h2>
+<!-- Add this in the <head> section -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
-<h2>Informations Page</h2>
-<p>infos works!</p>
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sidearm-icons@0.1.0/font/sidearm-icons.css">
+-->
+
+<p>
+  You can find here all the necessary informations about the different sites where games will take place.
+  <br>Each sport is associated with its venue, and you can see the exact location on the embedded Google Map.
+
+<h3>Search Games' addresses</h3>
+<section>
+  <form (submit)="filterSports(); $event.preventDefault()">
+    <input type="text" placeholder="Filter by sport, venue, city..." 
+           [(ngModel)]="searchTerm" 
+           (input)="filterSports()" 
+           name="search" />
+  </form>
+</section>
+
+
+
+<div class="container">
+ 
+  
+  <!-- Switch from row/col to sports-container -->
+  <div class="sports-container">
+    <div class="sport-card" *ngFor="let item of filteredSports">
+      <div class="card-header">
+        <i class="{{getSportIcon(item.name)}} icon-big"></i>
+        <div>
+          <h3 class="card-title">{{item.name}}</h3>
+          <p class="venue-name">{{item.sites.name}}</p>
+        </div>
+      </div>
+      
+      <p class="venue-address">{{item.sites.address}}, {{item.sites.city}} {{item.sites.postalCode}}</p>
+      
+      <div class="map-wrapper">
+        <iframe width="100%" height="100%" frameborder="0"
+          [src]="('https://www.google.com/maps?q=' + item.sites.address + ', ' + item.sites.city + ' ' + item.sites.postalCode + '&output=embed') | safeUrl"
+          allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</div>

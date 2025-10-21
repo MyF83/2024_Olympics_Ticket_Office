@@ -7,6 +7,16 @@
     font-family: 'Arial', sans-serif;
     min-height :19vh;
   }
+
+  .footer-link {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #d6c278;
+}
+
+.footer-link:hover {
+  color: white;
+}
   
   ::ng-deep.button {
     display: block;

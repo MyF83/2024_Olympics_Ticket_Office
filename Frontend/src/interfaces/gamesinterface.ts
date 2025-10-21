@@ -4,6 +4,7 @@ export interface Gamesinterface {
     date: string;
     time: string;
     image: string;
+    img_url?: string; // Added for compatibility with ticket code
     description: string;
     sports: any; // If sports is null, you can use `any` or define its structure if needed
     ceremonies: {

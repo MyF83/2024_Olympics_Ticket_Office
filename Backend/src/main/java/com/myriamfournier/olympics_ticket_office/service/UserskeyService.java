@@ -12,12 +12,15 @@ public interface UserskeyService{
 
     userskeys getUserskeyById(Long id);
 
+    userskeys createUserkey(Long user_id);
+    
     void createUserskey(userskeys userskeys);
 
     void updateUserskeyById(userskeys userskeys, Long id);
 
-
     void deleteUserskeyById(Long id);
+    
+    String generateUserKeyHash(Long user_id);
 
 
     

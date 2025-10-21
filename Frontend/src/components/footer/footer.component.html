@@ -10,9 +10,9 @@
     <!-- Center Section -->
     <div class="footer-center">
       <a href="#" class="footer-link" (click)="logMessage('Link clicked'); openSecuritypolicymodal(null); $event.preventDefault()">Security policy</a>
-      <a href="#" class="footer-link">Confidentiality policy</a>
-      <a href="#" class="footer-link">Conditions of use</a>
-      <a href="#" class="footer-link">Contact us</a>
+      <a href="#" class="footer-link" (click)="logMessage('Link clicked'); openConfidentialityModal(); $event.preventDefault()">Confidentiality policy</a>
+      <a href="#" class="footer-link" (click)="logMessage('Link clicked'); openConditionsModal(); $event.preventDefault()">Conditions of use</a>
+      <a href="#" class="footer-link" (click)="logMessage('Link clicked'); openContactModal(); $event.preventDefault()">Contact us</a>
     </div>
 
     <!-- Right Section -->

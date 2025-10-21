@@ -10,14 +10,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "saleskeys")
-@Getter
-@Setter
 public class saleskeys {
 
 @Id
@@ -45,7 +41,22 @@ public saleskeys(Date date, keysgenerations keysgenerations) {
     // Default constructor
     this.date = date;
     this.keysgenerations = keysgenerations;
+}
 
+public Long getSalekey_id() {
+    return salekey_id;
+}
+
+public void setSalekey_id(Long salekey_id) {
+    this.salekey_id = salekey_id;
+}
+
+public Date getDate() {
+    return date;
+}
+
+public void setDate(Date date) {
+    this.date = date;
 }
 
 public keysgenerations getKeysgenerations() {
@@ -56,5 +67,11 @@ public void setKeysgenerations(keysgenerations keysgenerations) {
     this.keysgenerations = keysgenerations;
 }
 
+public sales getSales() {
+    return sales;
+}
 
+public void setSales(sales sales) {
+    this.sales = sales;
+}
 }

@@ -1,10 +1,131 @@
 :host {
-    display: block;
-    margin: 0 auto;
-    width : 90%;
-    padding: 20px;
-    background-color: hsl(53, 100%, 95%);
-    color: #d6c278;
-    font-family: Arial, sans-serif;
-    min-height : 55vh;
+  display: block;
+  margin: 0 auto;
+  width: 90%;
+  padding: 20px;
+  background-color: hsl(53, 100%, 95%);
+  color: #d6c278;
+  font-family: Arial, sans-serif;
+  min-height: 55vh;
+}
+
+h1, h2 {
+  margin-bottom: 20px;
+}
+
+/* Games-like container */
+.sports-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+/* Sport card styling to match game cards */
+.sport-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 24px 20px;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s;
+  margin-bottom: 30px;
+}
+
+.sport-card:hover {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.16);
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.icon-big {
+  font-size: 2rem;
+  color: #d6c278;
+  margin-right: 16px;
+  flex-shrink: 0;
+}
+
+.card-title {
+  margin: 0 0 8px 0;
+  font-size: 1.3em;
+  color: #2a3b4c;
+  font-weight: bold;
+}
+
+.venue-name {
+  margin: 0;
+  color: #444;
+  font-size: 1em;
+}
+
+.venue-address {
+  font-size: 0.9rem;
+  color: #444;
+  margin-top: 10px;
+}
+
+/* Map styling */
+.map-wrapper {
+  height: 160px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 15px;
+  border: 1px solid #ddd;
+  width: 100%;
+}
+
+/* Responsive layout */
+@media (max-width: 1200px) {
+  .sports-container {
+    justify-content: space-around;
+  }
+  
+  .sport-card {
+    width: calc(50% - 32px);
+    max-width: 320px;
+  }
+}
+
+/* Filter field section : */
+form {
+  display: flex;
+  gap: 8px;
+  justify-content: left;
+  margin-bottom: 16px;
+}
+
+form input[type="text"] {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  font-size: 1em;
+}
+
+form button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  background: #1976d2;
+  color: #fff;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+form button:hover {
+  background: #125ea2;
+}
+
+@media (max-width: 768px) {
+  .sport-card {
+    width: 100%;
+    max-width: 400px;
+  }
 }

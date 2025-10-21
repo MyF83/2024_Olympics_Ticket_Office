@@ -1,12 +1,10 @@
 package com.myriamfournier.olympics_ticket_office.service;
 
 import java.util.List;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationContext;
+import java.util.Map;
 
-import com.myriamfournier.olympics_ticket_office.Application;
 import com.myriamfournier.olympics_ticket_office.pojo.tickets;
-import com.myriamfournier.olympics_ticket_office.service.impl.TicketServiceImpl;
+
 
 public interface TicketService{
 
@@ -17,12 +15,31 @@ public interface TicketService{
     // List<tickets> getAllWithCarts();
     // List<tickets> getAllWithUsers();
     // List<tickets> getAllWithUserselections();
+    
+    List<tickets> getTicketsByUserId(Long userId);
+    
+    List<tickets> getTicketsBySaleId(Long saleId);
+    
+    List<tickets> getAllWithDetails();
 
     tickets getTicketById(Long id);
+    
+    tickets findByTicketNumber(String ticketNumber);
 
     void createTicket(tickets tickets);
+    
+    /**
+     * Save a complete ticket with related entities (sale, cart, etc.)
+     * @param ticket The ticket to save
+     * @param userId The ID of the user associated with the ticket
+     * @param ticketData Additional data for the ticket (from frontend)
+     * @return The ID of the saved ticket
+     */
+    Long saveCompleteTicket(tickets ticket, Long userId, Map<String, Object> ticketData);
 
     void updateTicketById(tickets tickets, Long id);
+    
+    void updateTicket(tickets tickets);
 
 
     void deleteTicketById(Long id);
@@ -30,21 +47,7 @@ public interface TicketService{
     String generateUnique40CharacterName();
 
 
-    public static void main(String[] args) {
-        // Start the Spring Boot application context
-        ApplicationContext context = SpringApplication.run(Application.class, args);
-    
-        // Get the TicketService bean from the application context
-        TicketService ticketService = context.getBean(TicketService.class);
-    
-        // Generate a unique 40-character name
-        String name = ticketService.generateUnique40CharacterName();
- // QR code data
-    String data = "Contente, ça marche !";
 
-    // Generate the QR code
-    ((TicketServiceImpl) ticketService).generateQRCode(data, name);
-}           
 
 
 }

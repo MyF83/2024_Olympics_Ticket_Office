@@ -58,11 +58,23 @@
       <li><strong>Number of Spectators:</strong> {{ nbSpectators }}</li>
       <li><strong>Price Class:</strong> {{ priceClass }}</li>
     </ul>
-    <p>To complete your purchase and proceed to payment, you must be connected.</p>
-    <div class="summary-actions">
-      <button mat-stroked-button color="warn" (click)="closeAndClearCart()">Close</button>
-      <button mat-raised-button color="primary" (click)="goToRegister()">Register</button>
-      <button mat-raised-button color="accent" (click)="goToLogin()">Login</button>
+    
+    <!-- Display login buttons if not logged in -->
+    <div class="not-logged-in-content" [hidden]="isLoggedIn">
+      <p>To complete your purchase and proceed to payment, you must be connected.</p>
+      <div class="summary-actions">
+        <button mat-stroked-button color="warn" (click)="closeAndClearCart()">Close</button>
+        <button mat-raised-button color="primary" (click)="goToRegister()">Register</button>
+        <button mat-raised-button color="accent" (click)="goToLogin()">Login</button>
+      </div>
+    </div>
+    
+    <!-- Display payment button if logged in -->
+    <div class="logged-in-content" [hidden]="!isLoggedIn">
+      <div class="summary-actions">
+        <button mat-stroked-button color="warn" (click)="closeAndClearCart()">Close</button>
+        <button mat-raised-button color="primary" (click)="proceedToPayment()">Proceed to Payment</button>
+      </div>
     </div>
   </div>
 </ng-container>

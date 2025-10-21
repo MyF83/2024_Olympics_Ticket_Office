@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http'; // <-- Add this
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'; // <-- Add this
 
-
 @Component({
   selector: 'app-securitypolicymodal',
   standalone : true,

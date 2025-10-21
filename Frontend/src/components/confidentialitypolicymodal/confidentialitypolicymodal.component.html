@@ -1,0 +1,39 @@
+<section class="modal-container">
+    <div class="modal-card">
+      <!-- Header -->
+      <div class="modal-header">
+        <p class="h3modal">{{ policy.title }}</p>
+      </div>
+  
+      <!-- Main content with vertical scrolling -->
+      <div class="modal-main">
+        <div class="modal-details">
+            <h4>Our confidentiality policy</h4>
+            <p><strong>Description: </strong><br/> Here are the user confidentiality policy. </p>
+            <p><strong>Creation date: </strong> 2025-10-16</p>
+            <p><strong>Version number: </strong> 1.1</p>
+        </div>
+        
+        <div class="policy-content">
+            <h3>Confidentiality Policy Details</h3>
+            <h4>Policy Scope</h4>
+            <p>This policy applies to all users of our platform.</p>
+            <h4>Data Collection</h4>
+            <p>We collect personal data such as name, email address, and payment information to provide our services.</p>
+            <h4>Data Usage</h4>
+            <p>We use collected data to process transactions, improve our services, and communicate with users.</p>
+            <h4>Data Sharing</h4>
+            <p>We do not sell or rent personal data to third parties. We may share data with trusted partners to provide our services.</p>
+            <h4>Data Security</h4>
+            <p>We implement security measures to protect personal data from unauthorized access, alteration, or destruction.</p>
+            <h4>User Rights</h4>
+            <p>Users have the right to access, correct, or delete their personal data.</p>
+        </div>
+      </div>
+
+      <!-- Footer always at the bottom -->
+      <div class="modal-footer">
+        <button class="button" mat-button (click)="closeModal()">Close</button>
+      </div>
+    </div>
+</section>
