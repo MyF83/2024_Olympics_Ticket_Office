@@ -14,11 +14,6 @@ public interface KeysgenerationService{
 
     void updateKeysgenerationById(keysgenerations keysgenerations, Long id);
 
-
     void deleteKeysgenerationById(Long id);
-
-
-    
-
 
 }

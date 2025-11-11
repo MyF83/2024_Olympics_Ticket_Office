@@ -1,28 +1,31 @@
 {
     "configurations": [
-       /* {
-            "type": "java",
-            "name": "TicketServiceImpl",
-            "request": "launch",
-            "mainClass": "com.myriamfournier.olympics_ticket_office.service.impl.TicketServiceImpl",
-            "projectName": "2024_Olympics_Ticket_Office"
-        },
-        {
-            "type": "java",
-            "name": "tickets",
-            "request": "launch",
-            "mainClass": "com.myriamfournier.olympics_ticket_office.pojo.tickets",
-            "projectName": "2024_Olympics_Ticket_Office"
-        },*/
         {
             "type": "java",
             "name": "Spring Boot-Application<2024_Olympics_Ticket_Office>",
             "request": "launch",
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/Backend",
             "mainClass": "com.myriamfournier.olympics_ticket_office.Application",
             "projectName": "2024_Olympics_Ticket_Office",
             "args": "",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/Backend/.env"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}",
+            "projectName": "2024_Olympics_Ticket_Office",
+            "cwd": "${workspaceFolder}/Backend"
+        },
+        {
+            "type": "java",
+            "name": "Debug Current Test File",
+            "request": "launch",
+            "mainClass": "${file}",
+            "projectName": "2024_Olympics_Ticket_Office",
+            "cwd": "${workspaceFolder}/Backend",
+            "vmArgs": "-Dspring.profiles.active=test"
         }
     ]
 }

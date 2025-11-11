@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { OfferStepperModalComponent } from './offer-stepper-modal.component';
 
 describe('OfferStepperModalComponent', () => {
@@ -8,7 +9,7 @@ describe('OfferStepperModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OfferStepperModalComponent],
+      imports: [OfferStepperModalComponent, HttpClientTestingModule],
       providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { cartId: 1, existingOffer: {} } }

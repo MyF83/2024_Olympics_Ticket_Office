@@ -37,13 +37,11 @@ Comme une image vaut mille mots, voici à quoi ressemble l'application :
 
 ![Alt text](./Frontend/public/img/Complete-Carte-Summary.png)
 
-![Alt text](./Frontend/public/img/Complete-Carte-Summary.png)
+![Alt text](./Frontend/public/img/Completed-Cart-Selected.png)
 
-![Alt text](./Frontend/public/img/Completed-Cart-Selected)
+![Alt text](./Frontend/public/img/Completed-Cart-Payment.png)
 
-![Alt text](./Frontend/public/img/Completed-Cart-Payment)
-
-![Alt text](./Frontend/public/img/Completed-Cart-Offers-Soldpng)
+![Alt text](./Frontend/public/img/Completed-Cart-Offers-Soldpng.png)
 
 
 ## Structure du projet

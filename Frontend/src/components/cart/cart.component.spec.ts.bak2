@@ -1,0 +1,312 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { of, throwError } from 'rxjs';
+
+import { CartComponent } from './cart.component';
+import { CartsServiceService } from '../../services/cartsservice.service';
+import { AuthStateService } from '../../services/auth-state.service';
+import { PaymentModalComponent } from '../payment-modal/payment-modal.component';
+import { CartsInterface } from '../../interfaces/cartsinterface';
+
+describe('CartComponent', () => {
+  let component: CartComponent;
+  let fixture: ComponentFixture<CartComponent>;
+  let cartsService: jasmine.SpyObj<CartsServiceService>;
+  let authStateService: jasmine.SpyObj<AuthStateService>;
+  let router: jasmine.SpyObj<Router>;
+  let matDialog: jasmine.SpyObj<MatDialog>;
+
+  const mockCarts = [
+    {
+      cart_id: 1,
+      amount: 300,
+      price: 150,
+      city: 'Paris',
+      postalCode: '75001',
+      address: 'Olympic Stadium',
+      time: '20:00',
+      description: 'Premium seating experience',
+      title: 'Premium Tickets',
+      date: '2024-07-26',
+      totalAmount: 300,
+      nb_persons: 2,
+      seat_class: 1,
+      user_id: {
+        user_id: 1,
+        firstname: 'John',
+        lastname: 'Doe',
+        username: 'johndoe',
+        email: 'john@example.com',
+        password: '',
+        phoneNumber: '+33123456789',
+        address: '123 Test St',
+        creationDate: '2024-01-01',
+        roles: {
+          role_id: 1,
+          name: 'USER',
+          description: 'Standard user'
+        },
+        userkeys: {
+          userkey_id: 1,
+          date: '2024-01-01',
+          keysgenerations: {
+            key_id: 1,
+            keyGenerated: 123456
+          }
+        },
+        userselections: {
+          usersel_id: 1,
+          nbPersons: 2,
+          amount: 300,
+          seat_class: 'premium',
+          offers: {
+            offer_id: 1,
+            title: 'Premium Tickets',
+            description: 'Premium seating experience',
+            image: 'premium.jpg',
+            rate: 150,
+            nbSpectators: 2
+          },
+          events: {
+            event_id: 1,
+            title: 'Olympic Opening Ceremony',
+            date: '2024-07-26',
+            time: '20:00',
+            image: 'ceremony.jpg',
+            description: 'Opening ceremony',
+            sports: null,
+            ceremonies: {
+              cerem_id: 1,
+              name: 'Opening Ceremony',
+              description: 'Grand opening',
+              sites: {
+                site_id: 1,
+                name: 'Olympic Stadium',
+                description: 'Main stadium',
+                address: 'Olympic Blvd',
+                city: 'Paris',
+                postalCode: '75001',
+                countries: {
+                  country_id: 1,
+                  name: 'France',
+                  description: null
+                },
+                nbseatsc1: 1000,
+                nbseatsc2: 2000,
+                nbseatsc3: 3000
+              }
+            },
+            challenger1: null,
+            challenger2: null,
+            pricec1: 150,
+            nbseatssoldc1: 500,
+            nbseatsavailc1: 500,
+            pricec2: 100,
+            nbseatssoldc2: 1000,
+            nbseatsavailc2: 1000,
+            pricec3: 50,
+            nbseatssoldc3: 1500,
+            nbseatsavailc3: 1500
+          }
+        },
+        policies: {
+          policy_id: 1,
+          title: 'Terms and Conditions',
+          description: 'Standard terms',
+          url: 'https://example.com/terms',
+          creationDate: '2024-01-01',
+          version: '1.0',
+          isActive: true
+        },
+        policySignDate: '2024-01-01',
+        city: 'Paris',
+        postalCode: '75001',
+        countries: {
+          country_id: 1,
+          name: 'France'
+        }
+      }
+    }
+  ];
+
+  beforeEach(async () => {
+    const cartsServiceSpy = jasmine.createSpyObj('CartsServiceService', ['getUserCarts', 'deleteCart']);
+    const authStateServiceSpy = jasmine.createSpyObj('AuthStateService', ['checkLoginStatus']);
+    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+    const matDialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+
+    await TestBed.configureTestingModule({
+      imports: [CartComponent, HttpClientTestingModule],
+      providers: [
+        { provide: CartsServiceService, useValue: cartsServiceSpy },
+        { provide: AuthStateService, useValue: authStateServiceSpy },
+        { provide: Router, useValue: routerSpy },
+        { provide: MatDialog, useValue: matDialogSpy }
+      ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(CartComponent);
+    component = fixture.componentInstance;
+    
+    cartsService = TestBed.inject(CartsServiceService) as jasmine.SpyObj<CartsServiceService>;
+    authStateService = TestBed.inject(AuthStateService) as jasmine.SpyObj<AuthStateService>;
+    router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    matDialog = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  describe('ngOnInit', () => {
+    it('should load carts on initialization', () => {
+      spyOn(component, 'loadCarts');
+      component.ngOnInit();
+      expect(component.loadCarts).toHaveBeenCalled();
+    });
+  });
+
+  describe('loadCarts', () => {
+    it('should load carts when user is logged in', () => {
+      authStateService.checkLoginStatus.and.returnValue(true);
+      cartsService.getUserCarts.and.returnValue(of(mockCarts));
+
+      component.loadCarts();
+
+      expect(authStateService.checkLoginStatus).toHaveBeenCalled();
+      expect(cartsService.getUserCarts).toHaveBeenCalled();
+      expect(component.userCarts).toEqual(mockCarts);
+      expect(component.isLoading).toBe(false);
+      expect(component.errorMessage).toBe('');
+    });
+
+    it('should handle error when loading carts fails', () => {
+      authStateService.checkLoginStatus.and.returnValue(true);
+      cartsService.getUserCarts.and.returnValue(throwError({ error: 'Network error' }));
+      spyOn(console, 'error');
+
+      component.loadCarts();
+
+      expect(cartsService.getUserCarts).toHaveBeenCalled();
+      expect(console.error).toHaveBeenCalledWith('Error loading carts', { error: 'Network error' });
+      expect(component.errorMessage).toBe('Failed to load your carts. Please try again.');
+      expect(component.isLoading).toBe(false);
+    });
+
+    it('should redirect to login when user is not authenticated', () => {
+      authStateService.checkLoginStatus.and.returnValue(false);
+
+      component.loadCarts();
+
+      expect(authStateService.checkLoginStatus).toHaveBeenCalled();
+      expect(router.navigate).toHaveBeenCalledWith(['/account']);
+      expect(cartsService.getUserCarts).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('proceedToCheckout', () => {
+    it('should open payment modal with cart data', () => {
+      const mockCart = mockCarts[0];
+      const dialogRefMock = {
+        afterClosed: jasmine.createSpy('afterClosed').and.returnValue(of({ success: false }))
+      };
+      matDialog.open.and.returnValue(dialogRefMock as any);
+
+      component.proceedToCheckout(mockCart);
+
+      expect(matDialog.open).toHaveBeenCalledWith(PaymentModalComponent, {
+        width: '500px',
+        data: { cart: mockCart }
+      });
+    });
+
+    it('should reload carts after successful payment', () => {
+      const mockCart = mockCarts[0];
+      const dialogRefMock = {
+        afterClosed: jasmine.createSpy('afterClosed').and.returnValue(of({ success: true }))
+      };
+      matDialog.open.and.returnValue(dialogRefMock as any);
+      spyOn(component, 'loadCarts');
+
+      component.proceedToCheckout(mockCart);
+
+      expect(component.loadCarts).toHaveBeenCalled();
+    });
+
+    it('should not reload carts when payment is cancelled', () => {
+      const mockCart = mockCarts[0];
+      const dialogRefMock = {
+        afterClosed: jasmine.createSpy('afterClosed').and.returnValue(of({ success: false }))
+      };
+      matDialog.open.and.returnValue(dialogRefMock as any);
+      spyOn(component, 'loadCarts');
+
+      component.proceedToCheckout(mockCart);
+
+      expect(component.loadCarts).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('removeFromCart', () => {
+    beforeEach(() => {
+      spyOn(window, 'confirm');
+    });
+
+    it('should remove item from cart when user confirms', () => {
+      (window.confirm as jasmine.Spy).and.returnValue(true);
+      cartsService.deleteCart.and.returnValue(of({}));
+      spyOn(component, 'loadCarts');
+      spyOn(console, 'log');
+
+      component.removeFromCart(1);
+
+      expect(window.confirm).toHaveBeenCalledWith('Are you sure you want to remove this item from your cart?');
+      expect(cartsService.deleteCart).toHaveBeenCalledWith(1);
+      expect(console.log).toHaveBeenCalledWith('Successfully removed item from cart');
+      expect(component.loadCarts).toHaveBeenCalled();
+    });
+
+    it('should not remove item when user cancels', () => {
+      (window.confirm as jasmine.Spy).and.returnValue(false);
+
+      component.removeFromCart(1);
+
+      expect(window.confirm).toHaveBeenCalled();
+      expect(cartsService.deleteCart).not.toHaveBeenCalled();
+    });
+
+    it('should handle error when removing cart item fails', () => {
+      (window.confirm as jasmine.Spy).and.returnValue(true);
+      cartsService.deleteCart.and.returnValue(throwError({ error: 'Delete failed' }));
+      spyOn(console, 'error');
+
+      component.removeFromCart(1);
+
+      expect(cartsService.deleteCart).toHaveBeenCalledWith(1);
+      expect(console.error).toHaveBeenCalledWith('Error removing item from cart:', { error: 'Delete failed' });
+      expect(component.errorMessage).toBe('Failed to remove item from cart. Please try again.');
+    });
+  });
+
+  describe('component state management', () => {
+    it('should initialize with correct default values', () => {
+      expect(component.userCarts).toEqual([]);
+      expect(component.isLoading).toBe(true);
+      expect(component.errorMessage).toBe('');
+    });
+
+    it('should update loading state correctly during cart operations', () => {
+      authStateService.checkLoginStatus.and.returnValue(true);
+      cartsService.getUserCarts.and.returnValue(of(mockCarts));
+
+      expect(component.isLoading).toBe(true);
+
+      component.loadCarts();
+
+      expect(component.isLoading).toBe(false);
+    });
+  });
+});

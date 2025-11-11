@@ -16,7 +16,7 @@ public interface EventService{
 
     void createEvent(events events);
 
-    void updateEventById(events events, Long id);
+    void updateEventById(Long id, events events);
 
 
     void deleteEventById(Long id);

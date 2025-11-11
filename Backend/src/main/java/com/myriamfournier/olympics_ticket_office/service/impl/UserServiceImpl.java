@@ -210,7 +210,9 @@ public users updateUserById(users users, Long id) {
     @Override
     public users getUserByFirstnameAndLastname(String firstname, String lastname) {
         userRepository.findUserByFirstnameAndLastname(firstname, lastname);
-        throw new UnsupportedOperationException("Unimplemented method 'getUserByFirstnameAndLastname'");
+        // Since the repository method returns void, we can't return a user object
+        // This method might need to be redesigned or removed
+        return null;
     }
 
   /* 

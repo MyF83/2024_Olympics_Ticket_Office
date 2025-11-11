@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../../.."
+		},
+		{
+			"path": "../../../../../.."
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "interactive",
+		"java.import.maven.enabled": true,
+		"java.project.sourcePaths": [
+			"Backend/src/main/java",
+			"Backend/src/test/java"
+		],
+		"java.project.outputPath": "Backend/target",
+		"maven.terminal.useJavaHome": true,
+		"postman.settings.dotenv-detection-notification-visibility": false,
+		"maven.view": "hierarchical"
+	}
+}

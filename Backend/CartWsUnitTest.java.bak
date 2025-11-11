@@ -1,0 +1,706 @@
+package com.myriamfournier.olympics_ticket_office.ws;package com.myriamfournier.olympics_ticket_office.ws;package com.myriamfournier.olympics_ticket_office.ws;
+
+
+
+import static org.mockito.Mockito.when;
+
+import static org.mockito.Mockito.doNothing;
+
+import static org.mockito.Mockito.verify;import static org.mockito.Mockito.when;import static org.mockito.Mockito.when;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;import static org.mockito.Mockito.doNothing;import static org.mockito.Mockito.doNothing;
+
+
+
+import java.sql.Timestamp;import static org.mockito.Mockito.verify;import static org.mockito.Mockito.verify;
+
+import java.util.List;
+
+import java.util.Arrays;import static org.junit.jupiter.api.Assertions.assertEquals;import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
+
+import org.junit.jupiter.api.Test;import static org.junit.jupiter.api.Assertions.assertNotNull;import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import org.mockito.InjectMocks;
+
+import org.mockito.Mock;
+
+import org.mockito.junit.jupiter.MockitoExtension;import java.sql.Timestamp;import java.util.List;
+
+
+
+import com.myriamfournier.olympics_ticket_office.pojo.carts;import java.util.List;import java.util.Arrays;
+
+import com.myriamfournier.olympics_ticket_office.pojo.users;
+
+import com.myriamfournier.olympics_ticket_office.service.CartService;import java.util.Arrays;
+
+import com.myriamfournier.olympics_ticket_office.ws.CartWs;
+
+import org.junit.jupiter.api.BeforeEach;
+
+/**
+
+ * Unit tests for CartWs REST controllerimport org.junit.jupiter.api.Test;import org.junit.jupiter.api.Test;
+
+ * 
+
+ * Tests the CartWs endpoints with proper mocking of dependencies.import org.junit.jupiter.api.extension.ExtendWith;import org.junit.jupiter.api.extension.ExtendWith;
+
+ * Uses the correct carts entity structure with Lombok-generated getters/setters.
+
+ */import org.mockito.InjectMocks;import org.mockito.InjectMocks;
+
+@ExtendWith(MockitoExtension.class)
+
+public class CartWsUnitTest {import org.mockito.Mock;import org.mockito.Mock;
+
+
+
+    @Mockimport org.mockito.junit.jupiter.MockitoExtension;import org.mockito.junit.jupiter.MockitoExtension;
+
+    private CartService cartService;
+
+import org.springframework.http.ResponseEntity;
+
+    @InjectMocks
+
+    private CartWs cartWs;import com.myriamfournier.olympics_ticket_office.pojo.carts;
+
+
+
+    @Testimport com.myriamfournier.olympics_ticket_office.pojo.MergeCartRequest;import com.myriamfournier.olympics_ticket_office.service.CartService;
+
+    public void testCreateCart() {
+
+        // Arrange - Create a mock cart with proper field namesimport com.myriamfournier.olympics_ticket_office.pojo.carts;import com.myriamfournier.olympics_ticket_office.ws.CartWs;
+
+        carts mockCart = new carts();
+
+        mockCart.setCart_id(1L);import com.myriamfournier.olympics_ticket_office.pojo.users;
+
+        mockCart.setDate(new Timestamp(System.currentTimeMillis()));
+
+        mockCart.setTotalAmount(100.0f);import com.myriamfournier.olympics_ticket_office.pojo.userselections;/**
+
+        
+
+        // Act - Call the method being testedimport com.myriamfournier.olympics_ticket_office.service.CartService; * Comprehensive Unit tests for CartWs REST controller
+
+        cartWs.createCart(mockCart);
+
+import com.myriamfournier.olympics_ticket_office.ws.CartWs; * 
+
+        // Assert - Verify that the cartService's createCart method was called
+
+        verify(cartService).createCart(mockCart); * Key features:
+
+    }
+
+/** * 1. Uses @ExtendWith(MockitoExtension.class) for proper Mockito integration
+
+    @Test
+
+    public void testGetAllCartsDefault() { * Comprehensive Unit tests for CartWs REST controller * 2. Uses @InjectMocks for dependency injection since CartWs uses @Autowired
+
+        // Arrange - Create mock carts list
+
+        carts cart1 = new carts(); *  * 3. Tests all major CartWs endpoints: createCart, getAllCartsDefault, getAllCartsByUserId, getCartById, mergeGuestCart, updateCartById, deleteCartById
+
+        cart1.setCart_id(1L);
+
+        cart1.setDate(new Timestamp(System.currentTimeMillis())); * Key features: * 4. Proper mocking and verification of CartService interactions
+
+        cart1.setTotalAmount(100.0f);
+
+         * 1. Uses @ExtendWith(MockitoExtension.class) for proper Mockito integration * 5. Clean, readable test structure with proper assertions
+
+        carts cart2 = new carts();
+
+        cart2.setCart_id(2L); * 2. Uses @InjectMocks for dependency injection since CartWs uses @Autowired */
+
+        cart2.setDate(new Timestamp(System.currentTimeMillis()));
+
+        cart2.setTotalAmount(50.0f); * 3. Tests all major CartWs endpoints: createCart, getAllCartsDefault, getAllWithUsers, getCartById, mergeGuestCart, updateCartById, deleteCartById@ExtendWith(MockitoExtension.class)
+
+        
+
+        List<carts> mockCarts = Arrays.asList(cart1, cart2); * 4. Proper mocking and verification of CartService interactionspublic class CartWsUnitTest {
+
+        when(cartService.getAllCarts()).thenReturn(mockCarts);
+
+ * 5. Clean, readable test structure with proper assertions
+
+        // Act - Call the method being tested
+
+        List<carts> result = cartWs.getAllCartsDefault(); */    @Mock
+
+
+
+        // Assert - Verify behavior and results@ExtendWith(MockitoExtension.class)    private CartService cartService;
+
+        assertNotNull(result, "Result should not be null");
+
+        assertEquals(2, result.size(), "Should return 2 carts");public class CartWsUnitTest {
+
+        assertEquals(1L, result.get(0).getCart_id(), "First cart ID should be 1");
+
+        assertEquals(2L, result.get(1).getCart_id(), "Second cart ID should be 2");    @InjectMocks
+
+        verify(cartService).getAllCarts();
+
+    }    @Mock    private CartWs cartWs;
+
+
+
+    @Test    private CartService cartService;
+
+    public void testGetAllWithUsers() {
+
+        // Arrange - Create mock carts list with users    @Test
+
+        users mockUser = new users();
+
+        mockUser.setUser_id(1L);    @InjectMocks    public void testCreateCart() {
+
+        mockUser.setFirstname("John");
+
+            private CartWs cartWs;        // Arrange - Create a comprehensive mock cart with all required fields
+
+        carts cart1 = new carts();
+
+        cart1.setCart_id(1L);        carts mockCart = new carts();
+
+        cart1.setUsers(mockUser);
+
+        cart1.setTotalAmount(100.0f);    @Test        mockCart.setCart_id(1L);
+
+        
+
+        List<carts> mockCarts = Arrays.asList(cart1);    public void testCreateCart() {        mockCart.setUser_id(1L);
+
+        when(cartService.getAllWithUsers()).thenReturn(mockCarts);
+
+        // Arrange - Create a mock cart with proper field names        mockCart.setEvent_id(1L);
+
+        // Act - Call the method being tested
+
+        List<carts> result = cartWs.getAllWithUsers();        carts mockCart = new carts();        mockCart.setQuantity(2);
+
+
+
+        // Assert - Verify behavior and results        mockCart.setCart_id(1L);        mockCart.setTotal_price(100.0);
+
+        assertNotNull(result, "Result should not be null");
+
+        assertEquals(1, result.size(), "Should return 1 cart with user");        mockCart.setDate(new Timestamp(System.currentTimeMillis()));        mockCart.setCreation_date(new java.sql.Timestamp(System.currentTimeMillis()));
+
+        assertNotNull(result.get(0).getUsers(), "Cart should have user");
+
+        verify(cartService).getAllWithUsers();        mockCart.setTotalAmount(100.0f);
+
+    }
+
+                // Act - Call the method being tested
+
+    @Test
+
+    public void testGetCartById() {        // Act - Call the method being tested        cartWs.createCart(mockCart);
+
+        // Arrange - Create mock cart to be returned by service
+
+        Long cartId = 1L;        cartWs.createCart(mockCart);
+
+        carts mockCart = new carts();
+
+        mockCart.setCart_id(cartId);        // Assert - Verify that the cartService's createCart method was called with correct parameter
+
+        mockCart.setDate(new Timestamp(System.currentTimeMillis()));
+
+        mockCart.setTotalAmount(100.0f);        // Assert - Verify that the cartService's createCart method was called        verify(cartService).createCart(mockCart);
+
+        
+
+        when(cartService.getCartById(cartId)).thenReturn(mockCart);        verify(cartService).createCart(mockCart);    }
+
+
+
+        // Act - Call the method being tested    }
+
+        carts result = cartWs.getCartById(cartId);
+
+    @Test
+
+        // Assert - Verify behavior and results
+
+        assertNotNull(result, "Result should not be null");    @Test    public void testGetAllCartsDefault() {
+
+        assertEquals(cartId, result.getCart_id(), "Cart ID should match the requested ID");
+
+        assertEquals(100.0f, result.getTotalAmount(), "Total amount should match");    public void testGetAllCartsDefault() {        // Arrange - Create mock carts list
+
+        verify(cartService).getCartById(cartId);
+
+    }        // Arrange - Create mock carts list        carts cart1 = new carts();
+
+
+
+    @Test        carts cart1 = new carts();        cart1.setCart_id(1L);
+
+    public void testUpdateCartById() {
+
+        // Arrange - Create cart for update        cart1.setCart_id(1L);        cart1.setUser_id(1L);
+
+        Long cartId = 1L;
+
+        carts mockCart = new carts();        cart1.setDate(new Timestamp(System.currentTimeMillis()));        cart1.setEvent_id(1L);
+
+        mockCart.setCart_id(cartId);
+
+        mockCart.setTotalAmount(150.0f); // Updated amount        cart1.setTotalAmount(100.0f);        cart1.setQuantity(2);
+
+        
+
+        doNothing().when(cartService).updateCartById(mockCart, cartId);                cart1.setTotal_price(100.0);
+
+
+
+        // Act - Call the method being tested        carts cart2 = new carts();        
+
+        cartWs.updateCartById(cartId, mockCart);
+
+        cart2.setCart_id(2L);        carts cart2 = new carts();
+
+        // Assert - Verify that the cartService's updateCartById method was called
+
+        verify(cartService).updateCartById(mockCart, cartId);        cart2.setDate(new Timestamp(System.currentTimeMillis()));        cart2.setCart_id(2L);
+
+    }
+
+        cart2.setTotalAmount(50.0f);        cart2.setUser_id(2L);
+
+    @Test
+
+    public void testDeleteCartById() {                cart2.setEvent_id(2L);
+
+        // Arrange - Set up cart ID for deletion
+
+        Long cartId = 1L;        List<carts> mockCarts = Arrays.asList(cart1, cart2);        cart2.setQuantity(1);
+
+        doNothing().when(cartService).deleteCartById(cartId);
+
+        when(cartService.getAllCarts()).thenReturn(mockCarts);        cart2.setTotal_price(50.0);
+
+        // Act - Call the method being tested
+
+        cartWs.deleteCartById(cartId);        
+
+
+
+        // Assert - Verify that the cartService's deleteCartById method was called        // Act - Call the method being tested        List<carts> mockCarts = Arrays.asList(cart1, cart2);
+
+        verify(cartService).deleteCartById(cartId);
+
+    }        List<carts> result = cartWs.getAllCartsDefault();        when(cartService.getAllCarts()).thenReturn(mockCarts);
+
+}
+
+
+        // Assert - Verify behavior and results        // Act - Call the method being tested
+
+        assertNotNull(result, "Result should not be null");        List<carts> result = cartWs.getAllCartsDefault();
+
+        assertEquals(2, result.size(), "Should return 2 carts");
+
+        assertEquals(1L, result.get(0).getCart_id(), "First cart ID should be 1");        // Assert - Verify behavior and results with descriptive messages
+
+        assertEquals(2L, result.get(1).getCart_id(), "Second cart ID should be 2");        assertNotNull(result, "Result should not be null");
+
+        verify(cartService).getAllCarts();        assertEquals(2, result.size(), "Should return 2 carts");
+
+    }        assertEquals(1L, result.get(0).getCart_id(), "First cart ID should be 1");
+
+        assertEquals(2L, result.get(1).getCart_id(), "Second cart ID should be 2");
+
+    @Test        verify(cartService).getAllCarts();
+
+    public void testGetAllWithUsers() {    }
+
+        // Arrange - Create mock carts list with users
+
+        users mockUser = new users();    @Test
+
+        mockUser.setUser_id(1L);    public void testGetAllWithUsers() {
+
+        mockUser.setFirstname("John");        // Arrange - Create mock carts list with users
+
+                carts cart1 = new carts();
+
+        carts cart1 = new carts();        cart1.setCart_id(1L);
+
+        cart1.setCart_id(1L);        cart1.setUser_id(1L);
+
+        cart1.setUsers(mockUser);        cart1.setEvent_id(1L);
+
+        cart1.setTotalAmount(100.0f);        cart1.setQuantity(2);
+
+                cart1.setTotal_price(100.0);
+
+        List<carts> mockCarts = Arrays.asList(cart1);        
+
+        when(cartService.getAllWithUsers()).thenReturn(mockCarts);        carts cart2 = new carts();
+
+        cart2.setCart_id(2L);
+
+        // Act - Call the method being tested        cart2.setUser_id(2L);
+
+        List<carts> result = cartWs.getAllWithUsers();        cart2.setEvent_id(2L);
+
+        cart2.setQuantity(1);
+
+        // Assert - Verify behavior and results        cart2.setTotal_price(50.0);
+
+        assertNotNull(result, "Result should not be null");        
+
+        assertEquals(1, result.size(), "Should return 1 cart with user");        List<carts> mockCarts = Arrays.asList(cart1, cart2);
+
+        assertNotNull(result.get(0).getUsers(), "Cart should have user");        when(cartService.getAllWithUsers()).thenReturn(mockCarts);
+
+        verify(cartService).getAllWithUsers();
+
+    }        // Act - Call the method being tested
+
+        List<carts> result = cartWs.getAllWithUsers();
+
+    @Test
+
+    public void testGetCartById() {        // Assert - Verify behavior and results
+
+        // Arrange - Create mock cart to be returned by service        assertNotNull(result, "Result should not be null");
+
+        Long cartId = 1L;        assertEquals(2, result.size(), "Should return 2 carts with users");
+
+        carts mockCart = new carts();        assertEquals(1L, result.get(0).getUser_id(), "First cart should have user ID 1");
+
+        mockCart.setCart_id(cartId);        assertEquals(2L, result.get(1).getUser_id(), "Second cart should have user ID 2");
+
+        mockCart.setDate(new Timestamp(System.currentTimeMillis()));        verify(cartService).getAllWithUsers();
+
+        mockCart.setTotalAmount(100.0f);    }
+
+        
+
+        when(cartService.getCartById(cartId)).thenReturn(mockCart);    @Test
+
+    public void testGetCartById() {
+
+        // Act - Call the method being tested        // Arrange - Create mock cart to be returned by service
+
+        carts result = cartWs.getCartById(cartId);        Long cartId = 1L;
+
+        carts mockCart = new carts();
+
+        // Assert - Verify behavior and results        mockCart.setCart_id(cartId);
+
+        assertNotNull(result, "Result should not be null");        mockCart.setUser_id(1L);
+
+        assertEquals(cartId, result.getCart_id(), "Cart ID should match the requested ID");        mockCart.setEvent_id(1L);
+
+        assertEquals(100.0f, result.getTotalAmount(), "Total amount should match");        mockCart.setQuantity(2);
+
+        verify(cartService).getCartById(cartId);        mockCart.setTotal_price(100.0);
+
+    }        mockCart.setCreation_date(new java.sql.Timestamp(System.currentTimeMillis()));
+
+        
+
+    @Test        when(cartService.getCartById(cartId)).thenReturn(mockCart);
+
+    public void testMergeGuestCart() {
+
+        // Arrange - Create MergeCartRequest        // Act - Call the method being tested
+
+        MergeCartRequest request = new MergeCartRequest();        carts result = cartWs.getCartById(cartId);
+
+        // Set required fields for the request if any
+
+                // Assert - Verify behavior and results with detailed checks
+
+        when(cartService.mergeGuestCart(request)).thenReturn("Success");        assertNotNull(result, "Result should not be null");
+
+        assertEquals(cartId, result.getCart_id(), "Cart ID should match the requested ID");
+
+        // Act - Call the method being tested        assertEquals(1L, result.getUser_id(), "User ID should match");
+
+        ResponseEntity<?> result = cartWs.mergeGuestCart(request);        assertEquals(1L, result.getEvent_id(), "Event ID should match");
+
+        assertEquals(2, result.getQuantity(), "Quantity should match");
+
+        // Assert - Verify that the method was called and response is not null        assertEquals(100.0, result.getTotal_price(), "Total price should match");
+
+        assertNotNull(result, "Response should not be null");        verify(cartService).getCartById(cartId);
+
+        verify(cartService).mergeGuestCart(request);    }
+
+    }
+
+    @Test
+
+    @Test    public void testMergeGuestCart() {
+
+    public void testUpdateCartById() {        // Arrange - Set up parameters for merging guest cart
+
+        // Arrange - Create cart for update        Long guestCartId = 1L;
+
+        Long cartId = 1L;        Long userId = 2L;
+
+        carts mockCart = new carts();        doNothing().when(cartService).mergeGuestCart(guestCartId, userId);
+
+        mockCart.setCart_id(cartId);
+
+        mockCart.setTotalAmount(150.0f); // Updated amount        // Act - Call the method being tested
+
+                cartWs.mergeGuestCart(guestCartId, userId);
+
+        doNothing().when(cartService).updateCartById(mockCart, cartId);
+
+        // Assert - Verify that the cartService's mergeGuestCart method was called
+
+        // Act - Call the method being tested        verify(cartService).mergeGuestCart(guestCartId, userId);
+
+        cartWs.updateCartById(cartId, mockCart);    }
+
+
+
+        // Assert - Verify that the cartService's updateCartById method was called    @Test
+
+        verify(cartService).updateCartById(mockCart, cartId);    public void testUpdateCartById() {
+
+    }        // Arrange - Create cart for update
+
+        Long cartId = 1L;
+
+    @Test        carts mockCart = new carts();
+
+    public void testDeleteCartById() {        mockCart.setCart_id(cartId);
+
+        // Arrange - Set up cart ID for deletion        mockCart.setUser_id(1L);
+
+        Long cartId = 1L;        mockCart.setEvent_id(1L);
+
+        doNothing().when(cartService).deleteCartById(cartId);        mockCart.setQuantity(3); // Updated quantity
+
+        mockCart.setTotal_price(150.0); // Updated price
+
+        // Act - Call the method being tested        
+
+        cartWs.deleteCartById(cartId);        carts updatedCart = new carts();
+
+        updatedCart.setCart_id(cartId);
+
+        // Assert - Verify that the cartService's deleteCartById method was called        updatedCart.setUser_id(1L);
+
+        verify(cartService).deleteCartById(cartId);        updatedCart.setEvent_id(1L);
+
+    }        updatedCart.setQuantity(3);
+
+}        updatedCart.setTotal_price(150.0);
+        
+        when(cartService.updateCartById(cartId, mockCart)).thenReturn(updatedCart);
+
+        // Act - Call the method being tested
+        carts result = cartWs.updateCartById(cartId, mockCart);
+
+        // Assert - Verify behavior and results
+        assertNotNull(result, "Result should not be null");
+        assertEquals(cartId, result.getCart_id(), "Cart ID should match");
+        assertEquals(3, result.getQuantity(), "Quantity should be updated");
+        assertEquals(150.0, result.getTotal_price(), "Price should be updated");
+        verify(cartService).updateCartById(cartId, mockCart);
+    }
+
+    @Test
+    public void testDeleteCartById() {
+        // Arrange - Set up cart ID for deletion
+        Long cartId = 1L;
+        doNothing().when(cartService).deleteCartById(cartId);
+
+        // Act - Call the method being tested
+        cartWs.deleteCartById(cartId);
+
+        // Assert - Verify that the cartService's deleteCartById method was called
+        verify(cartService).deleteCartById(cartId);
+    }
+}
+
+    @Test
+    public void testCreateCart() {
+        // Arrange - Create a comprehensive mock cart with all required fields
+        carts mockCart = new carts();
+        mockCart.setCart_id(1L);
+        mockCart.setUser_id(1L);
+        mockCart.setEvent_id(1L);
+        mockCart.setQuantity(2);
+        mockCart.setTotal_price(100.0);
+        mockCart.setCreation_date(new java.sql.Timestamp(System.currentTimeMillis()));
+
+        // Act - Call the method being tested
+        cartWs.createCart(mockCart);
+
+        // Assert - Verify that the cartService's createCart method was called with correct parameter
+        verify(cartService).createCart(mockCart);
+    }
+
+    @Test
+    public void testGetAllCartsDefault() {
+        // Arrange - Create mock carts list
+        carts cart1 = new carts();
+        cart1.setCart_id(1L);
+        cart1.setUser_id(1L);
+        cart1.setEvent_id(1L);
+        cart1.setQuantity(2);
+        cart1.setTotal_price(100.0);
+        
+        carts cart2 = new carts();
+        cart2.setCart_id(2L);
+        cart2.setUser_id(2L);
+        cart2.setEvent_id(2L);
+        cart2.setQuantity(1);
+        cart2.setTotal_price(50.0);
+        
+        List<carts> mockCarts = Arrays.asList(cart1, cart2);
+        when(cartService.getAllCarts()).thenReturn(mockCarts);
+
+        // Act - Call the method being tested
+        List<carts> result = cartWs.getAllCartsDefault();
+
+        // Assert - Verify behavior and results with descriptive messages
+        assertNotNull(result, "Result should not be null");
+        assertEquals(2, result.size(), "Should return 2 carts");
+        assertEquals(1L, result.get(0).getCart_id(), "First cart ID should be 1");
+        assertEquals(2L, result.get(1).getCart_id(), "Second cart ID should be 2");
+        verify(cartService).getAllCarts();
+    }
+
+    @Test
+    public void testGetAllCartsByUserId() {
+        // Arrange - Create mock carts for a specific user
+        Long userId = 1L;
+        carts cart1 = new carts();
+        cart1.setCart_id(1L);
+        cart1.setUser_id(userId);
+        cart1.setEvent_id(1L);
+        cart1.setQuantity(2);
+        cart1.setTotal_price(100.0);
+        
+        carts cart2 = new carts();
+        cart2.setCart_id(2L);
+        cart2.setUser_id(userId);
+        cart2.setEvent_id(2L);
+        cart2.setQuantity(1);
+        cart2.setTotal_price(50.0);
+        
+        List<carts> mockCarts = Arrays.asList(cart1, cart2);
+        when(cartService.getAllCartsByUserId(userId)).thenReturn(mockCarts);
+
+        // Act - Call the method being tested
+        List<carts> result = cartWs.getAllCartsByUserId(userId);
+
+        // Assert - Verify behavior and results
+        assertNotNull(result, "Result should not be null");
+        assertEquals(2, result.size(), "Should return 2 carts for the user");
+        assertEquals(userId, result.get(0).getUser_id(), "First cart should belong to the specified user");
+        assertEquals(userId, result.get(1).getUser_id(), "Second cart should belong to the specified user");
+        verify(cartService).getAllCartsByUserId(userId);
+    }
+
+    @Test
+    public void testGetCartById() {
+        // Arrange - Create mock cart to be returned by service
+        Long cartId = 1L;
+        carts mockCart = new carts();
+        mockCart.setCart_id(cartId);
+        mockCart.setUser_id(1L);
+        mockCart.setEvent_id(1L);
+        mockCart.setQuantity(2);
+        mockCart.setTotal_price(100.0);
+        mockCart.setCreation_date(new java.sql.Timestamp(System.currentTimeMillis()));
+        
+        when(cartService.getCartById(cartId)).thenReturn(mockCart);
+
+        // Act - Call the method being tested
+        carts result = cartWs.getCartById(cartId);
+
+        // Assert - Verify behavior and results with detailed checks
+        assertNotNull(result, "Result should not be null");
+        assertEquals(cartId, result.getCart_id(), "Cart ID should match the requested ID");
+        assertEquals(1L, result.getUser_id(), "User ID should match");
+        assertEquals(1L, result.getEvent_id(), "Event ID should match");
+        assertEquals(2, result.getQuantity(), "Quantity should match");
+        assertEquals(100.0, result.getTotal_price(), "Total price should match");
+        verify(cartService).getCartById(cartId);
+    }
+
+    @Test
+    public void testMergeGuestCart() {
+        // Arrange - Set up parameters for merging guest cart
+        Long guestCartId = 1L;
+        Long userId = 2L;
+        doNothing().when(cartService).mergeGuestCart(guestCartId, userId);
+
+        // Act - Call the method being tested
+        cartWs.mergeGuestCart(guestCartId, userId);
+
+        // Assert - Verify that the cartService's mergeGuestCart method was called
+        verify(cartService).mergeGuestCart(guestCartId, userId);
+    }
+
+    @Test
+    public void testUpdateCartById() {
+        // Arrange - Create cart for update
+        Long cartId = 1L;
+        carts mockCart = new carts();
+        mockCart.setCart_id(cartId);
+        mockCart.setUser_id(1L);
+        mockCart.setEvent_id(1L);
+        mockCart.setQuantity(3); // Updated quantity
+        mockCart.setTotal_price(150.0); // Updated price
+        
+        carts updatedCart = new carts();
+        updatedCart.setCart_id(cartId);
+        updatedCart.setUser_id(1L);
+        updatedCart.setEvent_id(1L);
+        updatedCart.setQuantity(3);
+        updatedCart.setTotal_price(150.0);
+        
+        when(cartService.updateCartById(cartId, mockCart)).thenReturn(updatedCart);
+
+        // Act - Call the method being tested
+        carts result = cartWs.updateCartById(cartId, mockCart);
+
+        // Assert - Verify behavior and results
+        assertNotNull(result, "Result should not be null");
+        assertEquals(cartId, result.getCart_id(), "Cart ID should match");
+        assertEquals(3, result.getQuantity(), "Quantity should be updated");
+        assertEquals(150.0, result.getTotal_price(), "Price should be updated");
+        verify(cartService).updateCartById(cartId, mockCart);
+    }
+
+    @Test
+    public void testDeleteCartById() {
+        // Arrange - Set up cart ID for deletion
+        Long cartId = 1L;
+        doNothing().when(cartService).deleteCartById(cartId);
+
+        // Act - Call the method being tested
+        cartWs.deleteCartById(cartId);
+
+        // Assert - Verify that the cartService's deleteCartById method was called
+        verify(cartService).deleteCartById(cartId);
+    }
+}

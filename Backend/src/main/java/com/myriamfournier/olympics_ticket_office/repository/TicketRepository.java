@@ -15,6 +15,7 @@ public interface TicketRepository extends CrudRepository<tickets, Long>{
 
     @Query("SELECT e FROM tickets e LEFT JOIN FETCH e.sales ")
     List<tickets> findAllWithDetails();
+   
     
     @Query("SELECT e FROM tickets e LEFT JOIN FETCH e.sales")
     List<tickets> findAllWithSales();

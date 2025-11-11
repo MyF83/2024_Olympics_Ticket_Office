@@ -65,4 +65,9 @@ public class userskeys {
     public void setKey(keysgenerations keysgenerations) {
         this.keysgenerations = keysgenerations;
     }
+
+    public void setKeygeneration(String string) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setKeygeneration'");
+    }
 }

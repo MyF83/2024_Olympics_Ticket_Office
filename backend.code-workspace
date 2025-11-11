@@ -1,0 +1,11 @@
+{
+  "folders": [
+    {
+      "name": "Backend",
+      "path": "Backend"
+    }
+  ],
+  "settings": {
+    // Workspace-level settings can be added here if you want
+  }
+}
