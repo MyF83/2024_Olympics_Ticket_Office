@@ -67,4 +67,9 @@ public sites getSites() {
 public void setSites(sites sites) {
     this.sites = sites;
 }
+
+public Long getCeremony_id() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getCeremony_id'");
+}
 }

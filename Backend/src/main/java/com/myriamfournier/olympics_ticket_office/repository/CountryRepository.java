@@ -15,6 +15,8 @@ public interface CountryRepository extends CrudRepository<countries, Long>{
     @Query("SELECT a FROM countries a") // JPA -> Java Persistence API
     List<countries> findAllCountries();
 
+    Object findByIdWithDetails(Object any);
+
     
 
 

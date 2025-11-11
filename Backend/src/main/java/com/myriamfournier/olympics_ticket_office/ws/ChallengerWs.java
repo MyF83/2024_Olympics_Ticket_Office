@@ -77,7 +77,6 @@ public class ChallengerWs {
     @PutMapping("{id}")
     public void updateChallengerById(@PathVariable("id") Long id, @RequestBody challengers challengers) {
         challengerService.updateChallengerById(challengers, id); // Assuming you have a cartService to update challenger by ID
-
     }
 
 

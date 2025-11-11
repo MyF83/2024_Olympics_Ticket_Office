@@ -3,6 +3,7 @@ package com.myriamfournier.olympics_ticket_office.ws;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -87,7 +88,6 @@ public class ControlWs {
     @PutMapping("{id}")
     public void updateControlById(@PathVariable("id") Long id, @RequestBody controls controls) {
         controlService.updateControlById(controls, id); // Assuming you have a controlService to update control by ID
-
     }
 
 
@@ -99,8 +99,6 @@ public class ControlWs {
     @DeleteMapping("{id}")
     public void deleteControlById(@PathVariable Long id){
         controlService.deleteControlById(id);
-
     }
-
 
 }

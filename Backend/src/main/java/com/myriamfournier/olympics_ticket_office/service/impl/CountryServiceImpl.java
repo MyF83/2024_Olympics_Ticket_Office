@@ -38,7 +38,7 @@ public class CountryServiceImpl implements CountryService{
 
 
     @Override
-    public void updateCountryById(countries countries, Long id) {
+    public void updateCountryById(Long id, countries countries) {
             // un enregistement est immuable
             // impossible à modifier
             // de ce fait, on doit recuperer l'element, le modifier

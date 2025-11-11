@@ -73,7 +73,7 @@ public class CountryWs {
     // Example: PUT /api/cart/country/{id}
     @PutMapping("{id}")
     public void updateCountryById(@PathVariable("id") Long id, @RequestBody countries countries) {
-        countryService.updateCountryById(countries, id); // Assuming you have a countryService to update country by ID
+        countryService.updateCountryById(id, countries); // Assuming you have a countryService to update country by ID
 
     }
 

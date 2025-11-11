@@ -96,7 +96,7 @@ public List<events> getAllWithChallenger2() {
     // Example: PUT /api/event/update/{id}
     @PutMapping("{id}")
     public void updateEventById(@PathVariable("id") Long id, @RequestBody events event) {
-        eventService.updateEventById(event, id); // Assuming you have a eventService to update event by ID
+        eventService.updateEventById(id, event); // Fixed parameter order to match service interface
 
     }
 

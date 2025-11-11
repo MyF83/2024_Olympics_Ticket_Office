@@ -2,6 +2,7 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideProtractorTestingSupport } from '@angular/platform-browser';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { jwtInterceptor } from './interceptor/jwt-interceptor';
 
 import {routes} from './app.routes';
@@ -13,6 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideProtractorTestingSupport(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideClientHydration(withEventReplay()),
+    provideAnimations(),
     //provideHttpClient(withFetch()) // Enable fetch API for HttpClient
     provideHttpClient(
       withFetch(),

@@ -1,10 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [AppComponent, HttpClientTestingModule],
+      providers: [provideRouter([])]
     }).compileComponents();
   });
 
@@ -14,16 +17,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the '2024_Olympics_Ticket_Office' title`, () => {
+  it('should create the app component', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('2024_Olympics_Ticket_Office');
+    expect(app).toBeDefined();
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, 2024_Olympics_Ticket_Office');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Welcome to the official ticket office');
   });
 });

@@ -21,6 +21,8 @@ public interface CeremonyRepository extends CrudRepository<ceremonies, Long>{
 
     @Query("SELECT e FROM ceremonies e LEFT JOIN FETCH e.sites")
     List<ceremonies> findAllWithSites();
+
+    Object findByIdWithDetails(long l);
     
     
 
